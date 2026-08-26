@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-label="Cresco — what to learn next, and where to learn it free">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="12%" r="62%">
+      <stop offset="0%" stop-color="#3859dc" stop-opacity="0.34"/>
+      <stop offset="55%" stop-color="#3859dc" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#3859dc" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff8a5b"/>
+      <stop offset="60%" stop-color="#ff5f6d"/>
+      <stop offset="100%" stop-color="#c2410c"/>
+    </linearGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4ade80" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#4ade80" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="fade2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="420" fill="#07080a"/>
+  <rect width="1200" height="420" fill="url(#glow)"/>
+
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-dasharray="3 7">
+    <circle cx="600" cy="60" r="250"/>
+    <circle cx="600" cy="60" r="370"/>
+    <circle cx="600" cy="60" r="490"/>
+  </g>
+
+  <!-- wordmark -->
+  <g transform="translate(74, 92)">
+    <rect width="30" height="30" rx="9" fill="url(#mark)"/>
+    <text x="46" y="22" font-family="Inter, Helvetica, Arial, sans-serif" font-size="25" font-weight="700" fill="#fff" letter-spacing="-0.4">Cresco</text>
+  </g>
+
+  <!-- headline -->
+  <text x="74" y="204" font-family="Inter, Helvetica, Arial, sans-serif" font-size="54" font-weight="700" fill="#ffffff" letter-spacing="-1.6">What to learn next.</text>
+  <text x="74" y="266" font-family="Inter, Helvetica, Arial, sans-serif" font-size="54" font-weight="700" fill="#ffffff" fill-opacity="0.34" letter-spacing="-1.6">And where to learn it free.</text>
+
+  <text x="76" y="316" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#ffffff" fill-opacity="0.6">Hiring demand weighted above chatter, so hype can never read as demand.</text>
+
+  <!-- verdict chips -->
+  <g font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600">
+    <g transform="translate(74, 348)">
+      <rect width="92" height="30" rx="9" fill="#4ade80" fill-opacity="0.11" stroke="#4ade80" stroke-opacity="0.32"/>
+      <text x="16" y="20" fill="#4ade80">▲ Rising</text>
+    </g>
+    <g transform="translate(176, 348)">
+      <rect width="80" height="30" rx="9" fill="#fbbf24" fill-opacity="0.11" stroke="#fbbf24" stroke-opacity="0.32"/>
+      <text x="16" y="20" fill="#fbbf24">! Hype</text>
+    </g>
+    <g transform="translate(266, 348)">
+      <rect width="126" height="30" rx="9" fill="#60a5fa" fill-opacity="0.11" stroke="#60a5fa" stroke-opacity="0.32"/>
+      <text x="16" y="20" fill="#60a5fa">= Table stakes</text>
+    </g>
+    <g transform="translate(402, 348)">
+      <rect width="98" height="30" rx="9" fill="#94a3b8" fill-opacity="0.11" stroke="#94a3b8" stroke-opacity="0.32"/>
+      <text x="16" y="20" fill="#94a3b8">▼ Cooling</text>
+    </g>
+  </g>
+
+  <!-- signal card -->
+  <g transform="translate(760, 118)">
+    <rect width="366" height="188" rx="16" fill="#ffffff" fill-opacity="0.022" stroke="#ffffff" stroke-opacity="0.09"/>
+    <line x1="1" y1="1" x2="365" y2="1" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.4"/>
+
+    <text x="24" y="34" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10.5" font-weight="600" fill="#ffffff" fill-opacity="0.38" letter-spacing="1.2">AI ENGINEERING</text>
+    <text x="24" y="60" font-family="Inter, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#ffffff" letter-spacing="-0.3">AI agents &amp; orchestration</text>
+    <text x="342" y="56" text-anchor="end" font-family="Inter, Helvetica, Arial, sans-serif" font-size="32" font-weight="700" fill="#4ade80" letter-spacing="-1">50</text>
+
+    <path d="M 24 148 L 68 142 L 112 138 L 156 128 L 200 126 L 244 116 L 288 104 L 342 88 L 342 160 L 24 160 Z" fill="url(#fade)"/>
+    <path d="M 24 148 L 68 142 L 112 138 L 156 128 L 200 126 L 244 116 L 288 104 L 342 88" fill="none" stroke="#4ade80" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="342" cy="88" r="4.5" fill="#4ade80" stroke="#07080a" stroke-width="2"/>
+
+    <rect x="24" y="170" width="318" height="4" rx="2" fill="#ffffff" fill-opacity="0.08"/>
+    <rect x="24" y="170" width="108" height="4" rx="2" fill="#3987e5"/>
+  </g>
+
+  <text x="784" y="330" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#ffffff" fill-opacity="0.42">+15% · 34% signal · checked back 24 Nov</text>
+</svg>
