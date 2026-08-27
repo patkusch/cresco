@@ -304,6 +304,24 @@ dashboard reports on.
 
 <br>
 
+## What's being researched next
+
+Job postings lag. [`docs/RESEARCH.md`](docs/RESEARCH.md) holds verified notes on
+candidate **leading** indicators — every endpoint called live, with the traps that would
+have manufactured fake signals written down next to them.
+
+The three that survived scrutiny: **SEC EDGAR full-text search** (companies naming a
+technology to investors quarters before they staff it — Model Context Protocol went
+0 → 1 → 26 → 40 across recent quarters), **GitHub repos by topic and creation month**
+(the `topic:mcp` curve inflects in exactly the month MCP launched), and **conference
+programmes** via public `.ics` feeds, where FOSDEM alone offers 13 years.
+
+The binding constraint is not indicator history — EDGAR has 25 years — it is **our
+hiring history, at 22 months**. You cannot measure a two-quarter lead without hiring
+data substantially longer than the lead. Extending the backfill comes first.
+
+<br>
+
 ## Stack
 
 TypeScript · React 19 · Vite 6 · Express · Tailwind 4.
