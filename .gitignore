@@ -5,3 +5,5 @@ dist
 .DS_Store
 *.log
 data/runs/
+data/ledger.previous.json
+data/ledger.seeded.json

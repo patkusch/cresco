@@ -16,7 +16,7 @@ export const whoshiring: Collector = {
   id: 'whoshiring',
   label: 'HN Who is Hiring',
   sourceClass: 'hiring',
-  metric: 'job posts mentioning skill',
+  metric: 'per 1,000 job posts',
   isLive: () => true,
   async collect(skills: Skill[]): Promise<Observation[]> {
     const search = await getJSON<AlgoliaResp>(
@@ -47,8 +47,9 @@ export const whoshiring: Collector = {
       skillId: skill.id,
       sourceId: 'whoshiring',
       sourceClass: 'hiring',
-      metric: 'job posts mentioning skill',
-      value: counts.get(skill.id) ?? 0,
+      metric: 'per 1,000 job posts',
+      // Share, not volume — thread size swings by 40% month to month.
+      value: Math.round(((counts.get(skill.id) ?? 0) / posts) * 1000 * 10) / 10,
     }));
   },
 };

@@ -25,7 +25,7 @@ the free YouTube course for whatever is actually rising.
 It runs unattended. You come back to what changed.
 
 ```bash
-npm install && npm run seed && npm run dev
+npm install && npm run backfill && npm run dev
 ```
 
 <br>
@@ -76,14 +76,20 @@ no general-purpose model can have about your particular feed.
 
 ```bash
 npm install
-npm run seed          # eight weeks of synthetic history, so the dashboard isn't empty
+npm run backfill      # twelve months of REAL history, mined from Hacker News. No key needed.
 npm run dev           # → http://localhost:3000
 ```
 
-Then, for real data:
+`backfill` is the one that matters. Most sources only answer *"what is true now"* —
+you cannot ask a job board what it said in March. Hacker News is the exception: the
+monthly **"Ask HN: Who is hiring?"** threads are a genuine, dated, public hiring
+archive, so Cresco reconstructs a year of real signal on first run instead of making
+you wait a quarter to have anything to say.
 
 ```bash
-npm run collect -- --paths
+npm run paths         # free YouTube learning paths (needs a YouTube key)
+npm run collect       # add today's snapshot from all six sources
+npm run seed          # offline fallback: synthetic history, clearly labelled as such
 ```
 
 <details>
@@ -139,22 +145,37 @@ worse than not having one.
 
 ## How the index works
 
-**1 · Normalise** each source against a **ledger-wide** reference scale — never the
+**1 · Count share, never volume.** The monthly hiring threads swing between 240 and
+413 posts, so raw mention counts largely measure how busy the thread was — which made
+22 of 25 skills read as "cooling" in a quiet month. Everything is stored per 1,000 job
+posts.
+
+**2 · Normalise** each source against a **ledger-wide** reference scale — never the
 current snapshot. Scaling per-snapshot destroys the thing being measured: if every
 skill grows, the max grows with them and the whole board reads as flat.
 
-**2 · Weight** by source class:
+**3 · Weight** by source class:
 
 ```
 hiring 1.0   practitioner 0.7   community 0.45   content 0.35   vendor 0.2
 ```
 
-**3 · Momentum** compares the last two snapshots against the preceding baseline window.
+**4 · Momentum** compares the last two snapshots against the preceding baseline window.
 
-**4 · Signal-to-noise** is the share of weight carried by hiring evidence *alone*.
+**5 · Signal-to-noise** is the share of weight carried by hiring evidence *alone*.
 Practitioner chatter is better evidence than social chatter, and is weighted above it —
 but it is still talk, and counting it as substance is what let a skill with 95 job
 adverts and a wall of blog posts read as real demand.
+
+Three rules keep the score honest, and each one exists because it caught a real bug:
+
+- **A new source gets no vote until it has three snapshots of its own.** Otherwise
+  adding a collector rewrites the present without touching the past, and the jump
+  shows up as momentum nothing in the world caused.
+- **Fixture data never scores** in a real ledger. A collector falling back to sample
+  data for want of an API key must not quietly contribute invented numbers.
+- **No call below an evidence floor.** One job advert becoming two is a 100% rise and
+  means nothing.
 
 | Verdict | Means |
 |---|---|
@@ -168,13 +189,19 @@ adverts and a wall of blog posts read as real demand.
 
 ## Honest status
 
-- The bundled ledger is **synthetic** — eight weeks of plausible trajectories so the
-  dashboard isn't empty on first run. It is flagged as seeded in the UI *and* in the
-  data. Nothing here is a measurement until you run a collection.
+- The ledger is **real** — twelve months (Sept 2025 → Aug 2026) mined from the Hacker
+  News hiring archive. `npm run seed` still generates a synthetic ledger for offline
+  demos, and it flags itself as seeded in the UI *and* in the data.
+- **Only two sources currently score:** `whoshiring` and `hackernews`, the two with
+  real history. Adzuna, YouTube, Bluesky and Reddit contribute evidence and learning
+  paths now, and join the index once they have three snapshots of their own.
 - **Self-scoring is not built.** Claims are minted with check-back dates; nothing
   grades them yet.
+- The hiring signal is Hacker News, so it reads **startup and tech-forward hiring**.
+  It is not a proxy for the whole labour market. Add an Adzuna key for broader
+  coverage.
 - Fixture learning paths link to a real YouTube **search** rather than inventing video
-  titles and IDs. Add a YouTube key for actual ranked picks.
+  titles and IDs.
 
 <br>
 

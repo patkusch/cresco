@@ -5,14 +5,18 @@
   "description": "A skill-demand radar that tells you what to learn next and where to learn it free.",
   "license": "MIT",
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "tsx watch server.ts",
     "build": "vite build && esbuild server.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/server.mjs",
     "start": "node dist/server.mjs",
     "collect": "tsx scripts/collect.ts",
     "seed": "tsx scripts/seed.ts",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "backfill": "tsx scripts/backfill.ts",
+    "paths": "tsx scripts/paths.ts"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

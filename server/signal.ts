@@ -30,6 +30,27 @@ export const CLASS_WEIGHTS: Record<SourceClass, number> = {
 const SUBSTANTIVE: SourceClass[] = ['hiring'];
 
 /**
+ * A source only enters the index once it has this much history of its own.
+ *
+ * Otherwise adding a new collector rewrites the present without touching the
+ * past: the newest snapshot gains a term every earlier one lacks, and the jump
+ * shows up as momentum that nothing in the world actually caused. New sources
+ * still contribute evidence and learning paths immediately — they just do not
+ * get a vote on the score until they can be compared with themselves.
+ */
+export const MIN_SNAPSHOTS_FOR_INDEX = 3;
+
+export function indexableSources(snapshots: Snapshot[]): Set<string> {
+  const seen = new Map<string, number>();
+  for (const s of snapshots) {
+    for (const id of new Set(s.observations.map((o) => o.sourceId))) {
+      seen.set(id, (seen.get(id) ?? 0) + 1);
+    }
+  }
+  return new Set([...seen].filter(([, n]) => n >= MIN_SNAPSHOTS_FOR_INDEX).map(([id]) => id));
+}
+
+/**
  * Max-scale each source so 4,000 job adverts and 25 Bluesky posts can be compared
  * at all — but against a scale computed over the WHOLE ledger, never the current
  * snapshot.
@@ -59,8 +80,16 @@ interface Scored {
   hiringIsFixture: boolean;
 }
 
-function scoreSnapshot(snapshot: Snapshot, skillId: string, scale: Map<string, number>): Scored {
-  const mine = snapshot.observations.filter((o) => o.skillId === skillId);
+function scoreSnapshot(
+  snapshot: Snapshot,
+  skillId: string,
+  scale: Map<string, number>,
+  indexable: Set<string>,
+  allowFixtures: boolean,
+): Scored {
+  const mine = snapshot.observations.filter(
+    (o) => o.skillId === skillId && indexable.has(o.sourceId) && (allowFixtures || !o.fixture),
+  );
 
   const byClass = { hiring: 0, practitioner: 0, community: 0, content: 0, vendor: 0 } as Record<SourceClass, number>;
   const counts = { hiring: 0, practitioner: 0, community: 0, content: 0, vendor: 0 } as Record<SourceClass, number>;
@@ -107,6 +136,9 @@ function scoreSnapshot(snapshot: Snapshot, skillId: string, scale: Map<string, n
 
 function classify(history: number[], momentum: number, demandIndex: number, snr: number): Verdict {
   if (history.length < 3) return 'baseline';
+  // One job advert swinging to two is a 100% rise and means nothing. Below this
+  // floor there is not enough evidence to say anything honest.
+  if (demandIndex < 3) return 'baseline';
   if (momentum >= 18 && snr < 0.3) return 'hype';
   if (momentum >= 12) return 'rising';
   if (momentum <= -12) return 'cooling';
@@ -135,9 +167,14 @@ export function computeSignals(ledger: Ledger, paths: Record<string, any[]> = {}
   if (!snapshots.length) return [];
 
   const scale = referenceScale(snapshots);
+  const indexable = indexableSources(snapshots);
+  // A demo ledger is sample data throughout and labels itself as such. A real one
+  // never lets sample data score: a collector falling back to fixtures for want of
+  // an API key must not quietly contribute invented numbers to a real measurement.
+  const allowFixtures = ledger.seeded;
 
   return SKILLS.map((skill): SkillSignal => {
-    const scoredHistory = snapshots.map((s) => ({ ts: s.ts, ...scoreSnapshot(s, skill.id, scale) }));
+    const scoredHistory = snapshots.map((s) => ({ ts: s.ts, ...scoreSnapshot(s, skill.id, scale, indexable, allowFixtures) }));
     const latest = scoredHistory[scoredHistory.length - 1];
     const series = scoredHistory.map((h) => h.demandIndex);
     const momentum = momentumOf(series);
@@ -166,5 +203,7 @@ export function computeSignals(ledger: Ledger, paths: Record<string, any[]> = {}
 
 export function scoredSnapshotMeta(ledger: Ledger, skillId: string) {
   const latest = ledger.snapshots[ledger.snapshots.length - 1];
-  return latest ? scoreSnapshot(latest, skillId, referenceScale(ledger.snapshots)) : null;
+  return latest
+    ? scoreSnapshot(latest, skillId, referenceScale(ledger.snapshots), indexableSources(ledger.snapshots), ledger.seeded)
+    : null;
 }

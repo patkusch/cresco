@@ -1,0 +1,802 @@
+{
+  "ai-agents": [
+    {
+      "title": "You’re Not Behind (Yet): How to Build Your First AI Agent (Full Guide)",
+      "url": "https://www.youtube.com/watch?v=Bm84BAtOfQw",
+      "channel": "Dan Martell",
+      "publishedAt": "2026-07-15T13:00:36Z",
+      "durationMin": 22,
+      "views": 382614,
+      "stage": "orientation",
+      "score": 0.71
+    },
+    {
+      "title": "AI Agents: The Most Valuable Skill You Can Learn in 2026 (Full Course)",
+      "url": "https://www.youtube.com/watch?v=5p-sq8v3OXw",
+      "channel": "Open Residency",
+      "publishedAt": "2026-07-22T15:00:35Z",
+      "durationMin": 144,
+      "views": 452816,
+      "stage": "core",
+      "score": 0.96
+    },
+    {
+      "title": "Building AI Agents that actually work (Full Course)",
+      "url": "https://www.youtube.com/watch?v=eA9Zf2-qYYM",
+      "channel": "Greg Isenberg",
+      "publishedAt": "2026-03-17T19:25:00Z",
+      "durationMin": 59,
+      "views": 661446,
+      "stage": "practice",
+      "score": 0.75
+    }
+  ],
+  "python": [
+    {
+      "title": "Complete Python Learning RoadMap (A to Z)",
+      "url": "https://www.youtube.com/watch?v=XV-lIaO00H8",
+      "channel": "Apna College",
+      "publishedAt": "2026-03-04T16:56:26Z",
+      "durationMin": 14,
+      "views": 959043,
+      "stage": "orientation",
+      "score": 0.64
+    },
+    {
+      "title": "Python Full Course for Beginners (13 Hours) – From Zero to Hero",
+      "url": "https://www.youtube.com/watch?v=Rq5gJVxz55Q",
+      "channel": "Data with Baraa",
+      "publishedAt": "2026-02-24T13:00:07Z",
+      "durationMin": 783,
+      "views": 899360,
+      "stage": "core",
+      "score": 0.9
+    },
+    {
+      "title": "Lecture 1: Introduction to CS and Programming Using Python",
+      "url": "https://www.youtube.com/watch?v=xAcTmDO6NTI",
+      "channel": "MIT OpenCourseWare",
+      "publishedAt": "2024-04-11T14:01:57Z",
+      "durationMin": 64,
+      "views": 2211356,
+      "stage": "practice",
+      "score": 0.46
+    }
+  ],
+  "typescript": [
+    {
+      "title": "TypeScript - The Basics",
+      "url": "https://www.youtube.com/watch?v=ahCwqrYpIuM",
+      "channel": "Fireship",
+      "publishedAt": "2018-11-29T19:13:07Z",
+      "durationMin": 12,
+      "views": 1689653,
+      "stage": "orientation",
+      "score": 0.33
+    },
+    {
+      "title": "TypeScript Full Course Tutorial for Beginners (2026)",
+      "url": "https://www.youtube.com/watch?v=1zBRA0HdeOM",
+      "channel": "ProgrammingKnowledge",
+      "publishedAt": "2026-06-01T10:00:02Z",
+      "durationMin": 458,
+      "views": 3113,
+      "stage": "core",
+      "score": 0.83
+    },
+    {
+      "title": "Learn TypeScript in 40 Minutes (Full Course)",
+      "url": "https://www.youtube.com/watch?v=DTR2p7D6tjk",
+      "channel": "RoadsideCoder",
+      "publishedAt": "2026-02-08T13:00:31Z",
+      "durationMin": 41,
+      "views": 66463,
+      "stage": "practice",
+      "score": 0.63
+    }
+  ],
+  "go": [
+    {
+      "title": "I am done with Golang",
+      "url": "https://www.youtube.com/watch?v=WqSWZuGS9pc",
+      "channel": "The PrimeTime",
+      "publishedAt": "2026-06-08T12:30:13Z",
+      "durationMin": 12,
+      "views": 499014,
+      "stage": "orientation",
+      "score": 0.67
+    },
+    {
+      "title": "Go Programming - Full Course",
+      "url": "https://www.youtube.com/watch?v=V-lI7AmusGs",
+      "channel": "Tech With Tim",
+      "publishedAt": "2026-02-12T18:18:18Z",
+      "durationMin": 282,
+      "views": 121995,
+      "stage": "core",
+      "score": 0.85
+    },
+    {
+      "title": "Learn GO Fast: Full Tutorial",
+      "url": "https://www.youtube.com/watch?v=8uiZC0l4Ajw",
+      "channel": "Alex Mux",
+      "publishedAt": "2023-09-04T13:47:22Z",
+      "durationMin": 68,
+      "views": 1097941,
+      "stage": "practice",
+      "score": 0.47
+    }
+  ],
+  "terraform": [
+    {
+      "title": "How I Would Learn Terraform (if I could start over)",
+      "url": "https://www.youtube.com/watch?v=wVmS7T7P3YM",
+      "channel": "Homebrew Henry",
+      "publishedAt": "2026-01-25T17:01:23Z",
+      "durationMin": 8,
+      "views": 25802,
+      "stage": "orientation",
+      "score": 0.52
+    },
+    {
+      "title": "Terraform Tutorial Full Course for Beginners (2026)",
+      "url": "https://www.youtube.com/watch?v=Bzccj0jjRBM",
+      "channel": "ProgrammingKnowledge",
+      "publishedAt": "2026-01-03T16:15:01Z",
+      "durationMin": 210,
+      "views": 9245,
+      "stage": "core",
+      "score": 0.77
+    },
+    {
+      "title": "TerraForm Full Course 2026 | TerraForm Tutorial for Beginners | TerraForm Training | Simplilearn",
+      "url": "https://www.youtube.com/watch?v=FeT1gv0Nj8o",
+      "channel": "Simplilearn",
+      "publishedAt": "2026-01-25T14:30:15Z",
+      "durationMin": 49,
+      "views": 2644,
+      "stage": "practice",
+      "score": 0.58
+    }
+  ],
+  "evals": [
+    {
+      "title": "Master LLM Evaluations: The Step-by-Step Playlist for 2026 | New Playlist | CampusX",
+      "url": "https://www.youtube.com/watch?v=6W92_t9FveA",
+      "channel": "CampusX",
+      "publishedAt": "2026-06-16T12:30:06Z",
+      "durationMin": 23,
+      "views": 98479,
+      "stage": "orientation",
+      "score": 0.67
+    },
+    {
+      "title": "The Complete AI Security Course In 8 Hours-AI Guardrails, LLM Evals &amp; Memory And AgentOps",
+      "url": "https://www.youtube.com/watch?v=rQE3w8Qjx98",
+      "channel": "Krish Naik",
+      "publishedAt": "2026-06-18T06:39:54Z",
+      "durationMin": 469,
+      "views": 101609,
+      "stage": "core",
+      "score": 0.91
+    },
+    {
+      "title": "How to Systematically Setup LLM Evals (Metrics, Unit Tests, LLM-as-a-Judge)",
+      "url": "https://www.youtube.com/watch?v=a3SMraZWNNs",
+      "channel": "Dave Ebbelaar",
+      "publishedAt": "2025-09-04T15:04:03Z",
+      "durationMin": 55,
+      "views": 91239,
+      "stage": "practice",
+      "score": 0.59
+    }
+  ],
+  "wasm": [
+    {
+      "title": "WebAssembly Is Quietly Killing Docker (Millisecond Startup)",
+      "url": "https://www.youtube.com/watch?v=U8yzw0rc-RI",
+      "channel": "Cloud Codes",
+      "publishedAt": "2026-07-13T12:00:01Z",
+      "durationMin": 9,
+      "views": 34303,
+      "stage": "orientation",
+      "score": 0.62
+    },
+    {
+      "title": "Blazor WebAssembly &amp; Web API on .NET 6 – Full Course (C#)",
+      "url": "https://www.youtube.com/watch?v=sHuuo9L3e5c",
+      "channel": "freeCodeCamp.org",
+      "publishedAt": "2022-04-28T13:14:19Z",
+      "durationMin": 337,
+      "views": 302938,
+      "stage": "core",
+      "score": 0.57
+    },
+    {
+      "title": "Create Event Management App using Blazor Web Assembly and SQL Server | CRUD Operations in .NET 9",
+      "url": "https://www.youtube.com/watch?v=dury9lKPt3M",
+      "channel": "BoostMyTool",
+      "publishedAt": "2025-03-10T16:01:56Z",
+      "durationMin": 48,
+      "views": 20111,
+      "stage": "practice",
+      "score": 0.44
+    }
+  ],
+  "llm-apps": [
+    {
+      "title": "LLMs — How ChatGPT works &amp; What is RAG? | Retrieval-Augmented Generation Explained 🔥",
+      "url": "https://www.youtube.com/watch?v=hYZKrPOyEYk",
+      "channel": "CodeWithHarry",
+      "publishedAt": "2025-09-02T17:04:49Z",
+      "durationMin": 15,
+      "views": 394743,
+      "stage": "orientation",
+      "score": 0.52
+    },
+    {
+      "title": "Agentic AI Crash Course using LangChain | LangChain Crash Course",
+      "url": "https://www.youtube.com/watch?v=D74el9mvNak",
+      "channel": "codebasics",
+      "publishedAt": "2026-05-23T13:40:32Z",
+      "durationMin": 144,
+      "views": 198732,
+      "stage": "core",
+      "score": 0.91
+    },
+    {
+      "title": "Claude Code Tutorial - Build Apps 10x Faster with AI",
+      "url": "https://www.youtube.com/watch?v=IuyVVtr1uhY",
+      "channel": "Programming with Mosh",
+      "publishedAt": "2026-03-24T13:00:36Z",
+      "durationMin": 58,
+      "views": 431838,
+      "stage": "practice",
+      "score": 0.74
+    }
+  ],
+  "rag": [
+    {
+      "title": "What is RAG ? | Completely Explained in 15 Minutes",
+      "url": "https://www.youtube.com/watch?v=Ty8gcCKuwNI",
+      "channel": "Apna College",
+      "publishedAt": "2026-04-24T16:25:57Z",
+      "durationMin": 17,
+      "views": 768403,
+      "stage": "orientation",
+      "score": 0.67
+    },
+    {
+      "title": "The End of Search Engines? RAG Explained (Full 8-Hour Course)",
+      "url": "https://www.youtube.com/watch?v=9c48sMot1gA",
+      "channel": "Boot dev",
+      "publishedAt": "2026-02-04T15:00:26Z",
+      "durationMin": 467,
+      "views": 37759,
+      "stage": "core",
+      "score": 0.82
+    },
+    {
+      "title": "RAG Crash Course for Beginners",
+      "url": "https://www.youtube.com/watch?v=swvzKSOEluc",
+      "channel": "KodeKloud",
+      "publishedAt": "2025-09-22T15:07:13Z",
+      "durationMin": 59,
+      "views": 260705,
+      "stage": "practice",
+      "score": 0.63
+    }
+  ],
+  "mcp": [
+    {
+      "title": "How Model Context Protocol (MCP) actually works",
+      "url": "https://www.youtube.com/watch?v=cGuyrANVi4A",
+      "channel": "Google Cloud Tech",
+      "publishedAt": "2026-06-24T16:00:39Z",
+      "durationMin": 8,
+      "views": 289005,
+      "stage": "orientation",
+      "score": 0.66
+    },
+    {
+      "title": "Learn MCP in ONE Video 🔥 | Model Context Protocol Crash Course",
+      "url": "https://www.youtube.com/watch?v=rwOYK8hk7yo",
+      "channel": "DSwithBappy",
+      "publishedAt": "2026-07-14T14:30:17Z",
+      "durationMin": 139,
+      "views": 6548,
+      "stage": "core",
+      "score": 0.87
+    },
+    {
+      "title": "Intro to MCP Servers – Model Context Protocol with Python Course",
+      "url": "https://www.youtube.com/watch?v=DosHnyq78xY",
+      "channel": "freeCodeCamp.org",
+      "publishedAt": "2025-10-15T12:55:53Z",
+      "durationMin": 73,
+      "views": 106770,
+      "stage": "practice",
+      "score": 0.66
+    }
+  ],
+  "finetuning": [
+    {
+      "title": "LLM Fine-Tuning Explained: The Complete Guide",
+      "url": "https://www.youtube.com/watch?v=Wx1oiBCmxjY",
+      "channel": "Aishwarya Srinivasan",
+      "publishedAt": "2026-05-18T17:42:37Z",
+      "durationMin": 10,
+      "views": 50808,
+      "stage": "orientation",
+      "score": 0.6
+    },
+    {
+      "title": "LLM Fine-Tuning Course – From Supervised FT to RLHF, LoRA, and Multimodal",
+      "url": "https://www.youtube.com/watch?v=CcrC5zSv1iA",
+      "channel": "freeCodeCamp.org",
+      "publishedAt": "2026-03-10T13:09:40Z",
+      "durationMin": 716,
+      "views": 92572,
+      "stage": "core",
+      "score": 0.85
+    },
+    {
+      "title": "How to Fine-Tune any AI Model Locally (FULL Tutorial)",
+      "url": "https://www.youtube.com/watch?v=4JofSJIrjwU",
+      "channel": "Tech With Tim",
+      "publishedAt": "2026-07-27T14:06:28Z",
+      "durationMin": 41,
+      "views": 91287,
+      "stage": "practice",
+      "score": 0.73
+    }
+  ],
+  "ai-safety": [
+    {
+      "title": "Why AI Governance Will Explode In 2026 (And How to Prepare Now)",
+      "url": "https://www.youtube.com/watch?v=diqG08-bHJo",
+      "channel": "Cloud Security Guy ",
+      "publishedAt": "2026-03-01T14:30:06Z",
+      "durationMin": 10,
+      "views": 3699,
+      "stage": "orientation",
+      "score": 0.51
+    },
+    {
+      "title": "AI Governance Simplified: From Zero to Pro",
+      "url": "https://www.youtube.com/watch?v=LgFBi5XD-Ow",
+      "channel": "Prabh Nair",
+      "publishedAt": "2025-03-22T16:11:28Z",
+      "durationMin": 132,
+      "views": 36674,
+      "stage": "core",
+      "score": 0.64
+    },
+    {
+      "title": "The Complete ISO 42001 Certification Roadmap For 2026 (FREE AI Governance Course)",
+      "url": "https://www.youtube.com/watch?v=u_Gg0ie_M4o",
+      "channel": "StackAware",
+      "publishedAt": "2026-02-20T18:01:05Z",
+      "durationMin": 87,
+      "views": 4015,
+      "stage": "practice",
+      "score": 0.69
+    }
+  ],
+  "rust": [
+    {
+      "title": "How to Learn Rust (For Hackers)",
+      "url": "https://www.youtube.com/watch?v=TSn2vCNvFkU",
+      "channel": "CyberFlow",
+      "publishedAt": "2026-08-01T15:00:05Z",
+      "durationMin": 6,
+      "views": 33564,
+      "stage": "orientation",
+      "score": 0.63
+    },
+    {
+      "title": "Learn the Rust programming language - Course for beginners",
+      "url": "https://www.youtube.com/watch?v=gAX3Zj-JGE0",
+      "channel": "Francesco Ciulla",
+      "publishedAt": "2025-05-06T13:45:46Z",
+      "durationMin": 211,
+      "views": 34610,
+      "stage": "core",
+      "score": 0.66
+    },
+    {
+      "title": "Rust Course 2026 – Complete Rust Programming for Beginners",
+      "url": "https://www.youtube.com/watch?v=tS1PFlTmpuU",
+      "channel": "Codynn",
+      "publishedAt": "2026-07-17T13:29:46Z",
+      "durationMin": 78,
+      "views": 11543,
+      "stage": "practice",
+      "score": 0.78
+    }
+  ],
+  "kubernetes": [
+    {
+      "title": "Kubernetes Tutorial for Beginners | How to Deploy Using Kubernetes | Kubernetes Guide (2026)",
+      "url": "https://www.youtube.com/watch?v=UCs6JxkL1UM",
+      "channel": "Tech With Diego",
+      "publishedAt": "2026-07-21T20:49:33Z",
+      "durationMin": 9,
+      "views": 7314,
+      "stage": "orientation",
+      "score": 0.6
+    },
+    {
+      "title": "Learn Kubernetes in 6 Hours – Full Course with Real-World Project",
+      "url": "https://www.youtube.com/watch?v=_4uQI4ihGVU",
+      "channel": "freeCodeCamp.org",
+      "publishedAt": "2026-02-26T13:58:14Z",
+      "durationMin": 353,
+      "views": 119386,
+      "stage": "core",
+      "score": 0.85
+    },
+    {
+      "title": "The ONLY Kubernetes Course You&#39;ll Ever Need [2026] | Kubernetes For DevOps + AI | Part 1",
+      "url": "https://www.youtube.com/watch?v=H_a5DTKSEjY",
+      "channel": "Vishakha Sadhwani",
+      "publishedAt": "2026-05-25T14:54:14Z",
+      "durationMin": 35,
+      "views": 35683,
+      "stage": "practice",
+      "score": 0.66
+    }
+  ],
+  "platform-eng": [
+    {
+      "title": "Cloud Engineer vs Platform Engineer - Which One Should You Choose? (2026)",
+      "url": "https://www.youtube.com/watch?v=rWPREwivAf8",
+      "channel": "Tech With Soleyman",
+      "publishedAt": "2026-05-24T14:00:10Z",
+      "durationMin": 11,
+      "views": 5198,
+      "stage": "orientation",
+      "score": 0.56
+    },
+    {
+      "title": "Platform Engineering in the age of Generative AI -",
+      "url": "https://www.youtube.com/watch?v=S66a51BuOIo",
+      "channel": "NDC Conferences",
+      "publishedAt": "2026-07-07T09:03:42Z",
+      "durationMin": 62,
+      "views": 6231,
+      "stage": "practice",
+      "score": 0.72
+    },
+    {
+      "title": "Stop Learning DevOps. Start Platform Engineering in 2026",
+      "url": "https://www.youtube.com/watch?v=Jg477Lb8_7c",
+      "channel": "Chris Schwenk | Tech Jobber",
+      "publishedAt": "2026-02-04T14:00:34Z",
+      "durationMin": 32,
+      "views": 4848,
+      "stage": "practice",
+      "score": 0.55
+    }
+  ],
+  "ebpf": [
+    {
+      "title": "eBPF Explained in 3 minutes",
+      "url": "https://www.youtube.com/watch?v=h2b1N55CNeI",
+      "channel": "KodeKloud",
+      "publishedAt": "2026-05-19T15:30:28Z",
+      "durationMin": 3,
+      "views": 16109,
+      "stage": "orientation",
+      "score": 0.56
+    },
+    {
+      "title": "eBPF Crash Course for Beginners",
+      "url": "https://www.youtube.com/watch?v=Z5wciVIjRV4",
+      "channel": "Teng Jiang",
+      "publishedAt": "2024-10-13T03:46:23Z",
+      "durationMin": 102,
+      "views": 1077,
+      "stage": "core",
+      "score": 0.43
+    },
+    {
+      "title": "Tutorial: Getting Started with eBPF - Liz Rice, Isovalent",
+      "url": "https://www.youtube.com/watch?v=TJgxjVTZtfw",
+      "channel": "The Linux Foundation",
+      "publishedAt": "2023-05-25T17:18:22Z",
+      "durationMin": 78,
+      "views": 49502,
+      "stage": "practice",
+      "score": 0.43
+    }
+  ],
+  "duckdb": [
+    {
+      "title": "DuckDB Basics: Get started using SQL in the CLI",
+      "url": "https://www.youtube.com/watch?v=yO0PGr9ydQo",
+      "channel": "Hoyt Emerson | The Full Data Stack",
+      "publishedAt": "2026-05-23T18:19:49Z",
+      "durationMin": 21,
+      "views": 1690,
+      "stage": "orientation",
+      "score": 0.56
+    },
+    {
+      "title": "DuckDB 101 From 0 to 500 million in less than 1 second",
+      "url": "https://www.youtube.com/watch?v=DrBf--LRLRk",
+      "channel": "Data Based",
+      "publishedAt": "2026-05-25T15:09:49Z",
+      "durationMin": 81,
+      "views": 1095,
+      "stage": "practice",
+      "score": 0.7
+    },
+    {
+      "title": "DuckDB - Analise Qualquer Volume de Dados com Python",
+      "url": "https://www.youtube.com/watch?v=hIvUE-P6Ep4",
+      "channel": "Hashtag Programação",
+      "publishedAt": "2026-04-09T20:00:30Z",
+      "durationMin": 27,
+      "views": 9452,
+      "stage": "practice",
+      "score": 0.59
+    }
+  ],
+  "iceberg": [
+    {
+      "title": "Learn Apache Iceberg in 10 Minutes",
+      "url": "https://www.youtube.com/watch?v=jwpnkbx30iY",
+      "channel": "Darshil Parmar",
+      "publishedAt": "2026-07-11T13:30:25Z",
+      "durationMin": 13,
+      "views": 6364,
+      "stage": "orientation",
+      "score": 0.6
+    },
+    {
+      "title": "An Extremely Technical Overview of How Apache Iceberg Planning Actually Works (Russell Spitzer)",
+      "url": "https://www.youtube.com/watch?v=kJaD0WuQ1Bg",
+      "channel": "CMU Database Group",
+      "publishedAt": "2025-09-23T13:58:24Z",
+      "durationMin": 64,
+      "views": 17977,
+      "stage": "practice",
+      "score": 0.59
+    },
+    {
+      "title": "Apache Iceberg Tutorial: Build a Local Lakehouse From Scratch",
+      "url": "https://www.youtube.com/watch?v=a-yQ_-xKaKQ",
+      "channel": "The Data and AI Guy",
+      "publishedAt": "2026-06-01T19:44:12Z",
+      "durationMin": 14,
+      "views": 1404,
+      "stage": "orientation",
+      "score": 0.54
+    }
+  ],
+  "dbt": [
+    {
+      "title": "Learn DBT(databuildtool) in 10 Minutes",
+      "url": "https://www.youtube.com/watch?v=7DtBChRqKbc",
+      "channel": "Darshil Parmar",
+      "publishedAt": "2026-05-17T13:26:00Z",
+      "durationMin": 17,
+      "views": 52251,
+      "stage": "orientation",
+      "score": 0.62
+    },
+    {
+      "title": "Airbnb End-To-End Data Engineering Project (For Beginners) | DBT + Snowflake + AWS",
+      "url": "https://www.youtube.com/watch?v=3SZSDKEZqoA",
+      "channel": "Ansh Lamba",
+      "publishedAt": "2025-12-28T13:00:14Z",
+      "durationMin": 334,
+      "views": 126945,
+      "stage": "core",
+      "score": 0.82
+    },
+    {
+      "title": "DBT (Data Build Tool) Course || Step-by-Step Tutorial for Beginners to Advanced",
+      "url": "https://www.youtube.com/watch?v=ia9aPgbYYjQ",
+      "channel": "Visualpath Pro",
+      "publishedAt": "2026-03-21T15:03:26Z",
+      "durationMin": 59,
+      "views": 11690,
+      "stage": "practice",
+      "score": 0.66
+    }
+  ],
+  "streaming": [
+    {
+      "title": "Kafka Simply Explained",
+      "url": "https://www.youtube.com/watch?v=d-NJTcTvyhw",
+      "channel": "codebasics",
+      "publishedAt": "2026-01-16T13:30:50Z",
+      "durationMin": 20,
+      "views": 110753,
+      "stage": "orientation",
+      "score": 0.58
+    },
+    {
+      "title": "Apache Kafka for Data Engineers Full Course 2026 | Basics to Advanced",
+      "url": "https://www.youtube.com/watch?v=wanQj6_-8qQ",
+      "channel": "Data with Jay",
+      "publishedAt": "2026-01-18T13:31:05Z",
+      "durationMin": 538,
+      "views": 20119,
+      "stage": "core",
+      "score": 0.79
+    },
+    {
+      "title": "Spring Boot + Kafka Course | Learn Apache Kafka in One Shot!",
+      "url": "https://www.youtube.com/watch?v=gpx7smdUkgU",
+      "channel": "Telusko",
+      "publishedAt": "2026-01-19T10:07:36Z",
+      "durationMin": 79,
+      "views": 105372,
+      "stage": "practice",
+      "score": 0.73
+    }
+  ],
+  "supply-chain-sec": [
+    {
+      "title": "KnowledgeBytes │ Software Supply Chain Security",
+      "url": "https://www.youtube.com/watch?v=FDm-jq2t_EU",
+      "channel": "Center for Infrastructure Assurance and Security",
+      "publishedAt": "2026-06-23T16:45:13Z",
+      "durationMin": 20,
+      "views": 41,
+      "stage": "orientation",
+      "score": 0.5
+    },
+    {
+      "title": "The Developer&#39;s Guide to Software Supply Chain Security",
+      "url": "https://www.youtube.com/watch?v=Czl1uGb6_q4",
+      "channel": "ReversingLabs",
+      "publishedAt": "2025-04-17T17:45:28Z",
+      "durationMin": 51,
+      "views": 188,
+      "stage": "practice",
+      "score": 0.37
+    },
+    {
+      "title": "Supply Chain Security - The Ultimate Guide to Software Composition Analysis (SCA) Tools",
+      "url": "https://www.youtube.com/watch?v=njm1nZlrR68",
+      "channel": "Aikido Security",
+      "publishedAt": "2025-10-15T08:49:20Z",
+      "durationMin": 14,
+      "views": 29537,
+      "stage": "orientation",
+      "score": 0.49
+    }
+  ],
+  "post-quantum": [
+    {
+      "title": "Post‑Quantum Security: How Lattice Cryptography Keeps Data Safe",
+      "url": "https://www.youtube.com/watch?v=ZRpcYSghGr8",
+      "channel": "IBM Technology",
+      "publishedAt": "2026-04-16T11:01:03Z",
+      "durationMin": 14,
+      "views": 27002,
+      "stage": "orientation",
+      "score": 0.58
+    },
+    {
+      "title": "Lecture 23: Introduction to Hash-based Post-quantum Cryptography (PQC) by Christof Paar",
+      "url": "https://www.youtube.com/watch?v=aw8K-ljRpIE",
+      "channel": "Introduction to Cryptography by Christof Paar",
+      "publishedAt": "2025-08-26T10:14:51Z",
+      "durationMin": 101,
+      "views": 11974,
+      "stage": "core",
+      "score": 0.66
+    },
+    {
+      "title": "Black Hat Asia 2026 | Post-Quantum Cryptography: A Realistic Guide to Manage the Transition",
+      "url": "https://www.youtube.com/watch?v=_M0of-6aLpk",
+      "channel": "Black Hat",
+      "publishedAt": "2026-08-14T20:00:14Z",
+      "durationMin": 37,
+      "views": 4280,
+      "stage": "practice",
+      "score": 0.67
+    }
+  ],
+  "zero-trust": [
+    {
+      "title": "Zero-Trust Security: Complete Implementation Guide",
+      "url": "https://www.youtube.com/watch?v=1M6i84Op2xg",
+      "channel": "SysTelligence",
+      "publishedAt": "2026-08-20T03:15:22Z",
+      "durationMin": 14,
+      "views": 1,
+      "stage": "orientation",
+      "score": 0.48
+    },
+    {
+      "title": "CCZT Complete Masterclass | Step By Step Guide for Zero Trust Architecture",
+      "url": "https://www.youtube.com/watch?v=ztwNezcel0E",
+      "channel": "InfosecTrain",
+      "publishedAt": "2025-09-21T15:00:06Z",
+      "durationMin": 45,
+      "views": 1295,
+      "stage": "practice",
+      "score": 0.48
+    },
+    {
+      "title": "Zero Trust Security Architecture: Step by Step Guide for Modern Enterprises",
+      "url": "https://www.youtube.com/watch?v=geVQlGpg0xg",
+      "channel": "Go Cloud Architects",
+      "publishedAt": "2025-11-14T14:30:05Z",
+      "durationMin": 19,
+      "views": 3852,
+      "stage": "orientation",
+      "score": 0.47
+    }
+  ],
+  "rsc": [
+    {
+      "title": "React server components",
+      "url": "https://www.youtube.com/watch?v=i336LJbYPKM",
+      "channel": "Traversy Media",
+      "publishedAt": "2025-08-31T15:15:00Z",
+      "durationMin": 1,
+      "views": 35709,
+      "stage": "orientation",
+      "score": 0.43
+    },
+    {
+      "title": "Watch this if you hate React Server Components",
+      "url": "https://www.youtube.com/watch?v=C84YEp-8-hI",
+      "channel": "Theo - t3․gg",
+      "publishedAt": "2025-10-31T21:07:41Z",
+      "durationMin": 45,
+      "views": 46252,
+      "stage": "practice",
+      "score": 0.58
+    },
+    {
+      "title": "Learn React Server Components (React Tutorial)",
+      "url": "https://www.youtube.com/watch?v=AXyDday5Gms",
+      "channel": "Jad Joubran",
+      "publishedAt": "2025-11-04T17:39:50Z",
+      "durationMin": 51,
+      "views": 295,
+      "stage": "practice",
+      "score": 0.49
+    }
+  ],
+  "edge": [
+    {
+      "title": "Edge AI and IoT in 2025 — All You Need to Know",
+      "url": "https://www.youtube.com/watch?v=P54zzvqnVLk",
+      "channel": "Edge Impulse",
+      "publishedAt": "2025-03-18T17:06:01Z",
+      "durationMin": 20,
+      "views": 28067,
+      "stage": "orientation",
+      "score": 0.38
+    },
+    {
+      "title": "🧠 Edge Devices Explained | Edge vs IoT vs Embedded | Edge AI | Edge Computing | TinyML | Interview",
+      "url": "https://www.youtube.com/watch?v=aGOQIJJv1Tw",
+      "channel": "Tech-AD-venture",
+      "publishedAt": "2025-08-31T07:30:00Z",
+      "durationMin": 43,
+      "views": 2677,
+      "stage": "practice",
+      "score": 0.48
+    },
+    {
+      "title": "Edge Computing Explained in 3 minutes",
+      "url": "https://www.youtube.com/watch?v=m4ScX1oEJzA",
+      "channel": "Connected Cookie",
+      "publishedAt": "2025-06-24T01:00:56Z",
+      "durationMin": 4,
+      "views": 7509,
+      "stage": "orientation",
+      "score": 0.37
+    }
+  ]
+}
