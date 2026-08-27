@@ -146,14 +146,42 @@ lags. A fluke does not.
 lags on 18–22 observations. That is what noise looks like, and reporting the +0.32
 while omitting the −0.46 would be cherry-picking.
 
-**This is suggestive, not established.** The growth windows overlap, so adjacent
-observations are autocorrelated and the true evidence is weaker than n=50–79 implies.
-Pooling across skills also assumes every skill shares one lag structure, which is
-unlikely. What would settle it: more hiring history, and a hold-out set of skills the
-lag was not fitted on.
+The in-sample number is not the finding, though. It was measured on the same skills
+it was chosen from — the exact mistake the backtest refused to make with the `rising`
+thresholds. So it gets validated properly.
 
-If it holds, it is the product — *learn this now, because hiring follows in two
-quarters* — and it would be evidence-backed rather than asserted.
+### Out-of-sample validation
+
+`npm run holdout` asks two questions, and the claim has to survive both:
+
+1. **Split.** Pick the peak lag using half the skills, then test that lag on the half
+   it never saw. Repeated over 400 random splits, because a single split is itself a
+   coin toss.
+2. **Null.** Pair each skill's attention series with a *different* skill's hiring. Any
+   correlation left is what the method manufactures from overlapping growth windows
+   alone. If the real result sits inside that distribution, there is no finding.
+
+| | Wikipedia | npm |
+|---|---|---|
+| Lag chosen on the fit half | **6 months** | 8 months |
+| Hold-out correlation (median of 400 splits) | **+0.394** | −0.090 |
+| Splits with r > 0 | **99%** | 30% |
+| Null (shuffled skill labels) | +0.014 | −0.019 |
+| **Share of nulls beating the real result** | **1.0%** | 71.8% |
+| | **SURVIVES** | does not survive |
+
+**Wikipedia attention leads hiring by about six months, and it holds out of sample.**
+The result replicated across two independently-built ledgers covering different month
+ranges, which is stronger evidence than either run alone.
+
+**npm does not survive**, and its in-sample +0.32 was an artefact — it flips to −0.09
+out of sample, with 72% of shuffled nulls beating it. Reporting the +0.32 without this
+would have been the exact cherry-pick this project exists to avoid.
+
+So the product thesis now has evidence behind it: *learn this now, because hiring
+follows in about two quarters.* Still to do before any verdict depends on it — build a
+leading-indicator verdict and put it through the same backtest and the same grader
+that scored `rising` at 17%.
 
 <br>
 
@@ -176,6 +204,7 @@ npm run paths         # free YouTube learning paths (needs a YouTube key)
 npm run backtest      # replay history and grade the calls it would have made
 npm run leading       # fetch leading indicators (npm + Wikipedia, 36 months, no key)
 npm run leadlag       # test whether adoption actually leads hiring, and by how long
+npm run holdout       # validate that lead out-of-sample against a shuffled null
 npm run collect       # add today's snapshot from all six sources
 npm run seed          # offline fallback: synthetic history, clearly labelled as such
 ```
@@ -288,9 +317,11 @@ Three rules keep the score honest, and each one exists because it caught a real 
   still not built.
 - **Sample sizes are tiny** (2–6 graded calls per verdict type). Treat every hit rate
   as directional, not established.
-- **Leading indicators are collected and measured but not yet wired into the index.**
-  The lead-lag result is suggestive and needs a hold-out test before any verdict is
-  allowed to depend on it.
+- **Leading indicators are validated but not yet wired into the index.** The Wikipedia
+  lead survives out-of-sample testing; no verdict depends on it until a leading-driven
+  call has been through the backtest.
+- **Hiring history is Hacker News only**, so the lead is established against
+  startup-and-tech-forward hiring, not the whole labour market.
 - **Proxy coverage is partial and honest.** 23 of 25 skills have an npm or Wikipedia
   proxy; skills with no registry footprint keep their lagging signal only. No proxy
   was invented to fill a blank.

@@ -19,7 +19,8 @@
     "paths": "tsx scripts/paths.ts",
     "backtest": "tsx scripts/backtest.ts",
     "leading": "tsx scripts/leading.ts",
-    "leadlag": "tsx scripts/leadlag.ts"
+    "leadlag": "tsx scripts/leadlag.ts",
+    "holdout": "tsx scripts/holdout.ts"
   },
   "dependencies": {
     "dotenv": "^17.2.3",
