@@ -20,6 +20,17 @@ function Badge({ verdict }: { verdict: Verdict }) {
   );
 }
 
+function TrackRecord({ state, verdict }: { state: DashboardState | null; verdict: Verdict }) {
+  const row = state?.verdictAccuracy?.[verdict];
+  if (!row || !row.scored) return null;
+  const weak = (row.rate ?? 0) < 50;
+  return (
+    <span className="track" data-weak={weak} title={`${row.correct} right, ${row.wrong} wrong, ${row.partial} partial across ${row.scored} graded calls`}>
+      {row.rate}% right · n={row.scored}
+    </span>
+  );
+}
+
 const fmtDate = (iso: string | null) =>
   iso ? new Date(iso).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
 
@@ -169,9 +180,12 @@ export default function App() {
               <div style={{ marginTop: 12 }}><SignalMeter snr={s.signalToNoise} /></div>
 
               <div className="skill-foot">
-                <Badge verdict={s.verdict} />
+                <span style={{ display: 'flex', alignItems: 'center', gap: 7, flexWrap: 'wrap' }}>
+                  <Badge verdict={s.verdict} />
+                  <TrackRecord state={state} verdict={s.verdict} />
+                </span>
                 <span className="mono" style={{ fontSize: 11.5, color: 'var(--ink-3)' }}>
-                  {s.momentum > 0 ? '+' : ''}{s.momentum}% · {Math.round(s.signalToNoise * 100)}% signal
+                  {s.momentum > 0 ? '+' : ''}{s.momentum}%
                 </span>
               </div>
             </button>
@@ -197,7 +211,7 @@ export default function App() {
         </footer>
       </div>
 
-      {open && <Detail signal={open} onClose={() => setOpen(null)} />}
+      {open && <Detail signal={open} state={state} onClose={() => setOpen(null)} />}
     </div>
   );
 }
@@ -205,7 +219,7 @@ export default function App() {
 const STAGE_N: Record<string, string> = { orientation: '1', core: '2', practice: '3' };
 const STAGE_L: Record<string, string> = { orientation: 'Orient', core: 'Go deep', practice: 'Build it' };
 
-function Detail({ signal: s, onClose }: { signal: SkillSignal; onClose: () => void }) {
+function Detail({ signal: s, state, onClose }: { signal: SkillSignal; state: DashboardState | null; onClose: () => void }) {
   const v = VERDICT[s.verdict];
   return (
     <>
@@ -219,8 +233,9 @@ function Detail({ signal: s, onClose }: { signal: SkillSignal; onClose: () => vo
           <button className="close" onClick={onClose} aria-label="Close">×</button>
         </div>
 
-        <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginTop: 14 }}>
+        <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginTop: 14, flexWrap: 'wrap' }}>
           <Badge verdict={s.verdict} />
+          <TrackRecord state={state} verdict={s.verdict} />
           <span style={{ color: 'var(--ink-2)', fontSize: 13 }}>{v.blurb}</span>
         </div>
 
@@ -298,8 +313,8 @@ const STEPS = [
   {
     n: '3',
     title: 'Score itself',
-    body: 'When a check-back date arrives the call is re-opened and graded against what actually happened. Time passing is the grader — no human labelling required.',
-    pending: true,
+    body: 'Each call is re-opened on its check-back date and graded against what happened. Replayed across the ledger, no lookahead — every call judged only on data that existed when it was made.',
+    pending: false,
   },
   {
     n: '4',
@@ -310,7 +325,10 @@ const STEPS = [
 ];
 
 function Loop({ state }: { state: DashboardState | null }) {
-  const open = (state?.claims ?? []).filter((c) => !c.outcome).slice(0, 6);
+  const all = state?.claims ?? [];
+  const graded = all.filter((c) => c.outcome).slice(0, 4);
+  const pending = all.filter((c) => !c.outcome).slice(0, 3);
+  const open = [...graded, ...pending];
   const acc = state?.accuracy;
 
   return (
@@ -344,6 +362,33 @@ function Loop({ state }: { state: DashboardState | null }) {
         ))}
       </div>
 
+      <div className="section-t">Track record by call type</div>
+      <div className="record">
+        {(['rising', 'hype', 'table-stakes', 'cooling'] as const).map((v) => {
+          const row = state?.verdictAccuracy?.[v];
+          const weak = !!row?.scored && (row.rate ?? 0) < 50;
+          return (
+            <div key={v} className="card rec" data-weak={weak}>
+              <span className="v" style={{ color: VERDICT[v].color }}>
+                <span aria-hidden style={{ fontSize: 9 }}>{VERDICT[v].icon}</span>
+                {VERDICT[v].label}
+              </span>
+              <div className="rate">{row?.scored ? `${row.rate}%` : '—'}</div>
+              <div className="n">
+                {row?.scored
+                  ? `${row.correct} right · ${row.wrong} wrong · ${row.partial} partial`
+                  : 'not yet graded'}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <p style={{ color: 'var(--ink-3)', fontSize: 12.5, margin: '12px 0 0', maxWidth: 640 }}>
+        These are small samples on a single monthly source, and a call type below 50%
+        is worse than useless. They are shown rather than hidden because a badge that
+        has been wrong five times out of six should say so on the card.
+      </p>
+
       <div className="section-t">Open calls on record · {state?.claims.length ?? 0} total</div>
       <div className="card calls">
         {open.length === 0 && (
@@ -352,10 +397,18 @@ function Loop({ state }: { state: DashboardState | null }) {
         {open.map((c) => (
           <div key={c.id} className="call">
             <Badge verdict={c.verdict} />
-            <span className="stmt">{c.statement}</span>
+            <span className="stmt">
+              {c.statement}
+              {c.outcome && (
+                <span className="scored">
+                  <span className="oc" data-o={c.outcome}>{c.outcome}</span>
+                  <span>{c.scoringNote}</span>
+                </span>
+              )}
+            </span>
             <span className="when">
-              <b>{fmtDate(c.checkBackAt)}</b>
-              check back
+              <b>{fmtDate(c.outcome ? c.scoredAt ?? c.checkBackAt : c.checkBackAt)}</b>
+              {c.outcome ? 'graded' : 'check back'}
             </span>
           </div>
         ))}

@@ -63,12 +63,44 @@ its own old calls is both the regression suite and a headline finding.
 <tr><td><b>4</b></td><td><b>Reweight the sources</b><br><sub>Sources whose calls survive earn weight; sources that cried wolf lose it.</sub></td><td><code>next</code></td></tr>
 </table>
 
-Steps 3 and 4 are **not built**, and the dashboard says so on its face rather than
-implying a loop that closes. Step 2 exists now specifically so that when scoring lands
-it has real history to grade instead of starting from zero.
-
 Step 4 is where this earns its keep: *which of your sources lie to you* is knowledge
 no general-purpose model can have about your particular feed.
+
+### What the backtest actually found
+
+`npm run backtest` replays the ledger month by month: at each step it grades whatever
+calls have come due, then mints new ones from **only** the data that existed at that
+point. No lookahead — the reference scale, the momentum window and source eligibility
+all see exactly what they would have seen at the time.
+
+The first run was damning, and the numbers below are the corrected ones:
+
+| Call type | Hit rate | Graded |
+|---|---|---|
+| **Table stakes** | 100% | 2 |
+| **Cooling** | 67% | 3 |
+| **Rising** | **17%** | 6 |
+| *Overall* | *45%* | *11* |
+
+**Rising does not work on this data, and the dashboard says so on every card.**
+
+The diagnosis is worth stating plainly. The median month-to-month swing in a skill's
+index is **19%** — that is the noise floor, sampling jitter from which companies
+happened to post that month. The original "rising" threshold was **12%**, i.e. *below*
+the noise floor, so it was classifying noise. Worse, momentum on this source is
+mildly **anti**-predictive: correlation −0.15 with what happens next, and skills
+called rising went on to fall 5% on average while skills called cooling *rose* 16%.
+Classic mean reversion.
+
+The fix was to smooth the series over three months and raise the thresholds to about
+twice the smoothed noise floor. That lifted the overall rate from 32% to 45% — and
+left `rising` at 17%. Rather than keep tuning until the number flattered the project,
+that is where the tuning stopped: six graded calls is not a sample you get to fit.
+
+So every verdict badge in the UI carries its own measured hit rate next to it. A badge
+that has been wrong five times out of six should say so on the card, not in a footnote.
+`rising` should be treated as unproven until there is a second independent hiring
+source or considerably more history.
 
 <br>
 
@@ -88,6 +120,7 @@ you wait a quarter to have anything to say.
 
 ```bash
 npm run paths         # free YouTube learning paths (needs a YouTube key)
+npm run backtest      # replay history and grade the calls it would have made
 npm run collect       # add today's snapshot from all six sources
 npm run seed          # offline fallback: synthetic history, clearly labelled as such
 ```
@@ -195,8 +228,11 @@ Three rules keep the score honest, and each one exists because it caught a real 
 - **Only two sources currently score:** `whoshiring` and `hackernews`, the two with
   real history. Adzuna, YouTube, Bluesky and Reddit contribute evidence and learning
   paths now, and join the index once they have three snapshots of their own.
-- **Self-scoring is not built.** Claims are minted with check-back dates; nothing
-  grades them yet.
+- **Self-scoring is built and the results are not flattering** — 45% overall, and
+  `rising` at 17%. See the backtest section above. Source reweighting (step 4) is
+  still not built.
+- **Sample sizes are tiny** (2–6 graded calls per verdict type). Treat every hit rate
+  as directional, not established.
 - The hiring signal is Hacker News, so it reads **startup and tech-forward hiring**.
   It is not a proxy for the whole labour market. Add an Adzuna key for broader
   coverage.

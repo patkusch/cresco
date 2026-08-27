@@ -26,6 +26,7 @@ export interface Claim {
   id: string; skillId: string; verdict: Verdict; statement: string;
   demandIndex: number; signalToNoise: number; createdAt: string; checkBackAt: string;
   evidence: Evidence[]; outcome?: 'correct' | 'wrong' | 'partial';
+  scoredAt?: string; scoringNote?: string;
 }
 
 export interface DashboardState {
@@ -38,4 +39,5 @@ export interface DashboardState {
   claims: Claim[];
   due: number;
   accuracy: { scored: number; correct: number; rate: number | null };
+  verdictAccuracy: Record<string, { scored: number; correct: number; wrong: number; partial: number; rate: number | null }>;
 }

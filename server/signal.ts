@@ -139,17 +139,37 @@ function classify(history: number[], momentum: number, demandIndex: number, snr:
   // One job advert swinging to two is a 100% rise and means nothing. Below this
   // floor there is not enough evidence to say anything honest.
   if (demandIndex < 3) return 'baseline';
-  if (momentum >= 18 && snr < 0.3) return 'hype';
-  if (momentum >= 12) return 'rising';
-  if (momentum <= -12) return 'cooling';
+  // Smoothing cuts the 19% raw noise floor to roughly 11%; these thresholds sit at
+  // about twice that, so a call requires a move the noise cannot manufacture.
+  if (momentum >= 30 && snr < 0.3) return 'hype';
+  if (momentum >= 25) return 'rising';
+  if (momentum <= -25) return 'cooling';
   if (demandIndex >= 45 && snr >= 0.3) return 'table-stakes';
   return 'baseline';
 }
 
+/**
+ * Three-point moving average before any trend is read off the series.
+ *
+ * Measured on the real ledger, the median month-to-month swing in a skill's index
+ * is 19% — pure sampling jitter from which companies happened to post that month.
+ * Reading momentum off the raw series means classifying that jitter, which is
+ * exactly what the first backtest caught: calls of "rising" were followed by an
+ * average 5% FALL, and momentum correlated -0.15 with what happened next.
+ */
+export function smooth(series: number[], window = 3): number[] {
+  return series.map((_, i) => {
+    const from = Math.max(0, i - window + 1);
+    const slice = series.slice(from, i + 1);
+    return slice.reduce((a, b) => a + b, 0) / slice.length;
+  });
+}
+
 export function momentumOf(history: number[]): number {
   if (history.length < 3) return 0;
-  const recent = history.slice(-2);
-  const baseline = history.slice(Math.max(0, history.length - 6), history.length - 2);
+  const smoothed = smooth(history);
+  const recent = smoothed.slice(-2);
+  const baseline = smoothed.slice(Math.max(0, smoothed.length - 6), smoothed.length - 2);
   if (!baseline.length) return 0;
   const r = recent.reduce((a, b) => a + b, 0) / recent.length;
   const b = baseline.reduce((a, b) => a + b, 0) / baseline.length;

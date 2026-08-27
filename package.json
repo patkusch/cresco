@@ -16,7 +16,8 @@
     "seed": "tsx scripts/seed.ts",
     "lint": "tsc --noEmit",
     "backfill": "tsx scripts/backfill.ts",
-    "paths": "tsx scripts/paths.ts"
+    "paths": "tsx scripts/paths.ts",
+    "backtest": "tsx scripts/backtest.ts"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

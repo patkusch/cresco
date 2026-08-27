@@ -2,6 +2,7 @@ import { COLLECTORS, fetchLearningPath } from './collectors/index.ts';
 import { SKILLS } from './taxonomy.ts';
 import { computeSignals } from './signal.ts';
 import { appendSnapshot, loadLedger, loadPaths, mintClaims, savePaths, saveLedger, dueClaims, accuracy } from './ledger.ts';
+import { accuracyByVerdict } from './scoring.ts';
 import type { Observation, Snapshot } from './types.ts';
 
 export interface RunReport {
@@ -102,6 +103,9 @@ export function buildState() {
     claims: ledger.claims.slice().sort((a, b) => b.createdAt.localeCompare(a.createdAt)),
     due: dueClaims(ledger).length,
     accuracy: accuracy(ledger),
+    // Every verdict type carries its own hit rate. A badge that has been wrong
+    // five times out of six should say so on the card, not in a footnote.
+    verdictAccuracy: accuracyByVerdict(ledger.claims),
   };
 }
 
