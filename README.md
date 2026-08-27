@@ -99,8 +99,61 @@ that is where the tuning stopped: six graded calls is not a sample you get to fi
 
 So every verdict badge in the UI carries its own measured hit rate next to it. A badge
 that has been wrong five times out of six should say so on the card, not in a footnote.
-`rising` should be treated as unproven until there is a second independent hiring
-source or considerably more history.
+
+### The deeper problem: predicting a lagging indicator from itself
+
+The backtest exposed a design flaw that no amount of threshold tuning fixes. **Job
+postings are where demand arrives, not where it starts.** Asking "is hiring for X
+rising?" using only hiring data means fighting sampling noise for a signal that has
+already happened.
+
+A skill actually travels a chain:
+
+```
+research → package adoption → public attention → corporate disclosure → JOB POSTINGS → salary premium
+                                                                        ↑ we were here
+```
+
+So Cresco now also collects **leading** indicators, all keyless and with real history:
+
+| Source | Measures | History |
+|---|---|---|
+| **npm downloads** | package adoption — millions of events, so the noise floor is a fraction of a percent | 36 months |
+| **Wikipedia pageviews** | public attention, human traffic only | 36 months, back to 2015 |
+
+`npm run leading` fetches them; `npm run leadlag` tests whether they lead.
+
+### Does adoption actually lead hiring?
+
+Correlating **growth rates, never levels** — two series that both drift upward
+correlate at 0.9 while telling you nothing, and that artefact is how most "leading
+indicator" claims get made.
+
+| Lag | npm | Wikipedia |
+|---:|---|---|
+| 0–4 mo | ~0 | ~0 |
+| 5 mo | +0.10 | +0.26 |
+| 6 mo | +0.32 | +0.32 |
+| **7 mo** | −0.23 | **+0.35** |
+| 8 mo | −0.46 | +0.28 |
+
+**Wikipedia attention appears to lead hiring by 5–8 months, peaking around 7.** The
+reason that is credible-ish rather than noise is the *shape*: four adjacent lags all
+positive, rising to a peak and falling away. A real effect smears across neighbouring
+lags. A fluke does not.
+
+**npm does not survive the same test.** It swings from +0.32 to −0.46 between adjacent
+lags on 18–22 observations. That is what noise looks like, and reporting the +0.32
+while omitting the −0.46 would be cherry-picking.
+
+**This is suggestive, not established.** The growth windows overlap, so adjacent
+observations are autocorrelated and the true evidence is weaker than n=50–79 implies.
+Pooling across skills also assumes every skill shares one lag structure, which is
+unlikely. What would settle it: more hiring history, and a hold-out set of skills the
+lag was not fitted on.
+
+If it holds, it is the product — *learn this now, because hiring follows in two
+quarters* — and it would be evidence-backed rather than asserted.
 
 <br>
 
@@ -121,6 +174,8 @@ you wait a quarter to have anything to say.
 ```bash
 npm run paths         # free YouTube learning paths (needs a YouTube key)
 npm run backtest      # replay history and grade the calls it would have made
+npm run leading       # fetch leading indicators (npm + Wikipedia, 36 months, no key)
+npm run leadlag       # test whether adoption actually leads hiring, and by how long
 npm run collect       # add today's snapshot from all six sources
 npm run seed          # offline fallback: synthetic history, clearly labelled as such
 ```
@@ -233,6 +288,12 @@ Three rules keep the score honest, and each one exists because it caught a real 
   still not built.
 - **Sample sizes are tiny** (2–6 graded calls per verdict type). Treat every hit rate
   as directional, not established.
+- **Leading indicators are collected and measured but not yet wired into the index.**
+  The lead-lag result is suggestive and needs a hold-out test before any verdict is
+  allowed to depend on it.
+- **Proxy coverage is partial and honest.** 23 of 25 skills have an npm or Wikipedia
+  proxy; skills with no registry footprint keep their lagging signal only. No proxy
+  was invented to fill a blank.
 - The hiring signal is Hacker News, so it reads **startup and tech-forward hiring**.
   It is not a proxy for the whole labour market. Add an Adzuna key for broader
   coverage.

@@ -17,7 +17,9 @@
     "lint": "tsc --noEmit",
     "backfill": "tsx scripts/backfill.ts",
     "paths": "tsx scripts/paths.ts",
-    "backtest": "tsx scripts/backtest.ts"
+    "backtest": "tsx scripts/backtest.ts",
+    "leading": "tsx scripts/leading.ts",
+    "leadlag": "tsx scripts/leadlag.ts"
   },
   "dependencies": {
     "dotenv": "^17.2.3",
