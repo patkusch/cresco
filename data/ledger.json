@@ -3,740 +3,6 @@
   "seeded": false,
   "snapshots": [
     {
-      "ts": "2024-09-02T15:00:06Z",
-      "sources": [
-        {
-          "id": "whoshiring",
-          "sourceClass": "hiring",
-          "live": true
-        },
-        {
-          "id": "hackernews",
-          "sourceClass": "practitioner",
-          "live": true
-        }
-      ],
-      "observations": [
-        {
-          "skillId": "ai-agents",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 16.4
-        },
-        {
-          "skillId": "ai-agents",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 63.8
-        },
-        {
-          "skillId": "llm-apps",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 9.9
-        },
-        {
-          "skillId": "llm-apps",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 49.6
-        },
-        {
-          "skillId": "rag",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 16.4
-        },
-        {
-          "skillId": "rag",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 7.1
-        },
-        {
-          "skillId": "mcp",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 0
-        },
-        {
-          "skillId": "mcp",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 3.9
-        },
-        {
-          "skillId": "evals",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 0
-        },
-        {
-          "skillId": "evals",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 11.6
-        },
-        {
-          "skillId": "finetuning",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 9.9
-        },
-        {
-          "skillId": "finetuning",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 8.4
-        },
-        {
-          "skillId": "ai-safety",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 0
-        },
-        {
-          "skillId": "ai-safety",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 4.5
-        },
-        {
-          "skillId": "rust",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 75.7
-        },
-        {
-          "skillId": "rust",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 12.9
-        },
-        {
-          "skillId": "go",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 115.1
-        },
-        {
-          "skillId": "go",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 8.4
-        },
-        {
-          "skillId": "typescript",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 213.8
-        },
-        {
-          "skillId": "typescript",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 49
-        },
-        {
-          "skillId": "python",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 256.6
-        },
-        {
-          "skillId": "python",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 20.6
-        },
-        {
-          "skillId": "kubernetes",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 85.5
-        },
-        {
-          "skillId": "kubernetes",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 50.9
-        },
-        {
-          "skillId": "terraform",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 62.5
-        },
-        {
-          "skillId": "terraform",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 19.3
-        },
-        {
-          "skillId": "platform-eng",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 16.4
-        },
-        {
-          "skillId": "platform-eng",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 13.5
-        },
-        {
-          "skillId": "wasm",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 13.2
-        },
-        {
-          "skillId": "wasm",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 14.2
-        },
-        {
-          "skillId": "ebpf",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 3.3
-        },
-        {
-          "skillId": "ebpf",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 13.5
-        },
-        {
-          "skillId": "duckdb",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 3.3
-        },
-        {
-          "skillId": "duckdb",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 21.9
-        },
-        {
-          "skillId": "iceberg",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 0
-        },
-        {
-          "skillId": "iceberg",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 3.9
-        },
-        {
-          "skillId": "dbt",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 6.6
-        },
-        {
-          "skillId": "dbt",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 2.6
-        },
-        {
-          "skillId": "streaming",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 29.6
-        },
-        {
-          "skillId": "streaming",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 2.6
-        },
-        {
-          "skillId": "supply-chain-sec",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 0
-        },
-        {
-          "skillId": "supply-chain-sec",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 592.8
-        },
-        {
-          "skillId": "post-quantum",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 0
-        },
-        {
-          "skillId": "post-quantum",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 8.4
-        },
-        {
-          "skillId": "zero-trust",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 3.3
-        },
-        {
-          "skillId": "zero-trust",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 0.6
-        },
-        {
-          "skillId": "rsc",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 0
-        },
-        {
-          "skillId": "rsc",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 7.7
-        },
-        {
-          "skillId": "edge",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 3.3
-        },
-        {
-          "skillId": "edge",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 8.4
-        }
-      ]
-    },
-    {
-      "ts": "2024-10-01T15:00:16Z",
-      "sources": [
-        {
-          "id": "whoshiring",
-          "sourceClass": "hiring",
-          "live": true
-        },
-        {
-          "id": "hackernews",
-          "sourceClass": "practitioner",
-          "live": true
-        }
-      ],
-      "observations": [
-        {
-          "skillId": "ai-agents",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 9.1
-        },
-        {
-          "skillId": "ai-agents",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 71.4
-        },
-        {
-          "skillId": "llm-apps",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 12.1
-        },
-        {
-          "skillId": "llm-apps",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 47.8
-        },
-        {
-          "skillId": "rag",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 6.1
-        },
-        {
-          "skillId": "rag",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 13.4
-        },
-        {
-          "skillId": "mcp",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 0
-        },
-        {
-          "skillId": "mcp",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 2.5
-        },
-        {
-          "skillId": "evals",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 6.1
-        },
-        {
-          "skillId": "evals",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 13.4
-        },
-        {
-          "skillId": "finetuning",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 0
-        },
-        {
-          "skillId": "finetuning",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 11.5
-        },
-        {
-          "skillId": "ai-safety",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 0
-        },
-        {
-          "skillId": "ai-safety",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 1.3
-        },
-        {
-          "skillId": "rust",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 69.7
-        },
-        {
-          "skillId": "rust",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 14
-        },
-        {
-          "skillId": "go",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 124.2
-        },
-        {
-          "skillId": "go",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 12.7
-        },
-        {
-          "skillId": "typescript",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 254.5
-        },
-        {
-          "skillId": "typescript",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 39.5
-        },
-        {
-          "skillId": "python",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 203
-        },
-        {
-          "skillId": "python",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 26.1
-        },
-        {
-          "skillId": "kubernetes",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 84.8
-        },
-        {
-          "skillId": "kubernetes",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 43.3
-        },
-        {
-          "skillId": "terraform",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 54.5
-        },
-        {
-          "skillId": "terraform",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 20.4
-        },
-        {
-          "skillId": "platform-eng",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 24.2
-        },
-        {
-          "skillId": "platform-eng",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 10.8
-        },
-        {
-          "skillId": "wasm",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 12.1
-        },
-        {
-          "skillId": "wasm",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 14
-        },
-        {
-          "skillId": "ebpf",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 0
-        },
-        {
-          "skillId": "ebpf",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 18.5
-        },
-        {
-          "skillId": "duckdb",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 6.1
-        },
-        {
-          "skillId": "duckdb",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 21
-        },
-        {
-          "skillId": "iceberg",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 0
-        },
-        {
-          "skillId": "iceberg",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 1.9
-        },
-        {
-          "skillId": "dbt",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 3
-        },
-        {
-          "skillId": "dbt",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 3.8
-        },
-        {
-          "skillId": "streaming",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 21.2
-        },
-        {
-          "skillId": "streaming",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 3.2
-        },
-        {
-          "skillId": "supply-chain-sec",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 0
-        },
-        {
-          "skillId": "supply-chain-sec",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 586.4
-        },
-        {
-          "skillId": "post-quantum",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 0
-        },
-        {
-          "skillId": "post-quantum",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 2.5
-        },
-        {
-          "skillId": "zero-trust",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 3
-        },
-        {
-          "skillId": "zero-trust",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 0.6
-        },
-        {
-          "skillId": "rsc",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 0
-        },
-        {
-          "skillId": "rsc",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 5.1
-        },
-        {
-          "skillId": "edge",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 3
-        },
-        {
-          "skillId": "edge",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 14.7
-        }
-      ]
-    },
-    {
       "ts": "2024-11-01T15:01:57Z",
       "sources": [
         {
@@ -1497,7 +763,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 144.3
+          "value": 132.5
         },
         {
           "skillId": "llm-apps",
@@ -1511,7 +777,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 44.8
+          "value": 45.4
         },
         {
           "skillId": "rag",
@@ -1525,7 +791,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 11.7
+          "value": 11.8
         },
         {
           "skillId": "mcp",
@@ -1539,7 +805,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 28.9
+          "value": 29.2
         },
         {
           "skillId": "evals",
@@ -1553,7 +819,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 14.7
+          "value": 14.3
         },
         {
           "skillId": "finetuning",
@@ -1567,7 +833,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 9.2
+          "value": 9.3
         },
         {
           "skillId": "ai-safety",
@@ -1595,7 +861,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 12.3
+          "value": 12.4
         },
         {
           "skillId": "go",
@@ -1609,7 +875,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 11.7
+          "value": 11.8
         },
         {
           "skillId": "typescript",
@@ -1623,7 +889,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 46.7
+          "value": 47.3
         },
         {
           "skillId": "python",
@@ -1637,7 +903,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 16
+          "value": 16.2
         },
         {
           "skillId": "kubernetes",
@@ -1651,7 +917,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 28.9
+          "value": 29.9
         },
         {
           "skillId": "terraform",
@@ -1665,7 +931,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 16.6
+          "value": 16.8
         },
         {
           "skillId": "platform-eng",
@@ -1679,7 +945,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 9.2
+          "value": 9.3
         },
         {
           "skillId": "wasm",
@@ -1693,7 +959,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 22.1
+          "value": 22.4
         },
         {
           "skillId": "ebpf",
@@ -1707,7 +973,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 7.4
+          "value": 7.5
         },
         {
           "skillId": "duckdb",
@@ -1721,7 +987,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 14.1
+          "value": 14.3
         },
         {
           "skillId": "iceberg",
@@ -1763,7 +1029,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 4.3
+          "value": 4.4
         },
         {
           "skillId": "supply-chain-sec",
@@ -1777,7 +1043,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 534.7
+          "value": 542
         },
         {
           "skillId": "post-quantum",
@@ -1819,7 +1085,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 4.9
+          "value": 5
         },
         {
           "skillId": "edge",
@@ -1833,7 +1099,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 8.6
+          "value": 8.7
         }
       ]
     },
@@ -1864,7 +1130,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 174.1
+          "value": 163.2
         },
         {
           "skillId": "llm-apps",
@@ -1878,7 +1144,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 55.1
+          "value": 55.9
         },
         {
           "skillId": "rag",
@@ -1892,7 +1158,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 12.6
+          "value": 12.7
         },
         {
           "skillId": "mcp",
@@ -1906,7 +1172,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 16.4
+          "value": 16.6
         },
         {
           "skillId": "evals",
@@ -1920,7 +1186,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 18.6
+          "value": 18.8
         },
         {
           "skillId": "finetuning",
@@ -1948,7 +1214,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 1.6
+          "value": 1.7
         },
         {
           "skillId": "rust",
@@ -1962,7 +1228,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 10.4
+          "value": 10.5
         },
         {
           "skillId": "go",
@@ -1976,7 +1242,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 9.3
+          "value": 9.4
         },
         {
           "skillId": "typescript",
@@ -1990,7 +1256,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 45.9
+          "value": 46.5
         },
         {
           "skillId": "python",
@@ -2004,7 +1270,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 15.3
+          "value": 15.5
         },
         {
           "skillId": "kubernetes",
@@ -2018,7 +1284,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 36.6
+          "value": 37.1
         },
         {
           "skillId": "terraform",
@@ -2032,7 +1298,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 15.8
+          "value": 16
         },
         {
           "skillId": "platform-eng",
@@ -2046,7 +1312,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 7.6
+          "value": 7.7
         },
         {
           "skillId": "wasm",
@@ -2060,7 +1326,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 18
+          "value": 18.3
         },
         {
           "skillId": "ebpf",
@@ -2074,7 +1340,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 7.6
+          "value": 7.7
         },
         {
           "skillId": "duckdb",
@@ -2088,7 +1354,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 16.9
+          "value": 17.1
         },
         {
           "skillId": "iceberg",
@@ -2116,7 +1382,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 1.6
+          "value": 1.7
         },
         {
           "skillId": "streaming",
@@ -2144,7 +1410,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 521.3
+          "value": 528.2
         },
         {
           "skillId": "post-quantum",
@@ -2186,7 +1452,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 1.6
+          "value": 1.7
         },
         {
           "skillId": "edge",
@@ -2200,7 +1466,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 2.7
+          "value": 2.8
         }
       ]
     },
@@ -2385,7 +1651,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 30.7
+          "value": 30.2
         },
         {
           "skillId": "terraform",
@@ -2441,7 +1707,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 9
+          "value": 10.6
         },
         {
           "skillId": "duckdb",
@@ -2455,7 +1721,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 14.6
+          "value": 13.6
         },
         {
           "skillId": "iceberg",
@@ -2598,7 +1864,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 177.9
+          "value": 177.6
         },
         {
           "skillId": "llm-apps",
@@ -2626,7 +1892,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 4.8
+          "value": 4.4
         },
         {
           "skillId": "mcp",
@@ -2640,7 +1906,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 96.2
+          "value": 96.1
         },
         {
           "skillId": "evals",
@@ -2654,7 +1920,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 12.3
+          "value": 14
         },
         {
           "skillId": "finetuning",
@@ -2668,7 +1934,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 9.7
+          "value": 9.6
         },
         {
           "skillId": "ai-safety",
@@ -2724,7 +1990,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 44.4
+          "value": 44.3
         },
         {
           "skillId": "python",
@@ -2822,7 +2088,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 14.1
+          "value": 14
         },
         {
           "skillId": "iceberg",
@@ -2864,7 +2130,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 4
+          "value": 3.9
         },
         {
           "skillId": "supply-chain-sec",
@@ -2878,7 +2144,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 466
+          "value": 465.4
         },
         {
           "skillId": "post-quantum",
@@ -2965,7 +2231,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 173.4
+          "value": 173.5
         },
         {
           "skillId": "llm-apps",
@@ -3091,7 +2357,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 37
+          "value": 37.1
         },
         {
           "skillId": "python",
@@ -3189,7 +2455,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 10.5
+          "value": 10
         },
         {
           "skillId": "iceberg",
@@ -3245,7 +2511,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 456.6
+          "value": 456.8
         },
         {
           "skillId": "post-quantum",
@@ -3332,7 +2598,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 213.6
+          "value": 199.9
         },
         {
           "skillId": "llm-apps",
@@ -3346,7 +2612,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 67.6
+          "value": 68.8
         },
         {
           "skillId": "rag",
@@ -3360,7 +2626,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 7.2
+          "value": 7.3
         },
         {
           "skillId": "mcp",
@@ -3374,7 +2640,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 73.6
+          "value": 74.9
         },
         {
           "skillId": "evals",
@@ -3388,7 +2654,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 7.6
+          "value": 8.1
         },
         {
           "skillId": "finetuning",
@@ -3402,7 +2668,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 4.4
+          "value": 4.5
         },
         {
           "skillId": "ai-safety",
@@ -3416,7 +2682,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 3.2
+          "value": 2.9
         },
         {
           "skillId": "rust",
@@ -3430,7 +2696,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 8.4
+          "value": 8.6
         },
         {
           "skillId": "go",
@@ -3444,7 +2710,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 4
+          "value": 4.1
         },
         {
           "skillId": "typescript",
@@ -3458,7 +2724,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 51.6
+          "value": 52.1
         },
         {
           "skillId": "python",
@@ -3472,7 +2738,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 15.2
+          "value": 15.5
         },
         {
           "skillId": "kubernetes",
@@ -3486,7 +2752,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 24
+          "value": 24.4
         },
         {
           "skillId": "terraform",
@@ -3500,7 +2766,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 16
+          "value": 16.3
         },
         {
           "skillId": "platform-eng",
@@ -3514,7 +2780,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 9.6
+          "value": 9.8
         },
         {
           "skillId": "wasm",
@@ -3528,7 +2794,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 16
+          "value": 16.3
         },
         {
           "skillId": "ebpf",
@@ -3542,7 +2808,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 6.8
+          "value": 6.9
         },
         {
           "skillId": "duckdb",
@@ -3556,7 +2822,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 16
+          "value": 16.3
         },
         {
           "skillId": "iceberg",
@@ -3584,7 +2850,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 3.2
+          "value": 3.3
         },
         {
           "skillId": "streaming",
@@ -3612,7 +2878,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 432
+          "value": 439.7
         },
         {
           "skillId": "post-quantum",
@@ -3640,7 +2906,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 3.6
+          "value": 3.7
         },
         {
           "skillId": "rsc",
@@ -3654,7 +2920,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 6.4
+          "value": 6.5
         },
         {
           "skillId": "edge",
@@ -3668,7 +2934,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 4
+          "value": 4.1
         }
       ]
     },
@@ -4066,7 +3332,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 188.1
+          "value": 204.7
         },
         {
           "skillId": "llm-apps",
@@ -4080,7 +3346,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 72.6
+          "value": 71
         },
         {
           "skillId": "rag",
@@ -4094,7 +3360,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 7.8
+          "value": 7.6
         },
         {
           "skillId": "mcp",
@@ -4108,7 +3374,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 74.2
+          "value": 72.6
         },
         {
           "skillId": "evals",
@@ -4122,7 +3388,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 16.4
+          "value": 17.2
         },
         {
           "skillId": "finetuning",
@@ -4136,7 +3402,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 7
+          "value": 6.9
         },
         {
           "skillId": "ai-safety",
@@ -4164,7 +3430,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 13.3
+          "value": 13
         },
         {
           "skillId": "go",
@@ -4178,7 +3444,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 3.9
+          "value": 3.8
         },
         {
           "skillId": "typescript",
@@ -4192,7 +3458,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 55.8
+          "value": 54.2
         },
         {
           "skillId": "python",
@@ -4206,7 +3472,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 17.6
+          "value": 17.2
         },
         {
           "skillId": "kubernetes",
@@ -4220,7 +3486,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 21.5
+          "value": 20.6
         },
         {
           "skillId": "terraform",
@@ -4234,7 +3500,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 8.6
+          "value": 8.4
         },
         {
           "skillId": "platform-eng",
@@ -4248,7 +3514,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 10.5
+          "value": 10.3
         },
         {
           "skillId": "wasm",
@@ -4262,7 +3528,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 13.7
+          "value": 13.4
         },
         {
           "skillId": "ebpf",
@@ -4276,7 +3542,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 7.4
+          "value": 7.6
         },
         {
           "skillId": "duckdb",
@@ -4290,7 +3556,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 9.4
+          "value": 9.2
         },
         {
           "skillId": "iceberg",
@@ -4304,7 +3570,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 1.6
+          "value": 1.5
         },
         {
           "skillId": "dbt",
@@ -4346,7 +3612,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 449.3
+          "value": 439.6
         },
         {
           "skillId": "post-quantum",
@@ -4360,7 +3626,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 3.9
+          "value": 3.8
         },
         {
           "skillId": "zero-trust",
@@ -4402,7 +3668,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 8.6
+          "value": 8.4
         }
       ]
     },
@@ -4433,7 +3699,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 219.4
+          "value": 198.4
         },
         {
           "skillId": "llm-apps",
@@ -4447,7 +3713,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 68.3
+          "value": 70.1
         },
         {
           "skillId": "rag",
@@ -4461,7 +3727,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 8.4
+          "value": 8.6
         },
         {
           "skillId": "mcp",
@@ -4475,7 +3741,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 60.8
+          "value": 62.3
         },
         {
           "skillId": "evals",
@@ -4489,7 +3755,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 16
+          "value": 17.6
         },
         {
           "skillId": "finetuning",
@@ -4503,7 +3769,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 2.8
+          "value": 2.9
         },
         {
           "skillId": "ai-safety",
@@ -4517,7 +3783,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 5.2
+          "value": 5.3
         },
         {
           "skillId": "rust",
@@ -4531,7 +3797,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 10.8
+          "value": 11.1
         },
         {
           "skillId": "go",
@@ -4545,7 +3811,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 4.4
+          "value": 4.5
         },
         {
           "skillId": "typescript",
@@ -4559,7 +3825,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 52.8
+          "value": 54.1
         },
         {
           "skillId": "python",
@@ -4573,7 +3839,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 19.2
+          "value": 19.7
         },
         {
           "skillId": "kubernetes",
@@ -4587,7 +3853,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 21.6
+          "value": 22.1
         },
         {
           "skillId": "terraform",
@@ -4601,7 +3867,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 9.6
+          "value": 9.8
         },
         {
           "skillId": "platform-eng",
@@ -4615,7 +3881,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 6.8
+          "value": 7
         },
         {
           "skillId": "wasm",
@@ -4629,7 +3895,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 16
+          "value": 16.4
         },
         {
           "skillId": "ebpf",
@@ -4643,7 +3909,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 7.2
+          "value": 7.4
         },
         {
           "skillId": "duckdb",
@@ -4657,7 +3923,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 11.2
+          "value": 11.5
         },
         {
           "skillId": "iceberg",
@@ -4671,7 +3937,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 4
+          "value": 4.1
         },
         {
           "skillId": "dbt",
@@ -4685,7 +3951,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 3.2
+          "value": 3.3
         },
         {
           "skillId": "streaming",
@@ -4713,7 +3979,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 436.9
+          "value": 448
         },
         {
           "skillId": "post-quantum",
@@ -4755,7 +4021,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 3.6
+          "value": 3.7
         },
         {
           "skillId": "edge",
@@ -4769,7 +4035,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 8
+          "value": 8.2
         }
       ]
     },
@@ -5167,7 +4433,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 222.3
+          "value": 206.6
         },
         {
           "skillId": "llm-apps",
@@ -5181,7 +4447,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 59.8
+          "value": 61.1
         },
         {
           "skillId": "rag",
@@ -5195,7 +4461,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 6.4
+          "value": 6.5
         },
         {
           "skillId": "mcp",
@@ -5209,7 +4475,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 48.8
+          "value": 49.8
         },
         {
           "skillId": "evals",
@@ -5223,7 +4489,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 18.7
+          "value": 19.1
         },
         {
           "skillId": "finetuning",
@@ -5237,7 +4503,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 7.6
+          "value": 7.8
         },
         {
           "skillId": "ai-safety",
@@ -5251,7 +4517,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 7.6
+          "value": 7.8
         },
         {
           "skillId": "rust",
@@ -5265,7 +4531,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 13.2
+          "value": 13.4
         },
         {
           "skillId": "go",
@@ -5279,7 +4545,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 5.1
+          "value": 5.2
         },
         {
           "skillId": "typescript",
@@ -5293,7 +4559,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 55.2
+          "value": 56.3
         },
         {
           "skillId": "python",
@@ -5307,7 +4573,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 18.7
+          "value": 19.1
         },
         {
           "skillId": "kubernetes",
@@ -5321,7 +4587,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 21.2
+          "value": 21.7
         },
         {
           "skillId": "terraform",
@@ -5335,7 +4601,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 20.8
+          "value": 21.2
         },
         {
           "skillId": "platform-eng",
@@ -5349,7 +4615,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 5.1
+          "value": 5.2
         },
         {
           "skillId": "wasm",
@@ -5363,7 +4629,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 22.9
+          "value": 23.4
         },
         {
           "skillId": "ebpf",
@@ -5377,7 +4643,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 7.6
+          "value": 7.8
         },
         {
           "skillId": "duckdb",
@@ -5391,7 +4657,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 11.5
+          "value": 11.3
         },
         {
           "skillId": "iceberg",
@@ -5419,7 +4685,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 4.2
+          "value": 4.3
         },
         {
           "skillId": "streaming",
@@ -5433,7 +4699,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 2.5
+          "value": 2.6
         },
         {
           "skillId": "supply-chain-sec",
@@ -5447,7 +4713,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 417.5
+          "value": 426.2
         },
         {
           "skillId": "post-quantum",
@@ -5489,7 +4755,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 8.9
+          "value": 9.1
         },
         {
           "skillId": "edge",
@@ -5503,7 +4769,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 9.8
+          "value": 10
         }
       ]
     },
@@ -5534,7 +4800,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 226.7
+          "value": 226.3
         },
         {
           "skillId": "llm-apps",
@@ -5548,7 +4814,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 75.7
+          "value": 75.4
         },
         {
           "skillId": "rag",
@@ -5576,7 +4842,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 46.8
+          "value": 46.7
         },
         {
           "skillId": "evals",
@@ -5590,7 +4856,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 13.3
+          "value": 15.6
         },
         {
           "skillId": "finetuning",
@@ -5660,7 +4926,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 51.1
+          "value": 50.9
         },
         {
           "skillId": "python",
@@ -5688,7 +4954,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 28.9
+          "value": 29.5
         },
         {
           "skillId": "terraform",
@@ -5716,7 +4982,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 9.8
+          "value": 9.7
         },
         {
           "skillId": "wasm",
@@ -5744,7 +5010,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 9.4
+          "value": 9.3
         },
         {
           "skillId": "duckdb",
@@ -5772,7 +5038,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 2
+          "value": 1.9
         },
         {
           "skillId": "dbt",
@@ -5814,7 +5080,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 415.5
+          "value": 414.1
         },
         {
           "skillId": "post-quantum",
@@ -5828,7 +5094,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 5.5
+          "value": 5.4
         },
         {
           "skillId": "zero-trust",
@@ -5901,7 +5167,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 242.5
+          "value": 250.2
         },
         {
           "skillId": "llm-apps",
@@ -5915,7 +5181,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 62.4
+          "value": 61.7
         },
         {
           "skillId": "rag",
@@ -5929,7 +5195,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 9.4
+          "value": 9.3
         },
         {
           "skillId": "mcp",
@@ -5943,7 +5209,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 53
+          "value": 52.4
         },
         {
           "skillId": "evals",
@@ -5957,7 +5223,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 12.4
+          "value": 12.9
         },
         {
           "skillId": "finetuning",
@@ -5999,7 +5265,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 11.1
+          "value": 11
         },
         {
           "skillId": "go",
@@ -6013,7 +5279,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 3.4
+          "value": 3.3
         },
         {
           "skillId": "typescript",
@@ -6027,7 +5293,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 51
+          "value": 50.4
         },
         {
           "skillId": "python",
@@ -6041,7 +5307,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 12.4
+          "value": 12.3
         },
         {
           "skillId": "kubernetes",
@@ -6055,7 +5321,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 19.5
+          "value": 18.3
         },
         {
           "skillId": "terraform",
@@ -6069,7 +5335,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 21.1
+          "value": 20.9
         },
         {
           "skillId": "platform-eng",
@@ -6083,7 +5349,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 7.7
+          "value": 7.6
         },
         {
           "skillId": "wasm",
@@ -6097,7 +5363,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 18.8
+          "value": 18.6
         },
         {
           "skillId": "ebpf",
@@ -6111,7 +5377,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 8.4
+          "value": 8.3
         },
         {
           "skillId": "duckdb",
@@ -6125,7 +5391,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 16.1
+          "value": 16.3
         },
         {
           "skillId": "iceberg",
@@ -6181,7 +5447,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 404.8
+          "value": 400.6
         },
         {
           "skillId": "post-quantum",
@@ -6223,7 +5489,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 9.1
+          "value": 9
         },
         {
           "skillId": "edge",
@@ -6237,7 +5503,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 13.4
+          "value": 13.3
         }
       ]
     },
@@ -6268,7 +5534,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 508.1
+          "value": 256.9
         },
         {
           "skillId": "llm-apps",
@@ -6282,7 +5548,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 129.7
+          "value": 75.3
         },
         {
           "skillId": "rag",
@@ -6296,7 +5562,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 8.5
+          "value": 4.9
         },
         {
           "skillId": "mcp",
@@ -6310,7 +5576,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 95.7
+          "value": 55.5
         },
         {
           "skillId": "evals",
@@ -6324,7 +5590,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 15.3
+          "value": 8.9
         },
         {
           "skillId": "finetuning",
@@ -6338,7 +5604,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 5.1
+          "value": 3
         },
         {
           "skillId": "ai-safety",
@@ -6352,7 +5618,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 21.7
+          "value": 12.6
         },
         {
           "skillId": "rust",
@@ -6366,7 +5632,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 27.2
+          "value": 15.8
         },
         {
           "skillId": "go",
@@ -6380,7 +5646,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 9.8
+          "value": 5.7
         },
         {
           "skillId": "typescript",
@@ -6394,7 +5660,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 98.2
+          "value": 57
         },
         {
           "skillId": "python",
@@ -6408,7 +5674,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 12.3
+          "value": 10.9
         },
         {
           "skillId": "kubernetes",
@@ -6422,7 +5688,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 33.2
+          "value": 23.2
         },
         {
           "skillId": "terraform",
@@ -6436,7 +5702,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 14.9
+          "value": 16
         },
         {
           "skillId": "platform-eng",
@@ -6450,133 +5716,500 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
+          "value": 5.4
+        },
+        {
+          "skillId": "wasm",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 14.5
+        },
+        {
+          "skillId": "wasm",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 19
+        },
+        {
+          "skillId": "ebpf",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 2.4
+        },
+        {
+          "skillId": "ebpf",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 8.1
+        },
+        {
+          "skillId": "duckdb",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 12.1
+        },
+        {
+          "skillId": "duckdb",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 11.1
+        },
+        {
+          "skillId": "iceberg",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 12.1
+        },
+        {
+          "skillId": "iceberg",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 1.5
+        },
+        {
+          "skillId": "dbt",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 14.5
+        },
+        {
+          "skillId": "dbt",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 3
+        },
+        {
+          "skillId": "streaming",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 12.1
+        },
+        {
+          "skillId": "streaming",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 1
+        },
+        {
+          "skillId": "supply-chain-sec",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "supply-chain-sec",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 382.5
+        },
+        {
+          "skillId": "post-quantum",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 2.4
+        },
+        {
+          "skillId": "post-quantum",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 1.2
+        },
+        {
+          "skillId": "zero-trust",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "zero-trust",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 1
+        },
+        {
+          "skillId": "rsc",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "rsc",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 7.4
+        },
+        {
+          "skillId": "edge",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "edge",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 13.1
+        }
+      ]
+    },
+    {
+      "ts": "2026-03-02T16:00:27Z",
+      "sources": [
+        {
+          "id": "whoshiring",
+          "sourceClass": "hiring",
+          "live": true
+        },
+        {
+          "id": "hackernews",
+          "sourceClass": "practitioner",
+          "live": true
+        }
+      ],
+      "observations": [
+        {
+          "skillId": "ai-agents",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 96.3
+        },
+        {
+          "skillId": "ai-agents",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 374.6
+        },
+        {
+          "skillId": "llm-apps",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 43.5
+        },
+        {
+          "skillId": "llm-apps",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 57.5
+        },
+        {
+          "skillId": "rag",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 18.6
+        },
+        {
+          "skillId": "rag",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 5.5
+        },
+        {
+          "skillId": "mcp",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "mcp",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 69.3
+        },
+        {
+          "skillId": "evals",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 9.3
+        },
+        {
+          "skillId": "evals",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 11.5
+        },
+        {
+          "skillId": "finetuning",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 3.1
+        },
+        {
+          "skillId": "finetuning",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 4.8
+        },
+        {
+          "skillId": "ai-safety",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 12.4
+        },
+        {
+          "skillId": "ai-safety",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 12.7
+        },
+        {
+          "skillId": "rust",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 77.6
+        },
+        {
+          "skillId": "rust",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 11.1
+        },
+        {
+          "skillId": "go",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 90.1
+        },
+        {
+          "skillId": "go",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 2.7
+        },
+        {
+          "skillId": "typescript",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 257.8
+        },
+        {
+          "skillId": "typescript",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 51.8
+        },
+        {
+          "skillId": "python",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 236
+        },
+        {
+          "skillId": "python",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 8.8
+        },
+        {
+          "skillId": "kubernetes",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 105.6
+        },
+        {
+          "skillId": "kubernetes",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 17.3
+        },
+        {
+          "skillId": "terraform",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 62.1
+        },
+        {
+          "skillId": "terraform",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 13.3
+        },
+        {
+          "skillId": "platform-eng",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 3.1
+        },
+        {
+          "skillId": "platform-eng",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 7.5
+        },
+        {
+          "skillId": "wasm",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 6.2
+        },
+        {
+          "skillId": "wasm",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 19.9
+        },
+        {
+          "skillId": "ebpf",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 3.1
+        },
+        {
+          "skillId": "ebpf",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 4.9
+        },
+        {
+          "skillId": "duckdb",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 6.2
+        },
+        {
+          "skillId": "duckdb",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 8.8
+        },
+        {
+          "skillId": "iceberg",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 3.1
+        },
+        {
+          "skillId": "iceberg",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 0.1
+        },
+        {
+          "skillId": "dbt",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 6.2
+        },
+        {
+          "skillId": "dbt",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 1.9
+        },
+        {
+          "skillId": "streaming",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 15.5
+        },
+        {
+          "skillId": "streaming",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 0.6
+        },
+        {
+          "skillId": "supply-chain-sec",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "supply-chain-sec",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 297.8
+        },
+        {
+          "skillId": "post-quantum",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "post-quantum",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
           "value": 0.9
         },
         {
-          "skillId": "wasm",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 14.5
-        },
-        {
-          "skillId": "wasm",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 0
-        },
-        {
-          "skillId": "ebpf",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 2.4
-        },
-        {
-          "skillId": "ebpf",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 0
-        },
-        {
-          "skillId": "duckdb",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 12.1
-        },
-        {
-          "skillId": "duckdb",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 19.6
-        },
-        {
-          "skillId": "iceberg",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 12.1
-        },
-        {
-          "skillId": "iceberg",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 0
-        },
-        {
-          "skillId": "dbt",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 14.5
-        },
-        {
-          "skillId": "dbt",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 0
-        },
-        {
-          "skillId": "streaming",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 12.1
-        },
-        {
-          "skillId": "streaming",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 0
-        },
-        {
-          "skillId": "supply-chain-sec",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 0
-        },
-        {
-          "skillId": "supply-chain-sec",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 0
-        },
-        {
-          "skillId": "post-quantum",
-          "sourceId": "whoshiring",
-          "sourceClass": "hiring",
-          "metric": "per 1,000 job posts",
-          "value": 2.4
-        },
-        {
-          "skillId": "post-quantum",
-          "sourceId": "hackernews",
-          "sourceClass": "practitioner",
-          "metric": "share of stories (30d)",
-          "value": 0
-        },
-        {
           "skillId": "zero-trust",
           "sourceId": "whoshiring",
           "sourceClass": "hiring",
           "metric": "per 1,000 job posts",
-          "value": 0
+          "value": 3.1
         },
         {
           "skillId": "zero-trust",
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 2.8
         },
         {
           "skillId": "rsc",
@@ -6590,21 +6223,21 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 4.5
         },
         {
           "skillId": "edge",
           "sourceId": "whoshiring",
           "sourceClass": "hiring",
           "metric": "per 1,000 job posts",
-          "value": 0
+          "value": 3.1
         },
         {
           "skillId": "edge",
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 9.4
         }
       ]
     },
@@ -6635,7 +6268,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 371.1
         },
         {
           "skillId": "llm-apps",
@@ -6649,7 +6282,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 63.9
         },
         {
           "skillId": "rag",
@@ -6663,7 +6296,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 6.5
         },
         {
           "skillId": "mcp",
@@ -6677,7 +6310,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 58.3
         },
         {
           "skillId": "evals",
@@ -6691,7 +6324,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 13.5
         },
         {
           "skillId": "finetuning",
@@ -6705,7 +6338,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 265.3
+          "value": 3
         },
         {
           "skillId": "ai-safety",
@@ -6719,7 +6352,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 9.1
         },
         {
           "skillId": "rust",
@@ -6733,7 +6366,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 10.3
         },
         {
           "skillId": "go",
@@ -6747,7 +6380,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 3.3
         },
         {
           "skillId": "typescript",
@@ -6761,7 +6394,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 44.6
         },
         {
           "skillId": "python",
@@ -6775,7 +6408,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 10.7
         },
         {
           "skillId": "kubernetes",
@@ -6789,7 +6422,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 18.7
         },
         {
           "skillId": "terraform",
@@ -6803,7 +6436,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 15.1
         },
         {
           "skillId": "platform-eng",
@@ -6817,7 +6450,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 734.7
+          "value": 7.2
         },
         {
           "skillId": "wasm",
@@ -6831,7 +6464,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 18.7
         },
         {
           "skillId": "ebpf",
@@ -6845,7 +6478,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 7
         },
         {
           "skillId": "duckdb",
@@ -6859,7 +6492,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 8.6
         },
         {
           "skillId": "iceberg",
@@ -6873,7 +6506,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 0.2
         },
         {
           "skillId": "dbt",
@@ -6887,7 +6520,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 1.9
         },
         {
           "skillId": "streaming",
@@ -6901,7 +6534,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 0.7
         },
         {
           "skillId": "supply-chain-sec",
@@ -6915,7 +6548,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 310.9
         },
         {
           "skillId": "post-quantum",
@@ -6929,7 +6562,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 1.1
         },
         {
           "skillId": "zero-trust",
@@ -6943,7 +6576,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 2.8
         },
         {
           "skillId": "rsc",
@@ -6957,7 +6590,7 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
-          "value": 0
+          "value": 4
         },
         {
           "skillId": "edge",
@@ -6971,70 +6604,2162 @@
           "sourceId": "hackernews",
           "sourceClass": "practitioner",
           "metric": "share of stories (30d)",
+          "value": 8.8
+        }
+      ]
+    },
+    {
+      "ts": "2026-05-01T15:00:07Z",
+      "sources": [
+        {
+          "id": "whoshiring",
+          "sourceClass": "hiring",
+          "live": true
+        },
+        {
+          "id": "hackernews",
+          "sourceClass": "practitioner",
+          "live": true
+        }
+      ],
+      "observations": [
+        {
+          "skillId": "ai-agents",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 111.1
+        },
+        {
+          "skillId": "ai-agents",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 393.3
+        },
+        {
+          "skillId": "llm-apps",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 61.7
+        },
+        {
+          "skillId": "llm-apps",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 58.8
+        },
+        {
+          "skillId": "rag",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 34
+        },
+        {
+          "skillId": "rag",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 4.4
+        },
+        {
+          "skillId": "mcp",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 21.6
+        },
+        {
+          "skillId": "mcp",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 60.5
+        },
+        {
+          "skillId": "evals",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 9.3
+        },
+        {
+          "skillId": "evals",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 8
+        },
+        {
+          "skillId": "finetuning",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 9.3
+        },
+        {
+          "skillId": "finetuning",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 4.7
+        },
+        {
+          "skillId": "ai-safety",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 12.3
+        },
+        {
+          "skillId": "ai-safety",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 8.2
+        },
+        {
+          "skillId": "rust",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 86.4
+        },
+        {
+          "skillId": "rust",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 8.5
+        },
+        {
+          "skillId": "go",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 111.1
+        },
+        {
+          "skillId": "go",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 1.6
+        },
+        {
+          "skillId": "typescript",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 216
+        },
+        {
+          "skillId": "typescript",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 30
+        },
+        {
+          "skillId": "python",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 262.3
+        },
+        {
+          "skillId": "python",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 7.4
+        },
+        {
+          "skillId": "kubernetes",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 71
+        },
+        {
+          "skillId": "kubernetes",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 19
+        },
+        {
+          "skillId": "terraform",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 58.6
+        },
+        {
+          "skillId": "terraform",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 11
+        },
+        {
+          "skillId": "platform-eng",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 24.7
+        },
+        {
+          "skillId": "platform-eng",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 4.4
+        },
+        {
+          "skillId": "wasm",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 9.3
+        },
+        {
+          "skillId": "wasm",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 18.7
+        },
+        {
+          "skillId": "ebpf",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 15.4
+        },
+        {
+          "skillId": "ebpf",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 8.8
+        },
+        {
+          "skillId": "duckdb",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 9.3
+        },
+        {
+          "skillId": "duckdb",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 11.8
+        },
+        {
+          "skillId": "iceberg",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 6.2
+        },
+        {
+          "skillId": "iceberg",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 0.3
+        },
+        {
+          "skillId": "dbt",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 21.6
+        },
+        {
+          "skillId": "dbt",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 0.8
+        },
+        {
+          "skillId": "streaming",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 12.3
+        },
+        {
+          "skillId": "streaming",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 0.8
+        },
+        {
+          "skillId": "supply-chain-sec",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
           "value": 0
+        },
+        {
+          "skillId": "supply-chain-sec",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 320.8
+        },
+        {
+          "skillId": "post-quantum",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "post-quantum",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 3.3
+        },
+        {
+          "skillId": "zero-trust",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 12.3
+        },
+        {
+          "skillId": "zero-trust",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 0.8
+        },
+        {
+          "skillId": "rsc",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "rsc",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 1.1
+        },
+        {
+          "skillId": "edge",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 6.2
+        },
+        {
+          "skillId": "edge",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 12.9
+        }
+      ]
+    },
+    {
+      "ts": "2026-06-01T15:00:48Z",
+      "sources": [
+        {
+          "id": "whoshiring",
+          "sourceClass": "hiring",
+          "live": true
+        },
+        {
+          "id": "hackernews",
+          "sourceClass": "practitioner",
+          "live": true
+        }
+      ],
+      "observations": [
+        {
+          "skillId": "ai-agents",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 125.8
+        },
+        {
+          "skillId": "ai-agents",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 404.1
+        },
+        {
+          "skillId": "llm-apps",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 44
+        },
+        {
+          "skillId": "llm-apps",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 63.5
+        },
+        {
+          "skillId": "rag",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 22
+        },
+        {
+          "skillId": "rag",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 2.1
+        },
+        {
+          "skillId": "mcp",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 12.6
+        },
+        {
+          "skillId": "mcp",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 46.2
+        },
+        {
+          "skillId": "evals",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 6.3
+        },
+        {
+          "skillId": "evals",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 7.8
+        },
+        {
+          "skillId": "finetuning",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 6.3
+        },
+        {
+          "skillId": "finetuning",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 3.5
+        },
+        {
+          "skillId": "ai-safety",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 18.9
+        },
+        {
+          "skillId": "ai-safety",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 11.6
+        },
+        {
+          "skillId": "rust",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 81.8
+        },
+        {
+          "skillId": "rust",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 8.1
+        },
+        {
+          "skillId": "go",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 132.1
+        },
+        {
+          "skillId": "go",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 2.1
+        },
+        {
+          "skillId": "typescript",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 235.8
+        },
+        {
+          "skillId": "typescript",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 31
+        },
+        {
+          "skillId": "python",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 267.3
+        },
+        {
+          "skillId": "python",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 6.7
+        },
+        {
+          "skillId": "kubernetes",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 84.9
+        },
+        {
+          "skillId": "kubernetes",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 23.6
+        },
+        {
+          "skillId": "terraform",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 66
+        },
+        {
+          "skillId": "terraform",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 14.1
+        },
+        {
+          "skillId": "platform-eng",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 18.9
+        },
+        {
+          "skillId": "platform-eng",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 7.1
+        },
+        {
+          "skillId": "wasm",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 12.6
+        },
+        {
+          "skillId": "wasm",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 13
+        },
+        {
+          "skillId": "ebpf",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 6.3
+        },
+        {
+          "skillId": "ebpf",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 4.2
+        },
+        {
+          "skillId": "duckdb",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 6.3
+        },
+        {
+          "skillId": "duckdb",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 12.7
+        },
+        {
+          "skillId": "iceberg",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 9.4
+        },
+        {
+          "skillId": "iceberg",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 0.7
+        },
+        {
+          "skillId": "dbt",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 28.3
+        },
+        {
+          "skillId": "dbt",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 1.8
+        },
+        {
+          "skillId": "streaming",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 15.7
+        },
+        {
+          "skillId": "streaming",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 0.7
+        },
+        {
+          "skillId": "supply-chain-sec",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "supply-chain-sec",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 322.3
+        },
+        {
+          "skillId": "post-quantum",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 3.1
+        },
+        {
+          "skillId": "post-quantum",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 2.1
+        },
+        {
+          "skillId": "zero-trust",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 6.3
+        },
+        {
+          "skillId": "zero-trust",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 0.7
+        },
+        {
+          "skillId": "rsc",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 6.3
+        },
+        {
+          "skillId": "rsc",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 1.8
+        },
+        {
+          "skillId": "edge",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 12.6
+        },
+        {
+          "skillId": "edge",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 8.5
+        }
+      ]
+    },
+    {
+      "ts": "2026-07-01T15:01:21Z",
+      "sources": [
+        {
+          "id": "whoshiring",
+          "sourceClass": "hiring",
+          "live": true
+        },
+        {
+          "id": "hackernews",
+          "sourceClass": "practitioner",
+          "live": true
+        }
+      ],
+      "observations": [
+        {
+          "skillId": "ai-agents",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 104.5
+        },
+        {
+          "skillId": "ai-agents",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 396.3
+        },
+        {
+          "skillId": "llm-apps",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 48.5
+        },
+        {
+          "skillId": "llm-apps",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 75.1
+        },
+        {
+          "skillId": "rag",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 29.9
+        },
+        {
+          "skillId": "rag",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 2.8
+        },
+        {
+          "skillId": "mcp",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 18.7
+        },
+        {
+          "skillId": "mcp",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 49.5
+        },
+        {
+          "skillId": "evals",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "evals",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 7.1
+        },
+        {
+          "skillId": "finetuning",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 3.7
+        },
+        {
+          "skillId": "finetuning",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 3.1
+        },
+        {
+          "skillId": "ai-safety",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 14.9
+        },
+        {
+          "skillId": "ai-safety",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 13.8
+        },
+        {
+          "skillId": "rust",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 104.5
+        },
+        {
+          "skillId": "rust",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 9.8
+        },
+        {
+          "skillId": "go",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 93.3
+        },
+        {
+          "skillId": "go",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 3.1
+        },
+        {
+          "skillId": "typescript",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 246.3
+        },
+        {
+          "skillId": "typescript",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 26.5
+        },
+        {
+          "skillId": "python",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 216.4
+        },
+        {
+          "skillId": "python",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 8.6
+        },
+        {
+          "skillId": "kubernetes",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 67.2
+        },
+        {
+          "skillId": "kubernetes",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 16.9
+        },
+        {
+          "skillId": "terraform",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 41
+        },
+        {
+          "skillId": "terraform",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 10.2
+        },
+        {
+          "skillId": "platform-eng",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 11.2
+        },
+        {
+          "skillId": "platform-eng",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 4.6
+        },
+        {
+          "skillId": "wasm",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 7.5
+        },
+        {
+          "skillId": "wasm",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 18.5
+        },
+        {
+          "skillId": "ebpf",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 7.5
+        },
+        {
+          "skillId": "ebpf",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 9.5
+        },
+        {
+          "skillId": "duckdb",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 3.7
+        },
+        {
+          "skillId": "duckdb",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 14.8
+        },
+        {
+          "skillId": "iceberg",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 3.7
+        },
+        {
+          "skillId": "iceberg",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 0.6
+        },
+        {
+          "skillId": "dbt",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 11.2
+        },
+        {
+          "skillId": "dbt",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 0.3
+        },
+        {
+          "skillId": "streaming",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 11.2
+        },
+        {
+          "skillId": "streaming",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 0.9
+        },
+        {
+          "skillId": "supply-chain-sec",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "supply-chain-sec",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 318.8
+        },
+        {
+          "skillId": "post-quantum",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "post-quantum",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 2.2
+        },
+        {
+          "skillId": "zero-trust",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 3.7
+        },
+        {
+          "skillId": "zero-trust",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 1.2
+        },
+        {
+          "skillId": "rsc",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "rsc",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 0.3
+        },
+        {
+          "skillId": "edge",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 3.7
+        },
+        {
+          "skillId": "edge",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 5.5
+        }
+      ]
+    },
+    {
+      "ts": "2026-08-03T15:00:54Z",
+      "sources": [
+        {
+          "id": "whoshiring",
+          "sourceClass": "hiring",
+          "live": true
+        },
+        {
+          "id": "hackernews",
+          "sourceClass": "practitioner",
+          "live": true
+        }
+      ],
+      "observations": [
+        {
+          "skillId": "ai-agents",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 120.8
+        },
+        {
+          "skillId": "ai-agents",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 380
+        },
+        {
+          "skillId": "llm-apps",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 58.3
+        },
+        {
+          "skillId": "llm-apps",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 57.8
+        },
+        {
+          "skillId": "rag",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 25
+        },
+        {
+          "skillId": "rag",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 1.9
+        },
+        {
+          "skillId": "mcp",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 16.7
+        },
+        {
+          "skillId": "mcp",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 51.4
+        },
+        {
+          "skillId": "evals",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 20.8
+        },
+        {
+          "skillId": "evals",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 8.7
+        },
+        {
+          "skillId": "finetuning",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 8.3
+        },
+        {
+          "skillId": "finetuning",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 3.9
+        },
+        {
+          "skillId": "ai-safety",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 16.7
+        },
+        {
+          "skillId": "ai-safety",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 7.1
+        },
+        {
+          "skillId": "rust",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 66.7
+        },
+        {
+          "skillId": "rust",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 10.3
+        },
+        {
+          "skillId": "go",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 91.7
+        },
+        {
+          "skillId": "go",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 2.3
+        },
+        {
+          "skillId": "typescript",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 250
+        },
+        {
+          "skillId": "typescript",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 36.8
+        },
+        {
+          "skillId": "python",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 275
+        },
+        {
+          "skillId": "python",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 8.7
+        },
+        {
+          "skillId": "kubernetes",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 120.8
+        },
+        {
+          "skillId": "kubernetes",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 16.5
+        },
+        {
+          "skillId": "terraform",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 66.7
+        },
+        {
+          "skillId": "terraform",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 9.4
+        },
+        {
+          "skillId": "platform-eng",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 12.5
+        },
+        {
+          "skillId": "platform-eng",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 7.8
+        },
+        {
+          "skillId": "wasm",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 4.2
+        },
+        {
+          "skillId": "wasm",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 20.4
+        },
+        {
+          "skillId": "ebpf",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "ebpf",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 5.5
+        },
+        {
+          "skillId": "duckdb",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "duckdb",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 12.3
+        },
+        {
+          "skillId": "iceberg",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 4.2
+        },
+        {
+          "skillId": "iceberg",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 0.6
+        },
+        {
+          "skillId": "dbt",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 8.3
+        },
+        {
+          "skillId": "dbt",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 1.3
+        },
+        {
+          "skillId": "streaming",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 16.7
+        },
+        {
+          "skillId": "streaming",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 1
+        },
+        {
+          "skillId": "supply-chain-sec",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "supply-chain-sec",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 340.2
+        },
+        {
+          "skillId": "post-quantum",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "post-quantum",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 2.6
+        },
+        {
+          "skillId": "zero-trust",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 4.2
+        },
+        {
+          "skillId": "zero-trust",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 0.6
+        },
+        {
+          "skillId": "rsc",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "rsc",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 2.3
+        },
+        {
+          "skillId": "edge",
+          "sourceId": "whoshiring",
+          "sourceClass": "hiring",
+          "metric": "per 1,000 job posts",
+          "value": 0
+        },
+        {
+          "skillId": "edge",
+          "sourceId": "hackernews",
+          "sourceClass": "practitioner",
+          "metric": "share of stories (30d)",
+          "value": 10.7
         }
       ]
     }
   ],
   "claims": [
     {
-      "id": "python-table-stakes-2026-08-27",
+      "id": "python-table-stakes-2025-02-03",
+      "skillId": "python",
+      "verdict": "table-stakes",
+      "statement": "Python is assumed rather than advertised — high steady demand, little noise. Gaps here cost you quietly.",
+      "confidence": 0,
+      "demandIndex": 58,
+      "signalToNoise": 0.98,
+      "createdAt": "2025-02-03T16:00:43.000Z",
+      "checkBackAt": "2025-08-02T16:00:43.000Z",
+      "evidence": [],
+      "outcome": "partial",
+      "scoredAt": "2025-09-01T15:01:02.000Z",
+      "scoringNote": "slipped but did not collapse — index 58 → 52 (-10%)"
+    },
+    {
+      "id": "typescript-table-stakes-2025-02-03",
+      "skillId": "typescript",
+      "verdict": "table-stakes",
+      "statement": "TypeScript is assumed rather than advertised — high steady demand, little noise. Gaps here cost you quietly.",
+      "confidence": 0,
+      "demandIndex": 54,
+      "signalToNoise": 0.94,
+      "createdAt": "2025-02-03T16:00:43.000Z",
+      "checkBackAt": "2025-08-02T16:00:43.000Z",
+      "evidence": [],
+      "outcome": "correct",
+      "scoredAt": "2025-09-01T15:01:02.000Z",
+      "scoringNote": "held steady — index 54 → 63 (+17%)"
+    },
+    {
+      "id": "ai-agents-rising-2025-02-03",
+      "skillId": "ai-agents",
+      "verdict": "rising",
+      "statement": "AI agents & orchestration demand is genuinely climbing (+69%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 17,
+      "signalToNoise": 0.35,
+      "createdAt": "2025-02-03T16:00:43.000Z",
+      "checkBackAt": "2025-05-04T16:00:43.000Z",
+      "evidence": [],
+      "outcome": "correct",
+      "scoredAt": "2025-06-02T15:01:18.000Z",
+      "scoringNote": "kept climbing — index 17 → 24 (+41%)"
+    },
+    {
+      "id": "finetuning-rising-2025-02-03",
+      "skillId": "finetuning",
+      "verdict": "rising",
+      "statement": "Fine-tuning & model adaptation demand is genuinely climbing (+27%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0.87,
+      "createdAt": "2025-02-03T16:00:43.000Z",
+      "checkBackAt": "2025-05-04T16:00:43.000Z",
+      "evidence": [],
+      "outcome": "partial",
+      "scoredAt": "2025-06-02T15:01:18.000Z",
+      "scoringNote": "went flat rather than climbing — index 3 → 3 (0%)"
+    },
+    {
+      "id": "dbt-cooling-2025-03-03",
+      "skillId": "dbt",
+      "verdict": "cooling",
+      "statement": "dbt & analytics engineering demand is receding (-28%). Not worth starting from scratch this quarter.",
+      "confidence": 0,
+      "demandIndex": 5,
+      "signalToNoise": 0.98,
+      "createdAt": "2025-03-03T16:01:41.000Z",
+      "checkBackAt": "2025-08-30T16:01:41.000Z",
+      "evidence": [],
+      "outcome": "correct",
+      "scoredAt": "2025-09-01T15:01:02.000Z",
+      "scoringNote": "kept receding — index 5 → 2 (-60%)"
+    },
+    {
+      "id": "llm-apps-rising-2025-04-01",
+      "skillId": "llm-apps",
+      "verdict": "rising",
+      "statement": "LLM application engineering demand is genuinely climbing (+35%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 17,
+      "signalToNoise": 0.82,
+      "createdAt": "2025-04-01T15:01:11.000Z",
+      "checkBackAt": "2025-06-30T15:01:11.000Z",
+      "evidence": [],
+      "outcome": "wrong",
+      "scoredAt": "2025-07-01T15:01:36.000Z",
+      "scoringNote": "fell instead — index 17 → 14 (-18%)"
+    },
+    {
+      "id": "mcp-hype-2025-04-01",
+      "skillId": "mcp",
+      "verdict": "hype",
+      "statement": "Model Context Protocol is spiking on 88% noise — talk is running ahead of anyone paying for it. Expect this to fade rather than convert.",
+      "confidence": 0,
+      "demandIndex": 8,
+      "signalToNoise": 0.12,
+      "createdAt": "2025-04-01T15:01:11.000Z",
+      "checkBackAt": "2025-06-30T15:01:11.000Z",
+      "evidence": [],
+      "outcome": "correct",
+      "scoredAt": "2025-07-01T15:01:36.000Z",
+      "scoringNote": "faded as called — index 8 → 6 (-25%)"
+    },
+    {
+      "id": "wasm-cooling-2025-04-01",
+      "skillId": "wasm",
+      "verdict": "cooling",
+      "statement": "WebAssembly demand is receding (-37%). Not worth starting from scratch this quarter.",
+      "confidence": 0,
+      "demandIndex": 5,
+      "signalToNoise": 0.75,
+      "createdAt": "2025-04-01T15:01:11.000Z",
+      "checkBackAt": "2025-09-28T15:01:11.000Z",
+      "evidence": [],
+      "outcome": "correct",
+      "scoredAt": "2025-10-01T15:01:06.000Z",
+      "scoringNote": "kept receding — index 5 → 3 (-40%)"
+    },
+    {
+      "id": "streaming-cooling-2025-04-01",
+      "skillId": "streaming",
+      "verdict": "cooling",
+      "statement": "Streaming data (Kafka/Flink) demand is receding (-42%). Not worth starting from scratch this quarter.",
+      "confidence": 0,
+      "demandIndex": 5,
+      "signalToNoise": 0.95,
+      "createdAt": "2025-04-01T15:01:11.000Z",
+      "checkBackAt": "2025-09-28T15:01:11.000Z",
+      "evidence": [],
+      "outcome": "correct",
+      "scoredAt": "2025-10-01T15:01:06.000Z",
+      "scoringNote": "kept receding — index 5 → 2 (-60%)"
+    },
+    {
+      "id": "rag-rising-2025-04-01",
+      "skillId": "rag",
+      "verdict": "rising",
+      "statement": "Retrieval-augmented generation demand is genuinely climbing (+46%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0.89,
+      "createdAt": "2025-04-01T15:01:11.000Z",
+      "checkBackAt": "2025-06-30T15:01:11.000Z",
+      "evidence": [],
+      "outcome": "correct",
+      "scoredAt": "2025-07-01T15:01:36.000Z",
+      "scoringNote": "kept climbing — index 3 → 7 (+133%)"
+    },
+    {
+      "id": "rust-rising-2025-05-01",
+      "skillId": "rust",
+      "verdict": "rising",
+      "statement": "Rust demand is genuinely climbing (+27%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 24,
+      "signalToNoise": 0.97,
+      "createdAt": "2025-05-01T15:00:46.000Z",
+      "checkBackAt": "2025-07-30T15:00:46.000Z",
+      "evidence": [],
+      "outcome": "wrong",
+      "scoredAt": "2025-08-01T15:00:05.000Z",
+      "scoringNote": "fell instead — index 24 → 18 (-25%)"
+    },
+    {
+      "id": "dbt-rising-2025-05-01",
+      "skillId": "dbt",
+      "verdict": "rising",
+      "statement": "dbt & analytics engineering demand is genuinely climbing (+31%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0.9,
+      "createdAt": "2025-05-01T15:00:46.000Z",
+      "checkBackAt": "2025-07-30T15:00:46.000Z",
+      "evidence": [],
+      "outcome": "wrong",
+      "scoredAt": "2025-08-01T15:00:05.000Z",
+      "scoringNote": "fell instead — index 3 → 2 (-33%)"
+    },
+    {
+      "id": "ai-agents-rising-2025-06-02",
+      "skillId": "ai-agents",
+      "verdict": "rising",
+      "statement": "AI agents & orchestration demand is genuinely climbing (+38%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 24,
+      "signalToNoise": 0.43,
+      "createdAt": "2025-06-02T15:01:18.000Z",
+      "checkBackAt": "2025-08-31T15:01:18.000Z",
+      "evidence": [],
+      "outcome": "correct",
+      "scoredAt": "2025-09-01T15:01:02.000Z",
+      "scoringNote": "kept climbing — index 24 → 27 (+13%)"
+    },
+    {
+      "id": "finetuning-cooling-2025-06-02",
+      "skillId": "finetuning",
+      "verdict": "cooling",
+      "statement": "Fine-tuning & model adaptation demand is receding (-48%). Not worth starting from scratch this quarter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0.88,
+      "createdAt": "2025-06-02T15:01:18.000Z",
+      "checkBackAt": "2025-11-29T15:01:18.000Z",
+      "evidence": [],
+      "outcome": "correct",
+      "scoredAt": "2025-12-01T16:01:26.000Z",
+      "scoringNote": "kept receding — index 3 → 1 (-67%)"
+    },
+    {
+      "id": "rag-rising-2025-07-01",
+      "skillId": "rag",
+      "verdict": "rising",
+      "statement": "Retrieval-augmented generation demand is genuinely climbing (+56%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 7,
+      "signalToNoise": 0.93,
+      "createdAt": "2025-07-01T15:01:36.000Z",
+      "checkBackAt": "2025-09-29T15:01:36.000Z",
+      "evidence": [],
+      "outcome": "wrong",
+      "scoredAt": "2025-10-01T15:01:06.000Z",
+      "scoringNote": "fell instead — index 7 → 3 (-57%)"
+    },
+    {
+      "id": "mcp-hype-2025-07-01",
+      "skillId": "mcp",
+      "verdict": "hype",
+      "statement": "Model Context Protocol is spiking on 90% noise — talk is running ahead of anyone paying for it. Expect this to fade rather than convert.",
+      "confidence": 0,
+      "demandIndex": 6,
+      "signalToNoise": 0.1,
+      "createdAt": "2025-07-01T15:01:36.000Z",
+      "checkBackAt": "2025-09-29T15:01:36.000Z",
+      "evidence": [],
+      "outcome": "wrong",
+      "scoredAt": "2025-10-01T15:01:06.000Z",
+      "scoringNote": "converted into real hiring — signal share 0.1 → 0.2"
+    },
+    {
+      "id": "finetuning-rising-2025-08-01",
+      "skillId": "finetuning",
+      "verdict": "rising",
+      "statement": "Fine-tuning & model adaptation demand is genuinely climbing (+100%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 5,
+      "signalToNoise": 0.9,
+      "createdAt": "2025-08-01T15:00:05.000Z",
+      "checkBackAt": "2025-10-30T15:00:05.000Z",
+      "evidence": [],
+      "outcome": "wrong",
+      "scoredAt": "2025-11-03T16:00:00.000Z",
+      "scoringNote": "fell instead — index 5 → 2 (-60%)"
+    },
+    {
+      "id": "streaming-rising-2025-08-01",
+      "skillId": "streaming",
+      "verdict": "rising",
+      "statement": "Streaming data (Kafka/Flink) demand is genuinely climbing (+37%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 5,
+      "signalToNoise": 0.99,
+      "createdAt": "2025-08-01T15:00:05.000Z",
+      "checkBackAt": "2025-10-30T15:00:05.000Z",
+      "evidence": [],
+      "outcome": "wrong",
+      "scoredAt": "2025-11-03T16:00:00.000Z",
+      "scoringNote": "fell instead — index 5 → 3 (-40%)"
+    },
+    {
+      "id": "typescript-table-stakes-2025-09-01",
+      "skillId": "typescript",
+      "verdict": "table-stakes",
+      "statement": "TypeScript is assumed rather than advertised — high steady demand, little noise. Gaps here cost you quietly.",
+      "confidence": 0,
+      "demandIndex": 63,
+      "signalToNoise": 0.94,
+      "createdAt": "2025-09-01T15:01:02.000Z",
+      "checkBackAt": "2026-02-28T15:01:02.000Z",
+      "evidence": [],
+      "outcome": "partial",
+      "scoredAt": "2026-03-02T16:00:27.000Z",
+      "scoringNote": "slipped but did not collapse — index 63 → 53 (-16%)"
+    },
+    {
+      "id": "python-table-stakes-2025-09-01",
       "skillId": "python",
       "verdict": "table-stakes",
       "statement": "Python is assumed rather than advertised — high steady demand, little noise. Gaps here cost you quietly.",
       "confidence": 0,
       "demandIndex": 52,
-      "signalToNoise": 1,
-      "createdAt": "2026-08-27T22:12:41.047Z",
-      "checkBackAt": "2027-02-23T22:12:41.047Z",
-      "evidence": []
+      "signalToNoise": 0.97,
+      "createdAt": "2025-09-01T15:01:02.000Z",
+      "checkBackAt": "2026-02-28T15:01:02.000Z",
+      "evidence": [],
+      "outcome": "partial",
+      "scoredAt": "2026-03-02T16:00:27.000Z",
+      "scoringNote": "slipped but did not collapse — index 52 → 46 (-12%)"
     },
     {
-      "id": "typescript-table-stakes-2026-08-27",
+      "id": "ai-agents-rising-2025-09-01",
+      "skillId": "ai-agents",
+      "verdict": "rising",
+      "statement": "AI agents & orchestration demand is genuinely climbing (+32%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 27,
+      "signalToNoise": 0.48,
+      "createdAt": "2025-09-01T15:01:02.000Z",
+      "checkBackAt": "2025-11-30T15:01:02.000Z",
+      "evidence": [],
+      "outcome": "correct",
+      "scoredAt": "2025-12-01T16:01:26.000Z",
+      "scoringNote": "kept climbing — index 27 → 30 (+11%)"
+    },
+    {
+      "id": "duckdb-rising-2025-09-01",
+      "skillId": "duckdb",
+      "verdict": "rising",
+      "statement": "DuckDB & local analytics demand is genuinely climbing (+37%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0.71,
+      "createdAt": "2025-09-01T15:01:02.000Z",
+      "checkBackAt": "2025-11-30T15:01:02.000Z",
+      "evidence": [],
+      "outcome": "wrong",
+      "scoredAt": "2025-12-01T16:01:26.000Z",
+      "scoringNote": "fell instead — index 3 → 2 (-33%)"
+    },
+    {
+      "id": "rag-rising-2025-10-01",
+      "skillId": "rag",
+      "verdict": "rising",
+      "statement": "Retrieval-augmented generation demand is genuinely climbing (+32%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0.83,
+      "createdAt": "2025-10-01T15:01:06.000Z",
+      "checkBackAt": "2025-12-30T15:01:06.000Z",
+      "evidence": [],
+      "outcome": "correct",
+      "scoredAt": "2026-01-02T16:00:42.000Z",
+      "scoringNote": "kept climbing — index 3 → 8 (+167%)"
+    },
+    {
+      "id": "evals-rising-2025-10-01",
+      "skillId": "evals",
+      "verdict": "rising",
+      "statement": "LLM evals & observability demand is genuinely climbing (+29%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0.75,
+      "createdAt": "2025-10-01T15:01:06.000Z",
+      "checkBackAt": "2025-12-30T15:01:06.000Z",
+      "evidence": [],
+      "outcome": "partial",
+      "scoredAt": "2026-01-02T16:00:42.000Z",
+      "scoringNote": "went flat rather than climbing — index 3 → 3 (0%)"
+    },
+    {
+      "id": "iceberg-rising-2025-11-03",
+      "skillId": "iceberg",
+      "verdict": "rising",
+      "statement": "Apache Iceberg & lakehouse demand is genuinely climbing (+75%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0.95,
+      "createdAt": "2025-11-03T16:00:00.000Z",
+      "checkBackAt": "2026-02-01T16:00:00.000Z",
+      "evidence": [],
+      "outcome": "wrong",
+      "scoredAt": "2026-02-02T16:01:30.000Z",
+      "scoringNote": "fell instead — index 3 → 2 (-33%)"
+    },
+    {
+      "id": "rag-cooling-2025-12-01",
+      "skillId": "rag",
+      "verdict": "cooling",
+      "statement": "Retrieval-augmented generation demand is receding (-29%). Not worth starting from scratch this quarter.",
+      "confidence": 0,
+      "demandIndex": 4,
+      "signalToNoise": 0.91,
+      "createdAt": "2025-12-01T16:01:26.000Z",
+      "checkBackAt": "2026-05-30T16:01:26.000Z",
+      "evidence": [],
+      "outcome": "partial",
+      "scoredAt": "2026-06-01T15:00:48.000Z",
+      "scoringNote": "levelled off rather than falling — index 4 → 4 (0%)"
+    },
+    {
+      "id": "mcp-cooling-2025-12-01",
+      "skillId": "mcp",
+      "verdict": "cooling",
+      "statement": "Model Context Protocol demand is receding (-25%). Not worth starting from scratch this quarter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0,
+      "createdAt": "2025-12-01T16:01:26.000Z",
+      "checkBackAt": "2026-05-30T16:01:26.000Z",
+      "evidence": [],
+      "outcome": "wrong",
+      "scoredAt": "2026-06-01T15:00:48.000Z",
+      "scoringNote": "recovered — index 3 → 6 (+100%)"
+    },
+    {
+      "id": "terraform-rising-2026-01-02",
+      "skillId": "terraform",
+      "verdict": "rising",
+      "statement": "Terraform & IaC demand is genuinely climbing (+28%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 13,
+      "signalToNoise": 0.89,
+      "createdAt": "2026-01-02T16:00:42.000Z",
+      "checkBackAt": "2026-04-02T16:00:42.000Z",
+      "evidence": [],
+      "outcome": "wrong",
+      "scoredAt": "2026-05-01T15:00:07.000Z",
+      "scoringNote": "fell instead — index 13 → 12 (-8%)"
+    },
+    {
+      "id": "platform-eng-cooling-2026-01-02",
+      "skillId": "platform-eng",
+      "verdict": "cooling",
+      "statement": "Platform engineering demand is receding (-28%). Not worth starting from scratch this quarter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0.81,
+      "createdAt": "2026-01-02T16:00:42.000Z",
+      "checkBackAt": "2026-07-01T16:00:42.000Z",
+      "evidence": [],
+      "outcome": "partial",
+      "scoredAt": "2026-08-03T15:00:54.000Z",
+      "scoringNote": "levelled off rather than falling — index 3 → 3 (0%)"
+    },
+    {
+      "id": "finetuning-cooling-2026-02-02",
+      "skillId": "finetuning",
+      "verdict": "cooling",
+      "statement": "Fine-tuning & model adaptation demand is receding (-41%). Not worth starting from scratch this quarter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0.92,
+      "createdAt": "2026-02-02T16:01:30.000Z",
+      "checkBackAt": "2026-08-01T16:01:30.000Z",
+      "evidence": [],
+      "outcome": "correct",
+      "scoredAt": "2026-08-03T15:00:54.000Z",
+      "scoringNote": "kept receding — index 3 → 2 (-33%)"
+    },
+    {
+      "id": "typescript-table-stakes-2026-03-02",
       "skillId": "typescript",
       "verdict": "table-stakes",
       "statement": "TypeScript is assumed rather than advertised — high steady demand, little noise. Gaps here cost you quietly.",
       "confidence": 0,
-      "demandIndex": 48,
-      "signalToNoise": 1,
-      "createdAt": "2026-08-27T22:12:41.047Z",
-      "checkBackAt": "2027-02-23T22:12:41.047Z",
+      "demandIndex": 53,
+      "signalToNoise": 0.93,
+      "createdAt": "2026-03-02T16:00:27.000Z",
+      "checkBackAt": "2026-08-29T16:00:27.000Z",
       "evidence": []
     },
     {
-      "id": "platform-eng-hype-2026-08-27",
-      "skillId": "platform-eng",
-      "verdict": "hype",
-      "statement": "Platform engineering is spiking on 99% noise — talk is running ahead of anyone paying for it. Expect this to fade rather than convert.",
+      "id": "python-table-stakes-2026-03-02",
+      "skillId": "python",
+      "verdict": "table-stakes",
+      "statement": "Python is assumed rather than advertised — high steady demand, little noise. Gaps here cost you quietly.",
       "confidence": 0,
-      "demandIndex": 42,
-      "signalToNoise": 0.01,
-      "createdAt": "2026-08-27T22:12:41.047Z",
-      "checkBackAt": "2026-11-25T22:12:41.047Z",
+      "demandIndex": 46,
+      "signalToNoise": 0.99,
+      "createdAt": "2026-03-02T16:00:27.000Z",
+      "checkBackAt": "2026-08-29T16:00:27.000Z",
       "evidence": []
     },
     {
-      "id": "finetuning-hype-2026-08-27",
-      "skillId": "finetuning",
-      "verdict": "hype",
-      "statement": "Fine-tuning & model adaptation is spiking on 87% noise — talk is running ahead of anyone paying for it. Expect this to fade rather than convert.",
-      "confidence": 0,
-      "demandIndex": 17,
-      "signalToNoise": 0.13,
-      "createdAt": "2026-08-27T22:12:41.047Z",
-      "checkBackAt": "2026-11-25T22:12:41.047Z",
-      "evidence": []
-    },
-    {
-      "id": "rag-rising-2026-08-27",
+      "id": "rag-rising-2026-03-02",
       "skillId": "rag",
       "verdict": "rising",
-      "statement": "Retrieval-augmented generation demand is genuinely climbing (+55%), and the rise is carried by hiring evidence rather than chatter.",
+      "statement": "Retrieval-augmented generation demand is genuinely climbing (+36%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 4,
+      "signalToNoise": 0.9,
+      "createdAt": "2026-03-02T16:00:27.000Z",
+      "checkBackAt": "2026-05-31T16:00:27.000Z",
+      "evidence": [],
+      "outcome": "partial",
+      "scoredAt": "2026-06-01T15:00:48.000Z",
+      "scoringNote": "went flat rather than climbing — index 4 → 4 (0%)"
+    },
+    {
+      "id": "evals-rising-2026-03-02",
+      "skillId": "evals",
+      "verdict": "rising",
+      "statement": "LLM evals & observability demand is genuinely climbing (+26%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0.69,
+      "createdAt": "2026-03-02T16:00:27.000Z",
+      "checkBackAt": "2026-05-31T16:00:27.000Z",
+      "evidence": [],
+      "outcome": "wrong",
+      "scoredAt": "2026-06-01T15:00:48.000Z",
+      "scoringNote": "fell instead — index 3 → 2 (-33%)"
+    },
+    {
+      "id": "ai-safety-rising-2026-03-02",
+      "skillId": "ai-safety",
+      "verdict": "rising",
+      "statement": "AI safety & governance demand is genuinely climbing (+75%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0.73,
+      "createdAt": "2026-03-02T16:00:27.000Z",
+      "checkBackAt": "2026-05-31T16:00:27.000Z",
+      "evidence": [],
+      "outcome": "correct",
+      "scoredAt": "2026-06-01T15:00:48.000Z",
+      "scoringNote": "kept climbing — index 3 → 4 (+33%)"
+    },
+    {
+      "id": "streaming-cooling-2026-03-02",
+      "skillId": "streaming",
+      "verdict": "cooling",
+      "statement": "Streaming data (Kafka/Flink) demand is receding (-44%). Not worth starting from scratch this quarter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0.99,
+      "createdAt": "2026-03-02T16:00:27.000Z",
+      "checkBackAt": "2026-08-29T16:00:27.000Z",
+      "evidence": []
+    },
+    {
+      "id": "ai-agents-table-stakes-2026-04-01",
+      "skillId": "ai-agents",
+      "verdict": "table-stakes",
+      "statement": "AI agents & orchestration is assumed rather than advertised — high steady demand, little noise. Gaps here cost you quietly.",
+      "confidence": 0,
+      "demandIndex": 49,
+      "signalToNoise": 0.47,
+      "createdAt": "2026-04-01T15:01:36.000Z",
+      "checkBackAt": "2026-09-28T15:01:36.000Z",
+      "evidence": []
+    },
+    {
+      "id": "mcp-rising-2026-04-01",
+      "skillId": "mcp",
+      "verdict": "rising",
+      "statement": "Model Context Protocol demand is genuinely climbing (+25%), and the rise is carried by hiring evidence rather than chatter.",
       "confidence": 0,
       "demandIndex": 6,
-      "signalToNoise": 1,
-      "createdAt": "2026-08-27T22:12:41.047Z",
-      "checkBackAt": "2026-11-25T22:12:41.047Z",
+      "signalToNoise": 0.36,
+      "createdAt": "2026-04-01T15:01:36.000Z",
+      "checkBackAt": "2026-06-30T15:01:36.000Z",
+      "evidence": [],
+      "outcome": "correct",
+      "scoredAt": "2026-07-01T15:01:21.000Z",
+      "scoringNote": "kept climbing — index 6 → 7 (+17%)"
+    },
+    {
+      "id": "ai-agents-rising-2026-05-01",
+      "skillId": "ai-agents",
+      "verdict": "rising",
+      "statement": "AI agents & orchestration demand is genuinely climbing (+30%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 48,
+      "signalToNoise": 0.44,
+      "createdAt": "2026-05-01T15:00:07.000Z",
+      "checkBackAt": "2026-07-30T15:00:07.000Z",
+      "evidence": [],
+      "outcome": "partial",
+      "scoredAt": "2026-08-03T15:00:54.000Z",
+      "scoringNote": "went flat rather than climbing — index 48 → 49 (+2%)"
+    },
+    {
+      "id": "ebpf-rising-2026-05-01",
+      "skillId": "ebpf",
+      "verdict": "rising",
+      "statement": "eBPF demand is genuinely climbing (+50%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 4,
+      "signalToNoise": 0.83,
+      "createdAt": "2026-05-01T15:00:07.000Z",
+      "checkBackAt": "2026-07-30T15:00:07.000Z",
+      "evidence": [],
+      "outcome": "wrong",
+      "scoredAt": "2026-08-03T15:00:54.000Z",
+      "scoringNote": "fell instead — index 4 → 0 (-100%)"
+    },
+    {
+      "id": "duckdb-cooling-2026-05-01",
+      "skillId": "duckdb",
+      "verdict": "cooling",
+      "statement": "DuckDB & local analytics demand is receding (-25%). Not worth starting from scratch this quarter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0.69,
+      "createdAt": "2026-05-01T15:00:07.000Z",
+      "checkBackAt": "2026-10-28T15:00:07.000Z",
+      "evidence": []
+    },
+    {
+      "id": "dbt-rising-2026-06-01",
+      "skillId": "dbt",
+      "verdict": "rising",
+      "statement": "dbt & analytics engineering demand is genuinely climbing (+89%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 6,
+      "signalToNoise": 0.98,
+      "createdAt": "2026-06-01T15:00:48.000Z",
+      "checkBackAt": "2026-08-30T15:00:48.000Z",
+      "evidence": []
+    },
+    {
+      "id": "ai-safety-rising-2026-06-01",
+      "skillId": "ai-safety",
+      "verdict": "rising",
+      "statement": "AI safety & governance demand is genuinely climbing (+79%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 4,
+      "signalToNoise": 0.82,
+      "createdAt": "2026-06-01T15:00:48.000Z",
+      "checkBackAt": "2026-08-30T15:00:48.000Z",
+      "evidence": []
+    },
+    {
+      "id": "platform-eng-rising-2026-06-01",
+      "skillId": "platform-eng",
+      "verdict": "rising",
+      "statement": "Platform engineering demand is genuinely climbing (+62%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 4,
+      "signalToNoise": 0.88,
+      "createdAt": "2026-06-01T15:00:48.000Z",
+      "checkBackAt": "2026-08-30T15:00:48.000Z",
+      "evidence": []
+    },
+    {
+      "id": "streaming-rising-2026-06-01",
+      "skillId": "streaming",
+      "verdict": "rising",
+      "statement": "Streaming data (Kafka/Flink) demand is genuinely climbing (+33%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0.98,
+      "createdAt": "2026-06-01T15:00:48.000Z",
+      "checkBackAt": "2026-08-30T15:00:48.000Z",
+      "evidence": []
+    },
+    {
+      "id": "edge-rising-2026-06-01",
+      "skillId": "edge",
+      "verdict": "rising",
+      "statement": "Edge compute demand is genuinely climbing (+33%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 3,
+      "signalToNoise": 0.8,
+      "createdAt": "2026-06-01T15:00:48.000Z",
+      "checkBackAt": "2026-08-30T15:00:48.000Z",
+      "evidence": []
+    },
+    {
+      "id": "mcp-rising-2026-07-01",
+      "skillId": "mcp",
+      "verdict": "rising",
+      "statement": "Model Context Protocol demand is genuinely climbing (+28%), and the rise is carried by hiring evidence rather than chatter.",
+      "confidence": 0,
+      "demandIndex": 7,
+      "signalToNoise": 0.51,
+      "createdAt": "2026-07-01T15:01:21.000Z",
+      "checkBackAt": "2026-09-29T15:01:21.000Z",
+      "evidence": []
+    },
+    {
+      "id": "evals-cooling-2026-08-03",
+      "skillId": "evals",
+      "verdict": "cooling",
+      "statement": "LLM evals & observability demand is receding (-27%). Not worth starting from scratch this quarter.",
+      "confidence": 0,
+      "demandIndex": 5,
+      "signalToNoise": 0.87,
+      "createdAt": "2026-08-03T15:00:54.000Z",
+      "checkBackAt": "2027-01-30T15:00:54.000Z",
       "evidence": []
     }
   ]

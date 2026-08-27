@@ -20,7 +20,8 @@
     "backtest": "tsx scripts/backtest.ts",
     "leading": "tsx scripts/leading.ts",
     "leadlag": "tsx scripts/leadlag.ts",
-    "holdout": "tsx scripts/holdout.ts"
+    "holdout": "tsx scripts/holdout.ts",
+    "chart": "tsx scripts/chart.ts"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

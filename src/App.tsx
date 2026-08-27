@@ -69,11 +69,6 @@ export default function App() {
     };
   }, [state]);
 
-  const topRising = useMemo(
-    () => (state?.signals ?? []).filter((s) => s.verdict === 'rising').sort((a, b) => b.momentum - a.momentum)[0],
-    [state],
-  );
-
   return (
     <div className="page">
       <div className="glow" />
@@ -97,7 +92,9 @@ export default function App() {
         <header className="hero">
           <span className="pill">
             <span className="dot" style={{ background: 'var(--rising)' }} />
-            {topRising ? `${topRising.skill.label} is up ${topRising.momentum}% this window` : 'Skill demand radar'}
+            {state?.accuracy?.rate !== null && state?.accuracy?.rate !== undefined
+              ? `${state.accuracy.rate}% of its own calls graded correct so far`
+              : 'Every call dated, graded and on the record'}
           </span>
           <h1>
             What to learn next.<br />

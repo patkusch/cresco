@@ -39,15 +39,14 @@ async function whoIsHiringThreads(): Promise<AlgoliaStory[]> {
   return (res?.hits ?? [])
     .filter((h) => /who is hiring/i.test(h.title) && !/wants to be hired|freelancer/i.test(h.title))
     .sort((a, b) => b.created_at_i - a.created_at_i)
-    .slice(0, MONTHS)
-    .reverse();
+    .slice(0, MONTHS);
 }
 
 /** Count how many job posts in one monthly thread name each skill. */
 async function countThread(story: AlgoliaStory): Promise<{ counts: Map<string, number>; posts: number }> {
-  let thread = await getJSON<HNItem>(`https://hn.algolia.com/api/v1/items/${story.objectID}`, { timeoutMs: 45_000 });
-  if (!thread?.children?.length) {
-    await new Promise((r) => setTimeout(r, 1500));
+  let thread: HNItem | null = null;
+  for (let attempt = 0; attempt < 4 && !thread?.children?.length; attempt++) {
+    if (attempt) await new Promise((r) => setTimeout(r, 1500 * attempt));
     thread = await getJSON<HNItem>(`https://hn.algolia.com/api/v1/items/${story.objectID}`, { timeoutMs: 60_000 });
   }
   const counts = new Map<string, number>();
@@ -65,7 +64,11 @@ async function countThread(story: AlgoliaStory): Promise<{ counts: Map<string, n
 /** Real HN story volume inside one month window. */
 async function hnWindow(from: number, to: number): Promise<Map<string, number>> {
   const out = new Map<string, number>();
-  await mapLimit(SKILLS, 5, async (skill) => {
+  // Concurrency 2, not 5. Algolia throttles cumulatively across a long run, and
+  // getJSON turns a 429 into null — so an over-eager backfill silently records
+  // "no hiring data" for whatever it happens to reach last. Same failure mode as
+  // the Wikimedia one; both are throttling wearing the costume of absent data.
+  await mapLimit(SKILLS, 2, async (skill) => {
     let total = 0;
     for (const q of skill.queries.slice(0, 2)) {
       const data = await getJSON<{ nbHits: number }>(
@@ -126,6 +129,8 @@ for (const story of threads) {
     });
   }
 
+  await new Promise((r) => setTimeout(r, 600));
+
   snapshots.push({
     ts: story.created_at,
     sources: [
@@ -136,6 +141,8 @@ for (const story of threads) {
   });
   console.log('done');
 }
+
+snapshots.sort((a, b) => a.ts.localeCompare(b.ts));
 
 const ledger: Ledger = { version: 1, seeded: false, snapshots, claims: [] };
 ledger.claims = mintClaims(ledger, computeSignals(ledger, {}));
