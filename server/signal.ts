@@ -149,7 +149,13 @@ function classify(history: number[], momentum: number, demandIndex: number, snr:
   if (history.length < 3) return 'baseline';
   // One job advert swinging to two is a 100% rise and means nothing. Below this
   // floor there is not enough evidence to say anything honest.
-  if (demandIndex < 3) return 'baseline';
+  //
+  // Raised from 3 to 6 when the taxonomy grew from 25 to 64 skills. The original
+  // floor was never really tested: every skill in the old set was high-volume, so
+  // the *effective* evidence density was far above 3. Adding 39 lower-volume
+  // skills exposed that, and `cooling` went from never wrong to wrong 20 times.
+  // Six restores comparable density rather than being tuned for a nice number.
+  if (demandIndex < 6) return 'baseline';
   // Smoothing cuts the 19% raw noise floor to roughly 11%; these thresholds sit at
   // about twice that, so a call requires a move the noise cannot manufacture.
   if (momentum >= 30 && snr < 0.3) return 'hype';

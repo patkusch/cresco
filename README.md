@@ -104,48 +104,52 @@ mint new calls from **only** the data that existed at that point. Signals at ste
 are computed from `snapshots.slice(0, m+1)`, so the reference scale, the momentum
 window and source eligibility all see exactly what they would have seen at the time.
 
-**Current score — 85 graded calls over 72 months:**
+**Current score — 93 graded calls over 72 months, 64 skills:**
 
 | Call type | Hit rate | Right / wrong / partial |
 |---|---|---|
-| **Table stakes** | **71%** | 15 / **0** / 6 |
-| **Cooling** | **64%** | 7 / **0** / 4 |
-| **Rising** | 29% | 14 / 23 / 11 |
-| **Hype** | 20% | 1 / 4 / 0 |
-| **Overall** | **44%** | 37 / 27 / 21 |
+| **Established** | **57%** | 8 / **0** / 6 |
+| Hype | 67% | 2 / 1 / 0 |
+| Receding | 53% | 10 / 4 / 5 |
+| Rising | 21% | 12 / 40 / 5 |
+| **Overall** | **34%** | 32 / 45 / 16 |
+
+### One verdict survived a wider test, and one didn't
+
+An earlier version of this README said the system had been **wrong zero times across
+32 `table-stakes` and `cooling` calls**. That was true, and it was measured on a
+curated set of 25 mostly high-volume skills. Expanding to 64 — adding cloud, mobile,
+mainstream languages and lower-volume specialisms — broke half of it.
+
+| | on 25 skills | on 64 skills |
+|---|---|---|
+| **Established** | 71%, 0 wrong | **57%, 0 wrong** |
+| Receding | 64%, 0 wrong | **33%, 20 wrong** |
+
+**Established held.** It is the only call in this system that is stable across every
+evidence threshold tested — its calls live in high-volume skills, so the floor does not
+move it. *This is assumed knowledge now* is a claim the data supports.
+
+**Receding did not.** Its perfect record was an artefact of the narrow skill set. It has
+been demoted out of the trusted tier on its own evidence, and now sits alongside `rising`
+and `hype` with its real number attached.
+
+The evidence floor was also raised from 3 to 6 as part of this. The original was never
+genuinely tested: every skill in the old taxonomy was high-volume, so the effective
+evidence density was far above the nominal floor. Adding 39 lower-volume skills exposed
+it.
 
 ### What this product can and cannot do
 
-Read that table honestly and it splits cleanly in two.
+**It can tell you what has become assumed knowledge.** 57%, never wrong, robust to every
+threshold we tried. Those are the calls worth acting on.
 
-**It works for what is established and what is losing ground.** Across 32 graded `table-stakes`
-and `cooling` calls it was **wrong zero times** — the misses are all "partial", meaning
-the skill went flatter than called rather than moving the other way. Those are the calls
-worth acting on: *this is assumed knowledge now*, and *this is losing ground*.
+**It cannot tell you what will rise next.** `rising` is 21% — 40 wrong calls against 12
+right. Every "skills to learn in 2026" list is making exactly this call, and six years of
+data say it cannot be made reliably from this evidence.
 
-**It does not work for what is about to rise.** `rising` is 29% and `hype` is 20% —
-worse than useless, since a wrong call sends you off to learn the wrong thing. Every
-"skills to learn next year" list is making exactly this call, and we can now show, on
-six years of real data, that we cannot make it reliably. Neither, presumably, can they.
-
-The dashboard is built around that split. `Established` and `Receding` lead the page;
-`Rising` and `Hype` are kept visible but visually subordinate, under a heading that says
-**"Where we can't call it"**, with their real hit rates printed on every badge.
-
-**A note on how sparse the board looks.** Only about five of twenty-five skills get a
-confident call; the rest read "no call". That is deliberate, and it was tested — lowering
-the `table-stakes` threshold to widen coverage degrades accuracy monotonically:
-
-| Threshold | Hit rate | Graded | Wrong | Skills with a call |
-|---|---|---|---|---|
-| **45** | **71%** | 21 | **0** | 5 |
-| 35 | 66% | 29 | 2 | 6 |
-| 25 | 55% | 40 | 7 | 6 |
-| 18 | 52% | 54 | 8 | 8 |
-
-The rule was "take the widest coverage whose accuracy does not degrade", and the answer
-came back: keep 45. Confident calls are genuinely rare, and a fuller-looking dashboard
-would be a less truthful one.
+Every verdict badge in the UI carries its own measured hit rate, so the unreliable calls
+announce themselves on the card.
 
 <details>
 <summary><b>Why <code>rising</code> fails, and what we tried</b></summary>
@@ -194,7 +198,7 @@ Cresco reconstructs two years of real signal on first run instead of making you 
 
 ```bash
 npm run backtest      # replay history and grade the calls it would have made
-npm run leading       # fetch leading indicators (npm + Wikipedia, 36 months, no key)
+npm run leading       # fetch leading indicators (npm + Wikipedia, 84 months, no key)
 npm run leadlag       # measure whether adoption leads hiring, and by how long
 npm run holdout       # validate that lead out-of-sample against a shuffled null
 npm run chart         # regenerate docs/leadlag.svg from current data
@@ -242,7 +246,7 @@ manufacture novelty, and you will come home to forty pages of slop.
 | **Reddit** | `community` | — | Best-effort via public JSON; rate-limited. |
 | **Bluesky** | `community` | — | Public AT Protocol. The social signal that is actually open. |
 | **YouTube** | `content` | free | Weak as demand — content follows hype. Essential as supply. |
-| **Wikipedia** | *leading* | — | 36 months of pageviews. Measured, not yet trusted. |
+| **Wikipedia** | *leading* | — | 84 months of pageviews. Measured and rejected. |
 | **npm** | *leading* | — | Collected and **rejected** — see the receipts above. |
 
 **Deliberately absent:** X/Twitter is a paid API tier, and LinkedIn has no public API
@@ -296,7 +300,7 @@ Three rules keep the score honest, and each exists because it caught a real bug:
 
 ## Honest status
 
-- **72 real months** (Sep 2020 → Aug 2026) mined from the Hacker News hiring archive.
+- **72 real months** (Sep 2020 → Aug 2026) across **64 skills**, mined from the Hacker News hiring archive.
   `npm run seed` generates a synthetic ledger for offline demos and flags itself as
   seeded in the UI *and* the data.
 - **Only two sources currently score:** `whoshiring` and `hackernews`. Adzuna, YouTube,
@@ -312,8 +316,10 @@ Three rules keep the score honest, and each exists because it caught a real bug:
 - **The hiring signal is Hacker News**, so it reads startup and tech-forward hiring, not
   the whole labour market.
 - **Source reweighting (step 4) is not built.**
-- **Proxy coverage is partial and honest.** 23 of 25 skills have an npm or Wikipedia
-  proxy; the rest keep their lagging signal only. No proxy was invented to fill a blank.
+- **Proxy coverage is partial and honest.** 24 of the original 25 skills have an npm or
+  Wikipedia proxy; the 39 added later have none yet. No proxy was invented to fill a blank.
+- **64 skills across 8 categories**, and only about five get a confident call. That is the
+  honest yield, not a bug — see the threshold table above.
 
 <br>
 

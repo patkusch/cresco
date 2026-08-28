@@ -13,13 +13,17 @@ const VERDICT: Record<Verdict, { label: string; color: string; icon: string; blu
 /**
  * Which verdicts the backtest actually supports.
  *
- * Across 32 graded `table-stakes` and `cooling` calls the system has been wrong
- * zero times. `rising` is 29% and `hype` 20% — worse than useless, because a wrong
- * call here sends someone off to learn the wrong thing. Both are still computed and
- * still shown, because hiding a bad call is not the same as fixing it, but they no
- * longer get to be the headline.
+ * Only one. `table-stakes` holds at 57% and has never been wrong, and it is stable
+ * across every evidence floor tested — its calls live in high-volume skills, so the
+ * threshold does not move it.
+ *
+ * `cooling` used to sit here on a record of 64% and never wrong. That was measured
+ * on a curated 25-skill set; applied to 64 skills including lower-volume ones it
+ * came back 33% with 20 wrong calls, and it is only respectable at floors that
+ * leave almost nothing on the board. It has been demoted on its own evidence.
+ * `rising` and `hype` never qualified.
  */
-const RELIABLE: Verdict[] = ['table-stakes', 'cooling'];
+const RELIABLE: Verdict[] = ['table-stakes'];
 const isReliable = (v: Verdict) => RELIABLE.includes(v);
 
 function Badge({ verdict }: { verdict: Verdict }) {
@@ -81,7 +85,7 @@ export default function App() {
     return {
       stakes: s.filter((x) => x.verdict === 'table-stakes').length,
       cooling: s.filter((x) => x.verdict === 'cooling').length,
-      unproven: s.filter((x) => x.verdict === 'rising' || x.verdict === 'hype').length,
+      unproven: s.filter((x) => x.verdict === 'rising' || x.verdict === 'hype' || x.verdict === 'cooling').length,
     };
   }, [state]);
 
@@ -146,17 +150,17 @@ export default function App() {
           </div>
           <div className="card tile">
             <div className="label">Receding</div>
-            <div className="value" style={{ color: 'var(--cooling)' }}>{counts.cooling}</div>
+            <div className="value" style={{ color: 'var(--ink-3)' }}>{counts.cooling}</div>
             <div className="sub">
               {state?.verdictAccuracy?.cooling?.scored
-                ? `${state.verdictAccuracy.cooling.rate}% right · never wrong`
+                ? `${state.verdictAccuracy.cooling.rate}% right · demoted, see below`
                 : 'demand draining away'}
             </div>
           </div>
           <div className="card tile">
             <div className="label">Can't call it</div>
             <div className="value" style={{ color: 'var(--ink-3)' }}>{counts.unproven}</div>
-            <div className="sub">rising / hype — shown, not trusted</div>
+            <div className="sub">shown with their scores, not trusted</div>
           </div>
           <div className="card tile">
             <div className="label">Calls on record</div>
@@ -184,9 +188,11 @@ export default function App() {
         <div className="tier">
           <h2>What holds up</h2>
           <p>
-            Across {(state?.verdictAccuracy?.['table-stakes']?.scored ?? 0) + (state?.verdictAccuracy?.cooling?.scored ?? 0)}{' '}
-            graded calls of these two kinds, Cresco has been wrong <strong>zero</strong> times.
-            These are the ones worth acting on.
+            One verdict has earned this. Across{' '}
+            {state?.verdictAccuracy?.['table-stakes']?.scored ?? 0} graded calls of skills
+            that had become assumed knowledge, Cresco has been wrong <strong>zero</strong>{' '}
+            times — and unlike every other call it makes, that holds at every evidence
+            threshold tested.
           </p>
         </div>
 
@@ -230,12 +236,14 @@ export default function App() {
             <div className="tier" data-weak="true">
               <h2>Where we can't call it</h2>
               <p>
-                Momentum verdicts, kept visible with their real hit rates attached:{' '}
+                Kept visible with their real hit rates attached:{' '}
+                <strong>receding {state?.verdictAccuracy?.cooling?.rate ?? '—'}%</strong>,{' '}
                 <strong>rising {state?.verdictAccuracy?.rising?.rate ?? '—'}%</strong>,{' '}
-                <strong>hype {state?.verdictAccuracy?.hype?.rate ?? '—'}%</strong>. A wrong call
-                here sends you off to learn the wrong thing, so treat these as open questions
-                rather than recommendations. Every "skills to learn next year" list is making
-                exactly this call without showing you a score.
+                <strong>hype {state?.verdictAccuracy?.hype?.rate ?? '—'}%</strong>. Receding was
+                in the tier above until a wider skill set showed its record was an artefact of
+                the narrow one. A wrong call here sends you off to learn the wrong thing — or
+                to abandon something you shouldn't — so treat these as open questions rather
+                than recommendations.
               </p>
             </div>
             <div className="grid dim-grid">
