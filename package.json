@@ -24,7 +24,8 @@
     "chart": "tsx scripts/chart.ts",
     "market": "tsx scripts/market.ts",
     "compare": "tsx scripts/compare.ts",
-    "edgar": "tsx scripts/edgar.ts"
+    "edgar": "tsx scripts/edgar.ts",
+    "test": "tsx scripts/test-matcher.ts"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

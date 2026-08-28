@@ -337,7 +337,22 @@ function Detail({ signal: s, state, onClose }: { signal: SkillSignal; state: Das
         </p>
         <SourceMix byClass={s.byClass} />
 
-        <div className="section-t">Learn it free</div>
+        <div className="section-t">
+          {s.verdict === 'cooling' ? 'Learning this anyway' : 'Close the gap, free'}
+        </div>
+        {s.verdict === 'cooling' && (
+          <p style={{ margin: '0 0 12px', color: 'var(--ink-2)', fontSize: 13 }}>
+            Demand for this is receding, so this is not a skill to pick up from scratch
+            this quarter. Kept here for anyone already invested who wants to go deeper.
+          </p>
+        )}
+        {s.verdict === 'table-stakes' && (
+          <p style={{ margin: '0 0 12px', color: 'var(--ink-2)', fontSize: 13 }}>
+            This is assumed knowledge in {Math.round(s.byClass.hiring * 100) || '—'}% of the
+            hiring evidence. A gap here is the kind that costs you quietly, and it costs
+            nothing to close.
+          </p>
+        )}
         {s.path.length === 0 && (
           <p style={{ color: 'var(--ink-3)', fontSize: 13, margin: 0 }}>
             No path built yet — run <code className="mono">npm run collect -- --paths</code>.
