@@ -4,7 +4,7 @@ import type { DashboardState, SkillSignal, Verdict } from './types.ts';
 
 const VERDICT: Record<Verdict, { label: string; color: string; icon: string; blurb: string }> = {
   'table-stakes': { label: 'Established', color: 'var(--stakes)',   icon: '=', blurb: 'Assumed rather than advertised. A gap here costs you quietly.' },
-  cooling:        { label: 'Receding',    color: 'var(--cooling)',  icon: '▼', blurb: 'Demand is draining out of this. Not worth starting from scratch.' },
+  cooling:        { label: 'Receding',    color: 'var(--cooling)',  icon: '▼', blurb: 'Losing ground. Not worth starting from scratch this quarter.' },
   rising:         { label: 'Rising',      color: 'var(--rising)',   icon: '▲', blurb: 'Climbing — but this call has been wrong more often than right.' },
   hype:           { label: 'Hype',        color: 'var(--hype)',     icon: '!', blurb: 'Loud with nobody paying — and a call we cannot make reliably.' },
   baseline:       { label: 'No call',     color: 'var(--baseline)', icon: '·', blurb: 'Not enough evidence to say anything honest.' },
@@ -114,12 +114,12 @@ export default function App() {
           </span>
           <h1>
             What's actually expected.<br />
-            <span className="dim">And what's quietly dying.</span>
+            <span className="dim">And what's losing ground.</span>
           </h1>
           <p>
             Cresco grades every call it makes against what actually happened. Six years of
             hiring data say it can tell you what has become assumed knowledge and what is
-            draining away — and that it <em>cannot</em> tell you what will rise next.
+            losing ground — and that it <em>cannot</em> tell you what will rise next.
             Both answers are on this page.
           </p>
         </header>

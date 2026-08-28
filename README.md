@@ -118,10 +118,10 @@ window and source eligibility all see exactly what they would have seen at the t
 
 Read that table honestly and it splits cleanly in two.
 
-**It works for what is established and what is dying.** Across 32 graded `table-stakes`
+**It works for what is established and what is losing ground.** Across 32 graded `table-stakes`
 and `cooling` calls it was **wrong zero times** — the misses are all "partial", meaning
 the skill went flatter than called rather than moving the other way. Those are the calls
-worth acting on: *this is assumed knowledge now*, and *this is quietly receding*.
+worth acting on: *this is assumed knowledge now*, and *this is losing ground*.
 
 **It does not work for what is about to rise.** `rising` is 29% and `hype` is 20% —
 worse than useless, since a wrong call sends you off to learn the wrong thing. Every
