@@ -4,7 +4,8 @@
 
 <br>
 
-**A skill-demand radar that grades its own predictions — and publishes the score.**
+**A skill-demand radar that grades its own predictions — and publishes the score,
+including the calls it cannot make.**
 
 <br>
 
@@ -127,8 +128,24 @@ worse than useless, since a wrong call sends you off to learn the wrong thing. E
 "skills to learn next year" list is making exactly this call, and we can now show, on
 six years of real data, that we cannot make it reliably. Neither, presumably, can they.
 
-Every verdict badge in the UI carries its own measured hit rate beside it, so the
-unreliable calls announce themselves on the card.
+The dashboard is built around that split. `Established` and `Receding` lead the page;
+`Rising` and `Hype` are kept visible but visually subordinate, under a heading that says
+**"Where we can't call it"**, with their real hit rates printed on every badge.
+
+**A note on how sparse the board looks.** Only about five of twenty-five skills get a
+confident call; the rest read "no call". That is deliberate, and it was tested — lowering
+the `table-stakes` threshold to widen coverage degrades accuracy monotonically:
+
+| Threshold | Hit rate | Graded | Wrong | Skills with a call |
+|---|---|---|---|---|
+| **45** | **71%** | 21 | **0** | 5 |
+| 35 | 66% | 29 | 2 | 6 |
+| 25 | 55% | 40 | 7 | 6 |
+| 18 | 52% | 54 | 8 | 8 |
+
+The rule was "take the widest coverage whose accuracy does not degrade", and the answer
+came back: keep 45. Confident calls are genuinely rare, and a fuller-looking dashboard
+would be a less truthful one.
 
 <details>
 <summary><b>Why <code>rising</code> fails, and what we tried</b></summary>

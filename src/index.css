@@ -295,3 +295,24 @@ button { font-family: inherit; }
 .oc[data-o='partial'] { color: var(--hype); }
 
 @media (max-width: 940px) { .record { grid-template-columns: repeat(2, 1fr); } }
+
+/* ---------- verdict tiers ---------- */
+
+.tier { margin: 46px 0 16px; }
+.tier h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+.tier p { margin: 8px 0 0; color: var(--ink-2); font-size: 13.5px; max-width: 660px; line-height: 1.55; }
+.tier[data-weak='true'] h2 { color: var(--ink-2); }
+.tier[data-weak='true'] { padding-top: 34px; border-top: 1px solid var(--hairline); }
+
+/* Unproven calls are visible but visually subordinate — present, not promoted. */
+.dim-grid .skill { opacity: 0.72; }
+.dim-grid .skill:hover { opacity: 1; }
+
+.nocall {
+  margin-top: 26px; padding: 14px 16px; border-radius: 11px;
+  border: 1px dashed var(--hairline-strong); background: rgba(255, 255, 255, 0.015);
+  color: var(--ink-3); font-size: 12.5px; line-height: 1.5;
+}
+.nocall strong { color: var(--ink-2); }
+
+.hero p em { font-style: normal; color: var(--ink); font-weight: 500; }

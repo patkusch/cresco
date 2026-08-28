@@ -3,12 +3,24 @@ import { Sparkline, SourceMix, SignalMeter, CLASS_COLOR } from './components/cha
 import type { DashboardState, SkillSignal, Verdict } from './types.ts';
 
 const VERDICT: Record<Verdict, { label: string; color: string; icon: string; blurb: string }> = {
-  rising:         { label: 'Rising',       color: 'var(--rising)',   icon: '▲', blurb: 'Climbing, and hiring is carrying the rise.' },
-  hype:           { label: 'Hype',         color: 'var(--hype)',     icon: '!', blurb: 'Loud, but nobody is paying for it yet.' },
-  'table-stakes': { label: 'Table stakes', color: 'var(--stakes)',   icon: '=', blurb: 'Assumed rather than advertised.' },
-  cooling:        { label: 'Cooling',      color: 'var(--cooling)',  icon: '▼', blurb: 'Demand receding.' },
-  baseline:       { label: 'No call',      color: 'var(--baseline)', icon: '·', blurb: 'Not enough history to say anything honest.' },
+  'table-stakes': { label: 'Established', color: 'var(--stakes)',   icon: '=', blurb: 'Assumed rather than advertised. A gap here costs you quietly.' },
+  cooling:        { label: 'Receding',    color: 'var(--cooling)',  icon: '▼', blurb: 'Demand is draining out of this. Not worth starting from scratch.' },
+  rising:         { label: 'Rising',      color: 'var(--rising)',   icon: '▲', blurb: 'Climbing — but this call has been wrong more often than right.' },
+  hype:           { label: 'Hype',        color: 'var(--hype)',     icon: '!', blurb: 'Loud with nobody paying — and a call we cannot make reliably.' },
+  baseline:       { label: 'No call',     color: 'var(--baseline)', icon: '·', blurb: 'Not enough evidence to say anything honest.' },
 };
+
+/**
+ * Which verdicts the backtest actually supports.
+ *
+ * Across 32 graded `table-stakes` and `cooling` calls the system has been wrong
+ * zero times. `rising` is 29% and `hype` 20% — worse than useless, because a wrong
+ * call here sends someone off to learn the wrong thing. Both are still computed and
+ * still shown, because hiding a bad call is not the same as fixing it, but they no
+ * longer get to be the headline.
+ */
+const RELIABLE: Verdict[] = ['table-stakes', 'cooling'];
+const isReliable = (v: Verdict) => RELIABLE.includes(v);
 
 function Badge({ verdict }: { verdict: Verdict }) {
   const v = VERDICT[verdict];
@@ -60,12 +72,16 @@ export default function App() {
     return list;
   }, [state, cat, verdict]);
 
+  const trusted = useMemo(() => shown.filter((s) => isReliable(s.verdict)), [shown]);
+  const unproven = useMemo(() => shown.filter((s) => !isReliable(s.verdict) && s.verdict !== 'baseline'), [shown]);
+  const nocall = useMemo(() => shown.filter((s) => s.verdict === 'baseline'), [shown]);
+
   const counts = useMemo(() => {
     const s = state?.signals ?? [];
     return {
-      rising: s.filter((x) => x.verdict === 'rising').length,
-      hype: s.filter((x) => x.verdict === 'hype').length,
       stakes: s.filter((x) => x.verdict === 'table-stakes').length,
+      cooling: s.filter((x) => x.verdict === 'cooling').length,
+      unproven: s.filter((x) => x.verdict === 'rising' || x.verdict === 'hype').length,
     };
   }, [state]);
 
@@ -97,13 +113,14 @@ export default function App() {
               : 'Every call dated, graded and on the record'}
           </span>
           <h1>
-            What to learn next.<br />
-            <span className="dim">And where to learn it free.</span>
+            What's actually expected.<br />
+            <span className="dim">And what's quietly dying.</span>
           </h1>
           <p>
-            Cresco watches hiring demand, practitioner signal and social chatter, weights them
-            so noise cannot masquerade as demand, and points you at the free YouTube course
-            for whatever is actually rising.
+            Cresco grades every call it makes against what actually happened. Six years of
+            hiring data say it can tell you what has become assumed knowledge and what is
+            draining away — and that it <em>cannot</em> tell you what will rise next.
+            Both answers are on this page.
           </p>
         </header>
 
@@ -119,19 +136,27 @@ export default function App() {
 
         <div className="tiles">
           <div className="card tile">
-            <div className="label">Rising now</div>
-            <div className="value" style={{ color: 'var(--rising)' }}>{counts.rising}</div>
-            <div className="sub">carried by hiring evidence</div>
-          </div>
-          <div className="card tile">
-            <div className="label">Flagged as hype</div>
-            <div className="value" style={{ color: 'var(--hype)' }}>{counts.hype}</div>
-            <div className="sub">loud, unpaid, likely to fade</div>
-          </div>
-          <div className="card tile">
-            <div className="label">Table stakes</div>
+            <div className="label">Established</div>
             <div className="value" style={{ color: 'var(--stakes)' }}>{counts.stakes}</div>
-            <div className="sub">gaps here cost you quietly</div>
+            <div className="sub">
+              {state?.verdictAccuracy?.['table-stakes']?.scored
+                ? `${state.verdictAccuracy['table-stakes'].rate}% right · never wrong`
+                : 'assumed rather than advertised'}
+            </div>
+          </div>
+          <div className="card tile">
+            <div className="label">Receding</div>
+            <div className="value" style={{ color: 'var(--cooling)' }}>{counts.cooling}</div>
+            <div className="sub">
+              {state?.verdictAccuracy?.cooling?.scored
+                ? `${state.verdictAccuracy.cooling.rate}% right · never wrong`
+                : 'demand draining away'}
+            </div>
+          </div>
+          <div className="card tile">
+            <div className="label">Can't call it</div>
+            <div className="value" style={{ color: 'var(--ink-3)' }}>{counts.unproven}</div>
+            <div className="sub">rising / hype — shown, not trusted</div>
           </div>
           <div className="card tile">
             <div className="label">Calls on record</div>
@@ -156,8 +181,17 @@ export default function App() {
           ))}
         </div>
 
+        <div className="tier">
+          <h2>What holds up</h2>
+          <p>
+            Across {(state?.verdictAccuracy?.['table-stakes']?.scored ?? 0) + (state?.verdictAccuracy?.cooling?.scored ?? 0)}{' '}
+            graded calls of these two kinds, Cresco has been wrong <strong>zero</strong> times.
+            These are the ones worth acting on.
+          </p>
+        </div>
+
         <div className="grid">
-          {shown.map((s) => (
+          {trusted.map((s) => (
             <button key={s.skill.id} className="card card-hover skill" onClick={() => setOpen(s)}>
               <div className="skill-top">
                 <div>
@@ -189,8 +223,57 @@ export default function App() {
           ))}
         </div>
 
+        {state && trusted.length === 0 && <p style={{ color: 'var(--ink-3)' }}>No reliable call in this slice.</p>}
+
+        {unproven.length > 0 && (
+          <>
+            <div className="tier" data-weak="true">
+              <h2>Where we can't call it</h2>
+              <p>
+                Momentum verdicts, kept visible with their real hit rates attached:{' '}
+                <strong>rising {state?.verdictAccuracy?.rising?.rate ?? '—'}%</strong>,{' '}
+                <strong>hype {state?.verdictAccuracy?.hype?.rate ?? '—'}%</strong>. A wrong call
+                here sends you off to learn the wrong thing, so treat these as open questions
+                rather than recommendations. Every "skills to learn next year" list is making
+                exactly this call without showing you a score.
+              </p>
+            </div>
+            <div className="grid dim-grid">
+              {unproven.map((s) => (
+                <button key={s.skill.id} className="card card-hover skill" onClick={() => setOpen(s)}>
+                  <div className="skill-top">
+                    <div>
+                      <div className="skill-cat">{s.skill.category}</div>
+                      <div className="skill-name">{s.skill.label}</div>
+                    </div>
+                    <div>
+                      <div className="skill-index" style={{ color: 'var(--ink-2)' }}>{s.demandIndex}</div>
+                      <div className="skill-index-l">index</div>
+                    </div>
+                  </div>
+                  <div style={{ marginTop: 14 }}>
+                    <Sparkline points={s.history} color="var(--ink-3)" width={300} height={48} />
+                  </div>
+                  <div className="skill-foot">
+                    <span style={{ display: 'flex', alignItems: 'center', gap: 7, flexWrap: 'wrap' }}>
+                      <Badge verdict={s.verdict} />
+                      <TrackRecord state={state} verdict={s.verdict} />
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+
+        {nocall.length > 0 && (
+          <p className="nocall">
+            <strong>{nocall.length}</strong> more skills have no call — not enough evidence to
+            say anything honest about them. That is a result, not a gap.
+          </p>
+        )}
+
         {!state && !error && <p style={{ color: 'var(--ink-3)' }}>Loading the ledger…</p>}
-        {state && shown.length === 0 && <p style={{ color: 'var(--ink-3)' }}>Nothing matches that filter.</p>}
 
         <Loop state={state} />
 
