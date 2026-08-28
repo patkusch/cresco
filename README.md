@@ -41,56 +41,38 @@ npm install && npm run backfill && npm run dev
 <img src="docs/leadlag.svg" alt="Correlation between adoption growth and hiring growth at each lag" width="100%">
 </div>
 
-Job postings are where demand *arrives*, not where it starts — so predicting hiring
-from hiring means fighting sampling noise for something that already happened. The
-question is whether anything upstream **leads** it.
+Job postings are where demand *arrives*, not where it starts — so predicting hiring from
+hiring means fighting sampling noise for something that already happened. We spent real
+effort testing whether anything upstream **leads** it.
 
-Wikipedia pageviews look like they might: attention peaks about **six months** before
-hiring does, and that peak has appeared at the same lag in every ledger we have built.
-npm downloads do not — the line wanders through the noise band and inverts out of
-sample.
+**It doesn't. Or at least, nothing we tested does.**
 
-But *"looks like"* is not a finding, so it gets tested properly.
+### A finding that died as the data grew
 
-### Out-of-sample validation
+Wikipedia pageviews looked like a six-month leading indicator. On 16 months of hiring
+history the hold-out correlation was **+0.440**, with only 2.3% of shuffled nulls beating
+it — a publishable-looking number that went into this README.
 
-`npm run holdout` picks the peak lag on half the skills, tests it on the half it never
-saw, repeats over 400 random splits — then does the whole thing again with skill labels
-**shuffled**, so we can see what the method manufactures from autocorrelated growth
-windows on its own.
-
-| | Wikipedia | npm |
-|---|---|---|
-| Lag chosen on the fit half | **6 months** | 8 months |
-| Hold-out correlation | **+0.210** | −0.015 |
-| Splits with r > 0 | **91%** | 41% |
-| Null (shuffled labels) | +0.015 | −0.015 |
-| **Nulls beating the real result** | **7.5%** | 50.0% |
-| | **weak — directionally there** | **rejected** |
-
-### The part most projects would delete
-
-We first ran this on 16 months of hiring data and got **+0.440**, with only 2.3% of
-nulls beating it. That is a publishable-looking number and it went in this README.
-
-Then we found a bug: the backfill was rate-limiting itself, silently dropping the four
-most recent months. Fixing it and rerunning on the complete 22 months:
+Then we fixed a bug that had been silently truncating the hiring archive, and kept
+extending it:
 
 | Hiring history | Hold-out r | Nulls beating it | Reading |
 |---|---|---|---|
 | 16 months | +0.440 | 2.3% | survives |
 | 19 months | +0.394 | 1.0% | survives |
-| **22 months (complete)** | **+0.210** | **7.5%** | **weak** |
+| 22 months | +0.210 | 7.5% | weak |
+| **72 months** | **+0.043** | **18.3%** | **dead** |
 
-**More data made the finding weaker.** The six-month lag is real enough to keep
-looking at — it lands at the same place every time, and 91% of hold-out splits are
-positive — but it no longer clears the bar, and no verdict in this product is allowed
-to depend on it yet.
+A clean monotonic decay as the sample grew. That is the signature of a finding that was
+never real — an artefact of one small, recent window. The six-month lag stayed put the
+whole way, which is what made it convincing; the correlation underneath it evaporated.
 
-That table is the whole point of the project. A tool that only reports findings when
-they strengthen is not measuring anything.
+**npm downloads: also dead** (+0.012, 28% of nulls beat it). **Market-adjusting the
+hiring share by Indeed's Software Development index: makes the calls worse**, −17
+percentage points — multiplying every skill by the same collapsing market adds a shared
+trend that destroys the discrimination between them.
 
-<br>
+Three hypotheses tested, three refuted. That table is the project working as intended.
 
 ## How it grades itself
 
@@ -106,19 +88,32 @@ mint new calls from **only** the data that existed at that point. Signals at ste
 are computed from `snapshots.slice(0, m+1)`, so the reference scale, the momentum
 window and source eligibility all see exactly what they would have seen at the time.
 
-**Current score — 36 graded calls over 22 months:**
+**Current score — 85 graded calls over 72 months:**
 
 | Call type | Hit rate | Right / wrong / partial |
 |---|---|---|
-| **Cooling** | 63% | 5 / 1 / 2 |
-| **Hype** | 50% | 1 / 1 / 0 |
-| **Rising** | **32%** | 7 / 11 / 4 |
-| **Table stakes** | 25% | 1 / 0 / 3 |
-| **Overall** | **39%** | 14 / 13 / 9 |
+| **Table stakes** | **71%** | 15 / **0** / 6 |
+| **Cooling** | **64%** | 7 / **0** / 4 |
+| **Rising** | 29% | 14 / 23 / 11 |
+| **Hype** | 20% | 1 / 4 / 0 |
+| **Overall** | **44%** | 37 / 27 / 21 |
 
-`rising` is the weakest call and the dashboard says so: **every verdict badge in the UI
-carries its own measured hit rate beside it.** A badge that has been wrong eleven times
-out of twenty-two should say so on the card, not in a footnote.
+### What this product can and cannot do
+
+Read that table honestly and it splits cleanly in two.
+
+**It works for what is established and what is dying.** Across 32 graded `table-stakes`
+and `cooling` calls it was **wrong zero times** — the misses are all "partial", meaning
+the skill went flatter than called rather than moving the other way. Those are the calls
+worth acting on: *this is assumed knowledge now*, and *this is quietly receding*.
+
+**It does not work for what is about to rise.** `rising` is 29% and `hype` is 20% —
+worse than useless, since a wrong call sends you off to learn the wrong thing. Every
+"skills to learn next year" list is making exactly this call, and we can now show, on
+six years of real data, that we cannot make it reliably. Neither, presumably, can they.
+
+Every verdict badge in the UI carries its own measured hit rate beside it, so the
+unreliable calls announce themselves on the card.
 
 <details>
 <summary><b>Why <code>rising</code> fails, and what we tried</b></summary>
@@ -257,28 +252,31 @@ Three rules keep the score honest, and each exists because it caught a real bug:
 - **No call below an evidence floor.** One job advert becoming two is a 100% rise and
   means nothing.
 
-| Verdict | Means |
-|---|---|
-| 🟢 **Rising** | Climbing, and hiring is carrying the rise. *(32% hit rate — treat with suspicion)* |
-| 🟡 **Hype** | Loud, but nobody is paying for it yet. |
-| 🔵 **Table stakes** | Assumed rather than advertised — gaps here cost you quietly. |
-| ⚪ **Cooling** | Demand receding. *(63% — the most reliable call)* |
-| ⚫ **No call** | Not enough history to say anything honest. |
+| Verdict | Means | Measured hit rate |
+|---|---|---|
+| 🔵 **Table stakes** | Assumed rather than advertised — gaps here cost you quietly. | **71%**, never wrong |
+| ⚪ **Cooling** | Demand receding. | **64%**, never wrong |
+| 🟢 **Rising** | Climbing, and hiring is carrying the rise. | 29% — do not act on this |
+| 🟡 **Hype** | Loud, but nobody is paying for it yet. | 20% — do not act on this |
+| ⚫ **No call** | Not enough history to say anything honest. | — |
 
 <br>
 
 ## Honest status
 
-- **22 real months** (Nov 2024 → Aug 2026) mined from the Hacker News hiring archive.
+- **72 real months** (Sep 2020 → Aug 2026) mined from the Hacker News hiring archive.
   `npm run seed` generates a synthetic ledger for offline demos and flags itself as
   seeded in the UI *and* the data.
 - **Only two sources currently score:** `whoshiring` and `hackernews`. Adzuna, YouTube,
   Bluesky and Reddit contribute evidence and learning paths now, and join the index once
   they have three snapshots of their own.
-- **Leading indicators are collected and measured but not wired into the index.** The
-  Wikipedia lead is weak once the full history is included; nothing depends on it.
-- **Sample sizes are small** — 1 to 22 graded calls per verdict type. Every hit rate is
-  directional, not established.
+- **No leading indicator survived testing.** Wikipedia and npm were both measured and
+  both rejected on the full history. Nothing in the product depends on either, and the
+  collectors remain only so the tests can be re-run against new data.
+- **Market adjustment was tested and rejected** — it costs 17 percentage points of
+  accuracy. `data/market.json` is kept as context, not as an input.
+- **Sample sizes are moderate** — 5 to 48 graded calls per verdict type across 85 total.
+  `table-stakes` (n=21) and `cooling` (n=11) are the load-bearing ones.
 - **The hiring signal is Hacker News**, so it reads startup and tech-forward hiring, not
   the whole labour market.
 - **Source reweighting (step 4) is not built.**
@@ -310,15 +308,17 @@ Job postings lag. [`docs/RESEARCH.md`](docs/RESEARCH.md) holds verified notes on
 candidate **leading** indicators — every endpoint called live, with the traps that would
 have manufactured fake signals written down next to them.
 
-The three that survived scrutiny: **SEC EDGAR full-text search** (companies naming a
-technology to investors quarters before they staff it — Model Context Protocol went
-0 → 1 → 26 → 40 across recent quarters), **GitHub repos by topic and creation month**
-(the `topic:mcp` curve inflects in exactly the month MCP launched), and **conference
-programmes** via public `.ics` feeds, where FOSDEM alone offers 13 years.
+Wikipedia and npm were tested against 72 months of hiring data and both failed. Three
+candidates remain untested, and each has a mechanism behind it rather than just a
+correlation: **SEC EDGAR full-text search** (companies naming a technology to investors
+quarters before they staff it — Model Context Protocol went 0 → 1 → 26 → 40 across
+recent quarters), **GitHub repos by topic and creation month** (the `topic:mcp` curve
+inflects in exactly the month MCP launched), and **conference programmes** via public
+`.ics` feeds, where FOSDEM alone offers 13 years.
 
-The binding constraint is not indicator history — EDGAR has 25 years — it is **our
-hiring history, at 22 months**. You cannot measure a two-quarter lead without hiring
-data substantially longer than the lead. Extending the backfill comes first.
+The hiring history that used to be the constraint is now 72 months, so these are
+properly testable. Given three refutations so far, the prior should be that they fail
+too — and the test is cheap enough that finding out is still worth it.
 
 <br>
 

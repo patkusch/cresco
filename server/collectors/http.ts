@@ -16,6 +16,21 @@ export async function getJSON<T = any>(url: string, opts: { timeoutMs?: number; 
   }
 }
 
+/** Same as getJSON, for endpoints that serve CSV or XML rather than JSON. */
+export async function getText(url: string, opts: { timeoutMs?: number; headers?: Record<string, string> } = {}): Promise<string | null> {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), opts.timeoutMs ?? 12_000);
+  try {
+    const res = await fetch(url, { signal: ctrl.signal, headers: { 'user-agent': 'cresco/0.1', ...opts.headers } });
+    if (!res.ok) return null;
+    return await res.text();
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 /** Run promises with a small concurrency cap so we stay polite to free APIs. */
 export async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T, i: number) => Promise<R>): Promise<R[]> {
   const out: R[] = new Array(items.length);

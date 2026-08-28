@@ -32,9 +32,13 @@ interface HNItem { children?: HNItem[]; text?: string | null }
 async function whoIsHiringThreads(): Promise<AlgoliaStory[]> {
   // search_by_date, NOT search: the default endpoint ranks by relevance, which
   // happily returns the most-discussed threads from 2018 and reads as real data.
+  // hitsPerPage=500, not 60. The account posts three threads a month (hiring,
+  // wants-to-be-hired, freelancer), so a 60-hit page silently caps the archive at
+  // ~24 months — it does not error, it just quietly answers a smaller question.
+  // At 500 the archive reaches back to 2011-09.
   const res = await getJSON<{ hits: AlgoliaStory[] }>(
-    'https://hn.algolia.com/api/v1/search_by_date?tags=story,author_whoishiring&hitsPerPage=60',
-    { timeoutMs: 20_000 },
+    'https://hn.algolia.com/api/v1/search_by_date?tags=story,author_whoishiring&hitsPerPage=500',
+    { timeoutMs: 30_000 },
   );
   return (res?.hits ?? [])
     .filter((h) => /who is hiring/i.test(h.title) && !/wants to be hired|freelancer/i.test(h.title))

@@ -33,9 +33,12 @@ export async function npmMonthly(pkg: string, months: number): Promise<Series> {
   }
 
   for (const [from, to] of windows) {
-    const data = await getJSON<{ downloads: { day: string; downloads: number }[] }>(
-      `https://api.npmjs.org/downloads/range/${from}:${to}/${pkg}`,
-      { timeoutMs: 20_000 },
+    const data = await persist(
+      () => getJSON<{ downloads: { day: string; downloads: number }[] }>(
+        `https://api.npmjs.org/downloads/range/${from}:${to}/${pkg}`,
+        { timeoutMs: 25_000 },
+      ),
+      (d) => !!d?.downloads?.length,
     );
     for (const d of data?.downloads ?? []) {
       const m = d.day.slice(0, 7);
@@ -46,16 +49,30 @@ export async function npmMonthly(pkg: string, months: number): Promise<Series> {
 }
 
 /**
- * Wikimedia throttles hard, and getJSON turns a 429 into null — which reads
- * exactly like "no such article". Ten valid titles were briefly recorded as
- * missing that way. Requests are serialised through this gate instead, and a
- * genuinely absent page is only ever reported after a retry.
+ * A single gate for every outbound request in this module.
+ *
+ * Both Wikimedia and the npm registry throttle, and getJSON turns a 429 into null
+ * — which reads exactly like "this package/article does not exist". Widening the
+ * fetch from 36 to 84 months made this dramatically worse: coverage FELL from 19
+ * skills to 12, because asking for more data got more of it silently refused.
+ * Slower and complete beats fast and quietly wrong.
  */
-let wikiGate: Promise<void> = Promise.resolve();
-function throttled<T>(fn: () => Promise<T>, gapMs = 350): Promise<T> {
-  const run = wikiGate.then(fn);
-  wikiGate = run.then(() => new Promise((r) => setTimeout(r, gapMs)), () => new Promise((r) => setTimeout(r, gapMs)));
+let gate: Promise<void> = Promise.resolve();
+function throttled<T>(fn: () => Promise<T>, gapMs = 700): Promise<T> {
+  const run = gate.then(fn);
+  gate = run.then(() => new Promise((r) => setTimeout(r, gapMs)), () => new Promise((r) => setTimeout(r, gapMs)));
   return run;
+}
+
+/** Retry with backoff, and only believe an empty result after the last attempt. */
+async function persist<T>(fn: () => Promise<T | null>, ok: (v: T | null) => boolean, tries = 4): Promise<T | null> {
+  let out: T | null = null;
+  for (let i = 0; i < tries; i++) {
+    if (i) await new Promise((r) => setTimeout(r, 1200 * i));
+    out = await throttled(fn);
+    if (ok(out)) return out;
+  }
+  return out;
 }
 
 /** Wikipedia pageviews, monthly, human traffic only (bots excluded by the `user` agent filter). */
@@ -68,11 +85,10 @@ export async function wikipediaMonthly(title: string, months: number): Promise<S
     `${encodeURIComponent(title)}/monthly/${fmt(start)}/${fmt(now)}`;
   const opts = { timeoutMs: 20_000, headers: { 'user-agent': 'cresco/0.1 (skill-demand research; github.com/patkusch/cresco)' } };
 
-  let data = await throttled(() => getJSON<{ items: { timestamp: string; views: number }[] }>(url, opts));
-  if (!data?.items?.length) {
-    await new Promise((r) => setTimeout(r, 1200));
-    data = await throttled(() => getJSON<{ items: { timestamp: string; views: number }[] }>(url, opts));
-  }
+  const data = await persist(
+    () => getJSON<{ items: { timestamp: string; views: number }[] }>(url, opts),
+    (d) => !!d?.items?.length,
+  );
   const series: Series = {};
   for (const it of data?.items ?? []) {
     series[`${it.timestamp.slice(0, 4)}-${it.timestamp.slice(4, 6)}`] = it.views;
@@ -97,7 +113,7 @@ function sumSeries(list: Series[]): Series {
 export async function collectLeading(months: number): Promise<LeadingData> {
   const data: LeadingData = { months: monthsBack(months), series: {}, resolved: [], missing: [] };
 
-  await mapLimit(SKILLS, 4, async (skill) => {
+  await mapLimit(SKILLS, 2, async (skill) => {
     const proxy = PROXIES[skill.id];
     if (!proxy) return;
     const bucket: Record<string, Series> = {};
