@@ -18,6 +18,10 @@ import { MAX_LAG, hiringByMonth, pairsAtLag, pearson } from '../server/leadlag.t
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const leading = loadIndicators();
 const ledger = loadLedger();
+if (ledger.seeded) {
+  console.error('Refusing to chart a seeded ledger — those numbers are invented.');
+  process.exit(1);
+}
 const hiring = hiringByMonth(ledger);
 const months = [...new Set(ledger.snapshots.map((s) => s.ts.slice(0, 7)))].sort();
 
@@ -46,10 +50,12 @@ const line = (pts: { lag: number; r: number | null }[]) => {
   return valid.map((p, i) => `${i === 0 ? 'M' : 'L'} ${x(p.lag).toFixed(1)} ${y(p.r).toFixed(1)}`).join(' ');
 };
 
-const wiki = data.find((d) => d.id === 'edgar') ?? data[0];
-const peak = wiki.points.filter((p) => p.r !== null).reduce((a, b) => ((b.r as number) > (a.r as number) ? b : a));
+// The annotated series is whichever source leads SOURCES — naming this `wiki`
+// is how an EDGAR peak ended up published under Wikipedia's name.
+const head = data.find((d) => d.id === 'edgar') ?? data[0];
+const peak = head.points.filter((p) => p.r !== null).reduce((a, b) => ((b.r as number) > (a.r as number) ? b : a));
 
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Correlation between adoption growth and hiring growth at each lag; Wikipedia peaks around ${peak.lag} months">
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Correlation between adoption growth and hiring growth at each lag; ${head.label} peaks around ${peak.lag} months">
   <defs>
     <linearGradient id="wfade" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#c98500" stop-opacity="0.18"/>
@@ -72,7 +78,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" rol
   ${Array.from({ length: MAX_LAG + 1 }, (_, l) => `<text x="${x(l)}" y="${H - B + 24}" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="10.5" fill="#ffffff" fill-opacity="0.35">${l}</text>`).join('\n  ')}
   <text x="${L + plotW / 2}" y="${H - B + 46}" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#ffffff" fill-opacity="0.45">months between adoption and hiring</text>
 
-  <path d="${line(wiki.points)} L ${x(MAX_LAG)} ${y(0)} L ${x(0)} ${y(0)} Z" fill="url(#wfade)"/>
+  <path d="${line(head.points)} L ${x(MAX_LAG)} ${y(0)} L ${x(0)} ${y(0)} Z" fill="url(#wfade)"/>
   ${data.map((d) => `<path d="${line(d.points)}" fill="none" stroke="${d.colour}" stroke-width="${d.id === 'edgar' ? 2.6 : 1.6}" stroke-linecap="round" stroke-linejoin="round" ${d.id === 'edgar' ? '' : 'stroke-dasharray="5 4"'}/>`).join('\n  ')}
 
   <circle cx="${x(peak.lag)}" cy="${y(peak.r as number)}" r="5.5" fill="#c98500" stroke="#07080a" stroke-width="2.5"/>
@@ -85,4 +91,4 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" rol
 
 mkdirSync(join(ROOT, 'docs'), { recursive: true });
 writeFileSync(join(ROOT, 'docs', 'leadlag.svg'), svg);
-console.log(`docs/leadlag.svg written · wikipedia peaks at ${peak.lag}mo (${(peak.r as number).toFixed(3)}) over ${months.length} months`);
+console.log(`docs/leadlag.svg written · ${head.id} peaks at ${peak.lag}mo (${(peak.r as number).toFixed(3)}) over ${months.length} months`);

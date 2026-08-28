@@ -40,10 +40,21 @@ const SUBSTANTIVE: SourceClass[] = ['hiring'];
  */
 export const MIN_SNAPSHOTS_FOR_INDEX = 3;
 
+/**
+ * Scale and eligibility are keyed on source AND metric, never source alone.
+ *
+ * The live Hacker News collector reports absolute story counts; the backfill
+ * reports share per 1,000. Keyed on sourceId only, one ordinary `npm run collect`
+ * would reset the scale to the absolute count and collapse six years of history to
+ * near zero, making the newest snapshot look like a vertical take-off across every
+ * skill at once. Including the metric makes a unit change fail loudly instead.
+ */
+export const scaleKey = (o: { sourceId: string; metric: string }) => `${o.sourceId}|${o.metric}`;
+
 export function indexableSources(snapshots: Snapshot[]): Set<string> {
   const seen = new Map<string, number>();
   for (const s of snapshots) {
-    for (const id of new Set(s.observations.map((o) => o.sourceId))) {
+    for (const id of new Set(s.observations.map(scaleKey))) {
       seen.set(id, (seen.get(id) ?? 0) + 1);
     }
   }
@@ -64,7 +75,7 @@ export function referenceScale(snapshots: Snapshot[]): Map<string, number> {
   const max = new Map<string, number>();
   for (const s of snapshots) {
     for (const o of s.observations) {
-      max.set(o.sourceId, Math.max(max.get(o.sourceId) ?? 0, o.value));
+      max.set(scaleKey(o), Math.max(max.get(scaleKey(o)) ?? 0, o.value));
     }
   }
   return max;
@@ -88,7 +99,7 @@ function scoreSnapshot(
   allowFixtures: boolean,
 ): Scored {
   const mine = snapshot.observations.filter(
-    (o) => o.skillId === skillId && indexable.has(o.sourceId) && (allowFixtures || !o.fixture),
+    (o) => o.skillId === skillId && indexable.has(scaleKey(o)) && (allowFixtures || !o.fixture),
   );
 
   const byClass = { hiring: 0, practitioner: 0, community: 0, content: 0, vendor: 0 } as Record<SourceClass, number>;
@@ -98,7 +109,7 @@ function scoreSnapshot(
   let hiringIsFixture = false;
 
   for (const o of mine) {
-    const ref = scale.get(o.sourceId) ?? 0;
+    const ref = scale.get(scaleKey(o)) ?? 0;
     const v = ref > 0 ? Math.min(1, o.value / ref) : 0;
     byClass[o.sourceClass] += v;
     counts[o.sourceClass] += 1;

@@ -41,6 +41,14 @@ const CASES: [text: string, skillId: string, shouldMatch: boolean][] = [
   ['deployed on Azure', 'azure', true],
   ['built with Flutter', 'cross-platform-mobile', true],
 
+  // Alias collisions found by audit once the taxonomy reached 64 skills
+  ['a lambda function in Python', 'aws', false],
+  ['we deploy on AWS Lambda', 'aws', true],
+  ['Strong IAM and least privilege on AWS', 'zero-trust', false],
+  ['we run a Zero Trust network', 'zero-trust', true],
+  ['writing ts and py scripts', 'typescript', false],
+  ['a TypeScript monorepo', 'typescript', true],
+
   // HTML from Hacker News comments must not create or destroy matches
   ['<p>We run <i>Kubernetes</i> in prod</p>', 'kubernetes', true],
 ];

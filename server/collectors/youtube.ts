@@ -33,19 +33,22 @@ export const youtube: Collector = {
   async collect(skills: Skill[]): Promise<Observation[]> {
     if (!youtubeIsLive()) return loadFixture('youtube', skills, 'content', 'videos (6mo)');
     const publishedAfter = new Date(Date.now() - 182 * 86_400_000).toISOString();
-    return mapLimit(skills, 2, async (skill) => {
+    const rows = await mapLimit<Skill, Observation | null>(skills, 2, async (skill) => {
       const url =
         `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1` +
         `&q=${encodeURIComponent(skill.queries[0])}&publishedAfter=${publishedAfter}&key=${key()}`;
       const data = await getJSON<SearchResp>(url);
+      // A 403 from quota exhaustion is not "no videos exist about Kubernetes".
+      if (data === null || typeof data.pageInfo?.totalResults !== 'number') return null;
       return {
         skillId: skill.id,
         sourceId: 'youtube',
         sourceClass: 'content' as const,
         metric: 'videos (6mo)',
-        value: data?.pageInfo?.totalResults ?? 0,
+        value: data.pageInfo.totalResults,
       };
     });
+    return rows.filter((r): r is Observation => r !== null);
   },
 };
 

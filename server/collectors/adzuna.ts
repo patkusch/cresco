@@ -21,19 +21,23 @@ export const adzuna: Collector = {
     if (!adzuna.isLive()) return loadFixture('adzuna', skills, 'hiring', 'open job adverts');
 
     const country = process.env.ADZUNA_COUNTRY || 'gb';
-    return mapLimit(skills, 3, async (skill) => {
+    const rows = await mapLimit<Skill, Observation | null>(skills, 3, async (skill) => {
       const url =
         `https://api.adzuna.com/v1/api/jobs/${country}/search/1` +
         `?app_id=${process.env.ADZUNA_APP_ID}&app_key=${process.env.ADZUNA_APP_KEY}` +
         `&what=${encodeURIComponent(skill.queries[0])}&results_per_page=1&content-type=application/json`;
       const data = await getJSON<AdzunaResp>(url);
+      // hiring carries weight 1.0. A 429 recorded as "zero open adverts" is the
+      // most damaging possible silent failure in this codebase.
+      if (data === null || typeof data.count !== 'number') return null;
       return {
         skillId: skill.id,
         sourceId: 'adzuna',
         sourceClass: 'hiring' as const,
         metric: 'open job adverts',
-        value: data?.count ?? 0,
+        value: data.count,
       };
     });
+    return rows.filter((r): r is Observation => r !== null);
   },
 };

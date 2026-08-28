@@ -19,17 +19,25 @@ export const whoshiring: Collector = {
   metric: 'per 1,000 job posts',
   isLive: () => true,
   async collect(skills: Skill[]): Promise<Observation[]> {
+    // search_by_date, not search, plus a title filter — the same two fixes the
+    // backfill needed. Relevance ranking returns the most-discussed threads, which
+    // skews years old; and without the filter a "wants to be hired" or "freelancer"
+    // thread gets counted as hiring demand.
     const search = await getJSON<AlgoliaResp>(
-      'https://hn.algolia.com/api/v1/search?query=' +
-        encodeURIComponent('Ask HN: Who is hiring?') +
-        '&tags=story&hitsPerPage=3',
+      'https://hn.algolia.com/api/v1/search_by_date?tags=story,author_whoishiring&hitsPerPage=60',
     );
+    const threads = (search?.hits ?? [])
+      .filter((h) => /who is hiring/i.test(h.title) && !/wants to be hired|freelancer/i.test(h.title))
+      .slice(0, 3);
     const counts = new Map<string, number>();
     let posts = 0;
+    let read = 0;
 
-    for (const story of search?.hits ?? []) {
+    for (const story of threads) {
       const thread = await getJSON<HNItem>(`https://hn.algolia.com/api/v1/items/${story.objectID}`);
-      for (const comment of thread?.children ?? []) {
+      if (!thread?.children?.length) continue;
+      read++;
+      for (const comment of thread.children) {
         const text = comment.text;
         if (!text) continue;
         posts++;
@@ -41,7 +49,9 @@ export const whoshiring: Collector = {
 
     // No thread reachable (offline, rate limited): report nothing rather than zeros,
     // because "zero jobs mention Kubernetes" is a lie and a flat line is not.
-    if (posts === 0) return [];
+    // One throttled thread out of three silently computed the share over fewer
+    // threads than intended, with nothing marking it.
+    if (posts === 0 || read < threads.length) return [];
 
     return skills.map((skill: Skill): Observation => ({
       skillId: skill.id,

@@ -74,14 +74,14 @@ export const SKILLS: Skill[] = [
     id: 'typescript',
     label: 'TypeScript',
     category: 'Languages',
-    aliases: ['typescript', 'ts'],
+    aliases: ['typescript'],
     queries: ['TypeScript', 'TypeScript developer'],
   },
   {
     id: 'python',
     label: 'Python',
     category: 'Languages',
-    aliases: ['python', 'py'],
+    aliases: ['python'],
     queries: ['Python developer', 'Python programming'],
   },
   {
@@ -165,7 +165,7 @@ export const SKILLS: Skill[] = [
     id: 'zero-trust',
     label: 'Zero-trust & identity',
     category: 'Security',
-    aliases: ['zero trust', 'iam', 'workload identity', 'spiffe'],
+    aliases: ['zero trust', 'workload identity', 'spiffe'],
     queries: ['zero trust architecture', 'workload identity'],
   },
   {
@@ -284,7 +284,7 @@ export const SKILLS: Skill[] = [
     id: 'aws',
     label: 'AWS',
     category: 'Cloud',
-    aliases: ['aws', 'amazon web services', 'ec2', 'lambda'],
+    aliases: ['aws', 'amazon web services', 'ec2', 'aws lambda'],
     queries: ['AWS cloud', 'AWS architecture'],
   },
   {
@@ -469,7 +469,7 @@ export const CATEGORIES = [...new Set(SKILLS.map((s) => s.category))];
  * mention, which is the safe direction: a missed count is a gap, an invented one
  * is a fabricated trend.
  */
-const AMBIGUOUS = new Set(['go', 'react', 'rust', 'swift', 'spark', 'flutter', 'azure', 'expo', 'prefect', 'beam']);
+const AMBIGUOUS = new Set(['go', 'react', 'rust', 'swift', 'spark', 'flutter', 'azure', 'expo', 'prefect']);
 
 /**
  * Word-boundary matching that survives `+` and `#`.

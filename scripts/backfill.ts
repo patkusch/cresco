@@ -66,22 +66,27 @@ async function countThread(story: AlgoliaStory): Promise<{ counts: Map<string, n
 }
 
 /** Real HN story volume inside one month window. */
-async function hnWindow(from: number, to: number): Promise<Map<string, number>> {
-  const out = new Map<string, number>();
+async function hnWindow(from: number, to: number): Promise<Map<string, number | null>> {
+  const out = new Map<string, number | null>();
   // Concurrency 2, not 5. Algolia throttles cumulatively across a long run, and
   // getJSON turns a 429 into null — so an over-eager backfill silently records
   // "no hiring data" for whatever it happens to reach last. Same failure mode as
   // the Wikimedia one; both are throttling wearing the costume of absent data.
   await mapLimit(SKILLS, 2, async (skill) => {
+    // A throttled response is not zero stories. Counting it as zero is invisible
+    // downstream: after share normalisation the month still sums to 1,000 and the
+    // missing skill simply donates its share to every other one.
     let total = 0;
+    let failed = false;
     for (const q of skill.queries.slice(0, 2)) {
       const data = await getJSON<{ nbHits: number }>(
         `https://hn.algolia.com/api/v1/search?query=${encodeURIComponent(q)}&tags=story` +
           `&numericFilters=created_at_i>${from},created_at_i<${to}&hitsPerPage=1`,
       );
-      total += data?.nbHits ?? 0;
+      if (data === null) { failed = true; break; }
+      total += data.nbHits ?? 0;
     }
-    out.set(skill.id, total);
+    out.set(skill.id, failed ? null : total);
   });
   return out;
 }
@@ -110,7 +115,9 @@ for (const story of threads) {
   process.stdout.write(`${posts} job posts · hn window… `);
   const hn = await hnWindow(from, to);
   // Same correction for practitioner volume: platform activity drifts, interest is a share.
-  const hnTotal = [...hn.values()].reduce((a, b) => a + b, 0);
+  const hnValues = [...hn.values()].filter((v): v is number => v !== null);
+  const hnFailures = [...hn.values()].filter((v) => v === null).length;
+  const hnTotal = hnValues.reduce((a, b) => a + b, 0);
 
   const observations: Observation[] = [];
   for (const skill of SKILLS) {
@@ -124,13 +131,18 @@ for (const story of threads) {
       metric: 'per 1,000 job posts',
       value: Math.round(((counts.get(skill.id) ?? 0) / posts) * 1000 * 10) / 10,
     });
-    observations.push({
-      skillId: skill.id,
-      sourceId: 'hackernews',
-      sourceClass: 'practitioner',
-      metric: 'share of stories (30d)',
-      value: hnTotal > 0 ? Math.round(((hn.get(skill.id) ?? 0) / hnTotal) * 1000 * 10) / 10 : 0,
-    });
+    // Emit nothing rather than a zero when this skill's window failed, or when the
+    // whole month's window did. The same rule the thread reader uses above.
+    const raw = hn.get(skill.id);
+    if (raw !== null && raw !== undefined && hnTotal > 0) {
+      observations.push({
+        skillId: skill.id,
+        sourceId: 'hackernews',
+        sourceClass: 'practitioner',
+        metric: 'share of stories (30d)',
+        value: Math.round((raw / hnTotal) * 1000 * 10) / 10,
+      });
+    }
   }
 
   await new Promise((r) => setTimeout(r, 600));
@@ -143,7 +155,7 @@ for (const story of threads) {
     ],
     observations,
   });
-  console.log('done');
+  console.log(hnFailures ? `done (${hnFailures} skills dropped — throttled)` : 'done');
 }
 
 snapshots.sort((a, b) => a.ts.localeCompare(b.ts));

@@ -11,11 +11,19 @@ const PATHS_PATH = join(DATA, 'paths.json');
 const EMPTY: Ledger = { version: 1, seeded: false, snapshots: [], claims: [] };
 
 export function loadLedger(): Ledger {
+  // The absence of a file and the corruption of a file are not the same event.
+  // Swallowing a parse error returned an empty ledger, which the pipeline then
+  // appended one snapshot to and saved — destroying years of history behind a
+  // dashboard that looked fine.
   if (!existsSync(LEDGER_PATH)) return { ...EMPTY };
+  const raw = readFileSync(LEDGER_PATH, 'utf8');
   try {
-    return JSON.parse(readFileSync(LEDGER_PATH, 'utf8')) as Ledger;
-  } catch {
-    return { ...EMPTY };
+    return JSON.parse(raw) as Ledger;
+  } catch (err) {
+    throw new Error(
+      `data/ledger.json exists (${raw.length} bytes) but could not be parsed: ${(err as Error).message}. ` +
+        `Refusing to continue — a run from here would overwrite it. Restore it or delete it deliberately.`,
+    );
   }
 }
 

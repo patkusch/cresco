@@ -17,15 +17,17 @@ export const hackernews: Collector = {
   isLive: () => true,
   async collect(skills: Skill[]): Promise<Observation[]> {
     const since = daysAgoUnix(90);
-    return mapLimit(skills, 4, async (skill) => {
+    const rows = await mapLimit<Skill, Observation | null>(skills, 4, async (skill) => {
       let total = 0;
+      let failed = false;
       const evidence: Evidence[] = [];
       for (const q of skill.queries.slice(0, 2)) {
         const url =
           `https://hn.algolia.com/api/v1/search?query=${encodeURIComponent(q)}` +
           `&tags=story&numericFilters=created_at_i>${since}&hitsPerPage=5`;
         const data = await getJSON<AlgoliaResp>(url);
-        if (!data) continue;
+        // A null on one of two queries silently halved this skill's count.
+        if (!data) { failed = true; break; }
         total += data.nbHits ?? 0;
         for (const hit of (data.hits ?? []).slice(0, 2)) {
           evidence.push({
@@ -37,6 +39,7 @@ export const hackernews: Collector = {
           });
         }
       }
+      if (failed) return null;
       return {
         skillId: skill.id,
         sourceId: 'hackernews',
@@ -46,5 +49,6 @@ export const hackernews: Collector = {
         evidence: evidence.slice(0, 3),
       };
     });
+    return rows.filter((r): r is Observation => r !== null);
   },
 };
