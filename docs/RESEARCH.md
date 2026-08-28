@@ -210,6 +210,24 @@ research — worth a look at the terms before any commercial use.
 
 ---
 
+## Tested since — results
+
+| Candidate | Outcome |
+|---|---|
+| **SEC EDGAR** | **Tested, weak.** 14 skills × 84 months, share per 10,000 filings. Hold-out +0.117, 91% of splits positive — the best of anything tested — but 19% of shuffled nulls beat it, and the peak lag is 1–2 months rather than the 2–4 quarters the mechanism predicted. A two-month lead is not actionable for learning advice. |
+| **Wikipedia pageviews** | Rejected on 72 months (+0.043, 18.3%). Decayed monotonically as the sample grew from 16 months. |
+| **npm downloads** | Rejected (+0.012, 28.0%). |
+| **Indeed market adjustment** | Rejected — costs 17 points of backtest accuracy. |
+
+Untested: GitHub topic-creation, conference programmes, EU TED, Coursera launch dates.
+Given four refutations the prior should be that they fail too.
+
+**The EDGAR guard is worth reusing.** `assertVaries()` throws if a fetched series never
+changes, because EDGAR returns the all-time count rather than erroring on a bad date
+range. Any collector whose API can silently answer a different question should have one.
+
+---
+
 ## Next actions, in order
 
 1. **Extend the hiring backfill backwards** to 60+ months. Unblocks everything else.

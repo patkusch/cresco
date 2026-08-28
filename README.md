@@ -67,12 +67,27 @@ A clean monotonic decay as the sample grew. That is the signature of a finding t
 never real — an artefact of one small, recent window. The six-month lag stayed put the
 whole way, which is what made it convincing; the correlation underneath it evaporated.
 
-**npm downloads: also dead** (+0.012, 28% of nulls beat it). **Market-adjusting the
-hiring share by Indeed's Software Development index: makes the calls worse**, −17
-percentage points — multiplying every skill by the same collapsing market adds a shared
-trend that destroys the discrimination between them.
+### Everything else we tested
 
-Three hypotheses tested, three refuted. That table is the project working as intended.
+| Candidate | Hold-out r | Nulls beating it | Verdict |
+|---|---|---|---|
+| **SEC EDGAR** filings naming a technology | +0.117 | 19.0% | weak, and the lag is 1–2 months |
+| **Wikipedia** pageviews | +0.043 | 18.3% | rejected |
+| **npm** downloads | +0.012 | 28.0% | rejected |
+| **Market adjustment** (Indeed index) | — | — | rejected: −17pp on the backtest |
+
+SEC EDGAR was the most promising on mechanism — companies describe commitments to
+investors before they staff them — and it is the best of the three, with 91% of hold-out
+splits positive against Wikipedia's 69%. It still does not clear the bar, and its peak
+lag comes out at **1–2 months**. Even if the correlation were solid, a two-month warning
+is useless for a tool whose entire purpose is telling you what to start learning.
+
+One pre-specified follow-up was attempted — a minimum-volume floor, on the same logic as
+the evidence floor already used for verdicts, since several EDGAR series run at 0–2
+filings a month. Only one skill cleared it, so there was no split left to test. We
+stopped there rather than hunting for a threshold that happened to work.
+
+**Four hypotheses tested, four refuted.** That table is the project working as intended.
 
 ## How it grades itself
 

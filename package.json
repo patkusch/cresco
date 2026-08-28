@@ -23,7 +23,8 @@
     "holdout": "tsx scripts/holdout.ts",
     "chart": "tsx scripts/chart.ts",
     "market": "tsx scripts/market.ts",
-    "compare": "tsx scripts/compare.ts"
+    "compare": "tsx scripts/compare.ts",
+    "edgar": "tsx scripts/edgar.ts"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

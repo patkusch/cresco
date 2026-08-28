@@ -3,7 +3,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadLedger } from '../server/ledger.ts';
-import type { LeadingData } from '../server/collectors/leading.ts';
+import { loadIndicators, availableSources } from '../server/sources.ts';
 import { MAX_LAG, hiringByMonth, pairsAtLag, pearson, mulberry32, shuffled, median } from '../server/leadlag.ts';
 
 /**
@@ -26,11 +26,8 @@ import { MAX_LAG, hiringByMonth, pairsAtLag, pearson, mulberry32, shuffled, medi
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SPLITS = 400;
-const SOURCES = ['wikipedia', 'npm'] as const;
-
-const path = join(ROOT, 'data', 'leading.json');
-if (!existsSync(path)) { console.error('No data/leading.json — run `npm run leading` first.'); process.exit(1); }
-const leading = JSON.parse(readFileSync(path, 'utf8')) as LeadingData;
+const leading = loadIndicators();
+const SOURCES = availableSources(leading);
 
 const ledger = loadLedger();
 if (ledger.seeded) { console.error('Refusing to validate against a seeded ledger.'); process.exit(1); }

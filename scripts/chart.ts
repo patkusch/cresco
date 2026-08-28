@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadLedger } from '../server/ledger.ts';
-import type { LeadingData } from '../server/collectors/leading.ts';
+import { loadIndicators } from '../server/sources.ts';
 import { MAX_LAG, hiringByMonth, pairsAtLag, pearson } from '../server/leadlag.ts';
 
 /**
@@ -16,17 +16,15 @@ import { MAX_LAG, hiringByMonth, pairsAtLag, pearson } from '../server/leadlag.t
  */
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const path = join(ROOT, 'data', 'leading.json');
-if (!existsSync(path)) { console.error('run `npm run leading` first'); process.exit(1); }
-
-const leading = JSON.parse(readFileSync(path, 'utf8')) as LeadingData;
+const leading = loadIndicators();
 const ledger = loadLedger();
 const hiring = hiringByMonth(ledger);
 const months = [...new Set(ledger.snapshots.map((s) => s.ts.slice(0, 7)))].sort();
 
 const SOURCES = [
-  { id: 'wikipedia', label: 'Wikipedia pageviews', colour: '#4ade80', verdict: 'weak lead, not established' },
-  { id: 'npm', label: 'npm downloads', colour: '#7c8391', verdict: 'rejected out of sample' },
+  { id: 'edgar', label: 'SEC filings', colour: '#c98500', verdict: 'weak, lag too short' },
+  { id: 'wikipedia', label: 'Wikipedia pageviews', colour: '#7c8391', verdict: 'rejected' },
+  { id: 'npm', label: 'npm downloads', colour: '#5b6270', verdict: 'rejected' },
 ];
 
 const data = SOURCES.map((s) => ({
@@ -48,19 +46,19 @@ const line = (pts: { lag: number; r: number | null }[]) => {
   return valid.map((p, i) => `${i === 0 ? 'M' : 'L'} ${x(p.lag).toFixed(1)} ${y(p.r).toFixed(1)}`).join(' ');
 };
 
-const wiki = data.find((d) => d.id === 'wikipedia')!;
+const wiki = data.find((d) => d.id === 'edgar') ?? data[0];
 const peak = wiki.points.filter((p) => p.r !== null).reduce((a, b) => ((b.r as number) > (a.r as number) ? b : a));
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Correlation between adoption growth and hiring growth at each lag; Wikipedia peaks around ${peak.lag} months">
   <defs>
     <linearGradient id="wfade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#4ade80" stop-opacity="0.20"/>
-      <stop offset="100%" stop-color="#4ade80" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#c98500" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#c98500" stop-opacity="0"/>
     </linearGradient>
   </defs>
   <rect width="${W}" height="${H}" fill="#07080a"/>
 
-  <text x="${L}" y="38" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#fff" letter-spacing="-0.3">Does adoption lead hiring?</text>
+  <text x="${L}" y="38" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#fff" letter-spacing="-0.3">Does anything lead hiring? Four tests, four failures.</text>
   <text x="${L}" y="58" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" fill="#ffffff" fill-opacity="0.5">Correlation of 3-month growth rates at each lag · ${months.length} months of hiring data</text>
 
   <!-- the band where the shuffled null lives -->
@@ -75,13 +73,13 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" rol
   <text x="${L + plotW / 2}" y="${H - B + 46}" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#ffffff" fill-opacity="0.45">months between adoption and hiring</text>
 
   <path d="${line(wiki.points)} L ${x(MAX_LAG)} ${y(0)} L ${x(0)} ${y(0)} Z" fill="url(#wfade)"/>
-  ${data.map((d) => `<path d="${line(d.points)}" fill="none" stroke="${d.colour}" stroke-width="${d.id === 'wikipedia' ? 2.6 : 1.8}" stroke-linecap="round" stroke-linejoin="round" ${d.id === 'npm' ? 'stroke-dasharray="5 4"' : ''}/>`).join('\n  ')}
+  ${data.map((d) => `<path d="${line(d.points)}" fill="none" stroke="${d.colour}" stroke-width="${d.id === 'edgar' ? 2.6 : 1.6}" stroke-linecap="round" stroke-linejoin="round" ${d.id === 'edgar' ? '' : 'stroke-dasharray="5 4"'}/>`).join('\n  ')}
 
-  <circle cx="${x(peak.lag)}" cy="${y(peak.r as number)}" r="5.5" fill="#4ade80" stroke="#07080a" stroke-width="2.5"/>
-  <text x="${x(peak.lag)}" y="${y(peak.r as number) - 16}" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#4ade80">peak at ${peak.lag} months</text>
+  <circle cx="${x(peak.lag)}" cy="${y(peak.r as number)}" r="5.5" fill="#c98500" stroke="#07080a" stroke-width="2.5"/>
+  <text x="${x(peak.lag)}" y="${y(peak.r as number) - 16}" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c98500">peak at ${peak.lag} months</text>
 
   <g transform="translate(${L}, ${H - 22})">
-    ${data.map((d, i) => `<g transform="translate(${i * 340}, 0)"><rect width="20" height="2.6" y="5" rx="1.3" fill="${d.colour}"/><text x="30" y="10" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#ffffff" fill-opacity="0.7">${d.label} — ${d.verdict}</text></g>`).join('\n    ')}
+    ${data.map((d, i) => `<g transform="translate(${i * 255}, 0)"><rect width="20" height="2.6" y="5" rx="1.3" fill="${d.colour}"/><text x="30" y="10" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#ffffff" fill-opacity="0.7">${d.label} — ${d.verdict}</text></g>`).join('\n    ')}
   </g>
 </svg>`;
 

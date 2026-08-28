@@ -3,7 +3,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadLedger } from '../server/ledger.ts';
-import type { LeadingData } from '../server/collectors/leading.ts';
+import { loadIndicators, availableSources } from '../server/sources.ts';
 
 /**
  * Does adoption lead hiring — and by how many months?
@@ -22,9 +22,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const WINDOW = 3;          // months over which growth is measured
 const MAX_LAG = 9;
 
-const path = join(ROOT, 'data', 'leading.json');
-if (!existsSync(path)) { console.error('No data/leading.json — run `npm run leading` first.'); process.exit(1); }
-const leading = JSON.parse(readFileSync(path, 'utf8')) as LeadingData;
+const leading = loadIndicators();
 
 const ledger = loadLedger();
 if (ledger.seeded) { console.error('Refusing to analyse a seeded ledger. Run `npm run backfill`.'); process.exit(1); }
@@ -63,7 +61,7 @@ function pearson(pairs: [number, number][]): number | null {
   return sx && sy ? cov / Math.sqrt(sx * sy) : null;
 }
 
-const SOURCES = ['npm', 'wikipedia'] as const;
+const SOURCES = availableSources(leading);
 const hiringMonths = [...new Set(ledger.snapshots.map((s) => s.ts.slice(0, 7)))].sort();
 
 console.log(`hiring: ${hiringMonths.length} months (${hiringMonths[0]} → ${hiringMonths.at(-1)})`);
