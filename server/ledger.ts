@@ -8,20 +8,33 @@ const DATA = join(ROOT, 'data');
 const LEDGER_PATH = join(DATA, 'ledger.json');
 const PATHS_PATH = join(DATA, 'paths.json');
 
-const EMPTY: Ledger = { version: 1, seeded: false, snapshots: [], claims: [] };
+/**
+ * A factory, not a constant.
+ *
+ * `{ ...EMPTY }` is a shallow copy: every caller got the *same* `snapshots` and
+ * `claims` arrays, so one caller pushing to what it believed was its own empty
+ * ledger silently changed what the next caller received as "empty". Same bug
+ * class as the rest of this file — a wrong number with nothing that looks broken.
+ */
+const empty = (): Ledger => ({ version: 1, seeded: false, snapshots: [], claims: [] });
 
-export function loadLedger(): Ledger {
+/**
+ * @param path defaults to `data/ledger.json`; overridable so the corrupt-file
+ *   branch below can be tested against a throwaway file rather than the real
+ *   ledger. Production callers pass nothing.
+ */
+export function loadLedger(path: string = LEDGER_PATH): Ledger {
   // The absence of a file and the corruption of a file are not the same event.
   // Swallowing a parse error returned an empty ledger, which the pipeline then
   // appended one snapshot to and saved — destroying years of history behind a
   // dashboard that looked fine.
-  if (!existsSync(LEDGER_PATH)) return { ...EMPTY };
-  const raw = readFileSync(LEDGER_PATH, 'utf8');
+  if (!existsSync(path)) return empty();
+  const raw = readFileSync(path, 'utf8');
   try {
     return JSON.parse(raw) as Ledger;
   } catch (err) {
     throw new Error(
-      `data/ledger.json exists (${raw.length} bytes) but could not be parsed: ${(err as Error).message}. ` +
+      `${path} exists (${raw.length} bytes) but could not be parsed: ${(err as Error).message}. ` +
         `Refusing to continue — a run from here would overwrite it. Restore it or delete it deliberately.`,
     );
   }

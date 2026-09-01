@@ -14,7 +14,6 @@
     "start": "node dist/server.mjs",
     "collect": "tsx scripts/collect.ts",
     "seed": "tsx scripts/seed.ts",
-    "lint": "tsc --noEmit",
     "backfill": "tsx scripts/backfill.ts",
     "paths": "tsx scripts/paths.ts",
     "backtest": "tsx scripts/backtest.ts",
@@ -25,7 +24,8 @@
     "market": "tsx scripts/market.ts",
     "compare": "tsx scripts/compare.ts",
     "edgar": "tsx scripts/edgar.ts",
-    "test": "tsx scripts/test-matcher.ts"
+    "test": "node --test test/*.test.ts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

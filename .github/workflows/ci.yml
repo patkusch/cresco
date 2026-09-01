@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Tests and typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Node 24 strips TypeScript natively, so the suite runs the real modules
+      # with no build step and no test-only transform in between.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+  ledger:
+    name: Published data is intact
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      # The ledger is the product. A truncated or half-written commit of it
+      # would still render a dashboard, just a wrong one — so fail the build
+      # here rather than discovering it from a chart that looks plausible.
+      - name: Ledger parses and is non-empty
+        run: |
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const l = JSON.parse(readFileSync("data/ledger.json", "utf8"));
+            if (!Array.isArray(l.snapshots) || l.snapshots.length === 0) {
+              throw new Error("ledger has no snapshots");
+            }
+            if (l.seeded) {
+              throw new Error("the committed ledger is seeded — fixture data must never be the published one");
+            }
+            const claims = l.claims ?? [];
+            const graded = claims.filter((c) => c.outcome).length;
+            console.log(`ledger ok: ${l.snapshots.length} snapshots, ${claims.length} claims, ${graded} graded`);
+          '
+
+      - name: Every claim is dated and falsifiable
+        run: |
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const l = JSON.parse(readFileSync("data/ledger.json", "utf8"));
+            const bad = (l.claims ?? []).filter(
+              (c) => !c.checkBackAt || !c.createdAt || typeof c.demandIndex !== "number",
+            );
+            if (bad.length) {
+              throw new Error(`${bad.length} claim(s) missing a date or a baseline to grade against`);
+            }
+            console.log(`all ${(l.claims ?? []).length} claims are dated and gradeable`);
+          '

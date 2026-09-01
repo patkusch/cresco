@@ -9,6 +9,8 @@ including the calls it cannot make.**
 
 <br>
 
+[![CI](https://github.com/patkusch/cresco/actions/workflows/ci.yml/badge.svg)](https://github.com/patkusch/cresco/actions/workflows/ci.yml)
+![Tests](https://img.shields.io/badge/tests-106-199e70?style=flat-square&labelColor=07080a)
 ![MIT](https://img.shields.io/badge/licence-MIT-1c1d20?style=flat-square&labelColor=07080a)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3987e5?style=flat-square&labelColor=07080a)
 ![React 19](https://img.shields.io/badge/React_19-199e70?style=flat-square&labelColor=07080a)
@@ -337,6 +339,39 @@ That is what produced the 16-month ledger and the +0.440 that did not hold.
 Both now serialise their requests, retry before believing a null, and the backfill
 processes newest-first so throttling costs old history rather than the months the
 dashboard reports on.
+
+<br>
+
+## How this is tested
+
+```bash
+npm test        # 106 cases, no network, no fixtures on disk
+npm run typecheck
+```
+
+A product whose whole pitch is *"it grades its own predictions"* has an obvious
+incentive to grade itself generously. So the grader is the most heavily tested thing
+here, and it is tested for **falsifiability** rather than for working:
+
+- **Every verdict can be graded wrong.** For each of `rising`, `cooling`,
+  `table-stakes` and `hype`, a seeded generator explores 4,000 outcomes and asserts
+  that `wrong` is reachable. A rule that cannot fail is not a scoring rule, and this
+  suite fails the build if one ever becomes decoration.
+- **`cooling` is the exact mirror of `rising`** across 2,000 random movements — so one
+  direction cannot quietly be graded more generously than the other.
+- **Open claims never dilute the published rate**, `partial` never counts as correct,
+  and an ungraded system reports `null` rather than a hit rate it has not earned.
+
+The rest covers the ways a number here can be *silently* fabricated, one test per bug
+that actually shipped: the `source|metric` scale key (keyed on source alone, one
+ordinary `npm run collect` would have collapsed six years of history and made every
+skill look vertical at once), fixture data scoring in a real ledger, a brand-new
+collector manufacturing momentum on arrival, and the matcher cases — `"a lambda
+function in Python"` is not AWS demand, `"ready to go now"` is not Go.
+
+Writing these found one more, now fixed: `loadLedger()` returned `{ ...EMPTY }`, a
+shallow copy sharing its `snapshots` and `claims` arrays with a module-level constant,
+so one caller mutating its "own" empty ledger changed what the next caller received.
 
 <br>
 
