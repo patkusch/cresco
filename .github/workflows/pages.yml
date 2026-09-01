@@ -1,0 +1,51 @@
+name: Deploy dashboard to Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Only the newest deploy matters; cancel any run this one supersedes.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - run: npm ci
+
+      # The suite gates the deploy. The dashboard's whole claim is that its
+      # numbers are graded honestly, so publishing one the scoring tests reject
+      # would be worse than not publishing at all.
+      - name: Test
+        run: npm test
+
+      - name: Build static dashboard
+        run: npm run build:static
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/client
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

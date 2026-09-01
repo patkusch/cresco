@@ -30,6 +30,10 @@ masquerade as demand, writes every verdict down as a **dated, falsifiable claim*
 then **grades itself** against what actually happened. Its hit rate is on the
 dashboard. So is every call it got wrong.
 
+### ▶ [**See the live dashboard**](https://patkusch.github.io/cresco/) &nbsp;·&nbsp; no install
+
+Real data, rebuilt from the committed ledger on every push. Or run it yourself:
+
 ```bash
 npm install && npm run backfill && npm run dev
 ```

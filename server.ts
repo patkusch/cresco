@@ -11,9 +11,12 @@ const isProd = process.env.NODE_ENV === 'production';
 const app = express();
 app.use(express.json());
 
-app.get('/api/state', (_req, res) => {
-  res.json(buildState());
-});
+// Both paths serve the same payload. `/api/state.json` is the one the client
+// actually calls, because the static Pages build emits it as a real file and
+// that keeps the frontend on a single code path for both deployments.
+const sendState = (_req: express.Request, res: express.Response) => res.json(buildState());
+app.get('/api/state.json', sendState);
+app.get('/api/state', sendState);
 
 app.post('/api/collect', async (req, res) => {
   try {

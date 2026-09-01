@@ -58,7 +58,7 @@ export default function App() {
   const [open, setOpen] = useState<SkillSignal | null>(null);
 
   useEffect(() => {
-    fetch('/api/state')
+    fetch(`${import.meta.env.BASE_URL}api/state.json`)
       .then((r) => r.json())
       .then(setState)
       .catch((e) => setError(String(e)));
