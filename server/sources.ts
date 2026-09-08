@@ -13,7 +13,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
  * same hold-out and the same shuffled null as the ones already rejected, or
  * "we tested it" means nothing.
  */
-export function loadIndicators(files = ['leading.json', 'edgar.json']): LeadingData {
+export function loadIndicators(files = ['leading.json', 'edgar.json', 'github-topics.json']): LeadingData {
   const merged: LeadingData = { months: [], series: {}, resolved: [], missing: [] };
 
   for (const file of files) {
