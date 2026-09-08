@@ -385,16 +385,18 @@ Job postings lag. [`docs/RESEARCH.md`](docs/RESEARCH.md) holds verified notes on
 candidate **leading** indicators — every endpoint called live, with the traps that would
 have manufactured fake signals written down next to them.
 
-Wikipedia and npm were tested against 72 months of hiring data and both failed. Three
-candidates remain untested, and each has a mechanism behind it rather than just a
-correlation: **SEC EDGAR full-text search** (companies naming a technology to investors
-quarters before they staff it — Model Context Protocol went 0 → 1 → 26 → 40 across
-recent quarters), **GitHub repos by topic and creation month** (the `topic:mcp` curve
-inflects in exactly the month MCP launched), and **conference programmes** via public
-`.ics` feeds, where FOSDEM alone offers 13 years.
+Wikipedia, npm and SEC EDGAR were tested against 72 months of hiring data. The first two
+failed outright; EDGAR (companies naming a technology to investors — Model Context
+Protocol went 0 → 1 → 26 → 40 across recent quarters) was the best of anything tested and
+still did not clear the bar, with a peak lag of one to two months rather than the quarters
+its mechanism predicted. Two candidates remain untested, and each has a mechanism behind
+it rather than just a correlation: **GitHub repos by topic and creation month** (the
+`topic:mcp` curve inflects in exactly the month MCP launched, and creating a repo is a
+human act, unlike a download), and **conference programmes** via public `.ics` feeds,
+where FOSDEM alone offers 13 years.
 
 The hiring history that used to be the constraint is now 72 months, so these are
-properly testable. Given three refutations so far, the prior should be that they fail
+properly testable. Given four refutations so far, the prior should be that they fail
 too — and the test is cheap enough that finding out is still worth it.
 
 <br>
