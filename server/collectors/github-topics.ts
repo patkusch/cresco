@@ -148,34 +148,49 @@ export const MIN_NONZERO_MONTHS = 6;
 
 const API = 'https://api.github.com/search/repositories';
 
-function headers(): Record<string, string> {
+/**
+ * The search limit is 30 requests a minute per token. GITHUB_TOKEN gives one;
+ * GITHUB_TOKENS (comma-separated) gives several, used round-robin, each behind
+ * its own gate — so two tokens collect twice as fast without either one being
+ * pushed past its limit.
+ */
+const TOKENS: string[] = (process.env.GITHUB_TOKENS ?? process.env.GITHUB_TOKEN ?? '')
+  .split(',')
+  .map((t) => t.trim())
+  .filter(Boolean);
+
+function headers(token?: string): Record<string, string> {
   const h: Record<string, string> = {
     accept: 'application/vnd.github+json',
     'user-agent': 'Cresco skill-demand research (github.com/patkusch/cresco)',
   };
-  if (process.env.GITHUB_TOKEN) h.authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+  if (token) h.authorization = `Bearer ${token}`;
   return h;
 }
 
-/** Sequential gate: the search API allows 30 requests a minute with a token, 10 without. */
-let gate: Promise<void> = Promise.resolve();
-function throttled<T>(fn: () => Promise<T>): Promise<T> {
-  const gapMs = process.env.GITHUB_TOKEN ? 2_050 : 6_100;
-  const run = gate.then(fn);
-  gate = run.then(
-    () => new Promise((r) => setTimeout(r, gapMs)),
-    () => new Promise((r) => setTimeout(r, gapMs)),
-  );
+/** One sequential gate per token (or one keyless gate at the slower rate). */
+const gates: Promise<void>[] = (TOKENS.length ? TOKENS : ['']).map(() => Promise.resolve());
+let next = 0;
+function throttled<T>(fn: (token?: string) => Promise<T>): Promise<T> {
+  const i = next++ % gates.length;
+  const token = TOKENS[i] || undefined;
+  const gapMs = token ? 2_050 : 6_100;
+  const run = gates[i].then(() => fn(token));
+  // The gap runs from the moment the request is sent, not from when it answers:
+  // the limit is requests per minute, and waiting out the latency as well would
+  // halve the rate for nothing.
+  const gap = gates[i].then(() => new Promise<void>((r) => setTimeout(r, gapMs)));
+  gates[i] = Promise.all([run.catch(() => undefined), gap]).then(() => undefined);
   return run;
 }
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-async function search(q: string): Promise<SearchAnswer & { resetAt?: number }> {
+async function search(q: string, token?: string): Promise<SearchAnswer & { resetAt?: number }> {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 30_000);
   try {
-    const res = await fetch(`${API}?q=${encodeURIComponent(q)}&per_page=1`, { signal: ctrl.signal, headers: headers() });
+    const res = await fetch(`${API}?q=${encodeURIComponent(q)}&per_page=1`, { signal: ctrl.signal, headers: headers(token) });
     const reset = Number(res.headers.get('x-ratelimit-reset'));
     const remaining = Number(res.headers.get('x-ratelimit-remaining'));
     let body: SearchAnswer['body'] = null;
@@ -202,10 +217,14 @@ export async function repoCount(topic: string | null, start: string, end: string
   const q = `${topic ? `topic:${topic} ` : ''}created:${start}..${end}`;
   for (let attempt = 0; attempt < 5; attempt++) {
     if (attempt) await sleep(3_000 * attempt);
-    const answer = await throttled(() => search(q));
+    const answer = await throttled((token) => search(q, token));
     const n = parseSearch(answer);
     if (n !== null) return n;
-    if (answer.resetAt) await sleep(Math.max(0, answer.resetAt - Date.now()) + 1_000);
+    // Say why, so a slow run can be read from its log rather than guessed at.
+    const why = answer.body?.incomplete_results === true ? 'incomplete' : `http ${answer.status}`;
+    const wait = answer.resetAt ? Math.max(0, answer.resetAt - Date.now()) + 1_000 : 0;
+    console.error(`  retry ${attempt + 1}/5 (${why}${wait ? `, reset in ${Math.round(wait / 1000)}s` : ''}): ${q}`);
+    if (wait) await sleep(wait);
   }
   return null;
 }

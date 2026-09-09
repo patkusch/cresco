@@ -64,7 +64,7 @@ const save = () => {
 
 console.log(
   `GitHub topics: ${skills.length} skills × ${months.length} months (${months[0]} → ${months.at(-1)})` +
-    `${process.env.GITHUB_TOKEN ? ', with token' : ', keyless — set GITHUB_TOKEN for 3× the rate'}` +
+    `${process.env.GITHUB_TOKENS ? `, ${process.env.GITHUB_TOKENS.split(',').length} tokens` : process.env.GITHUB_TOKEN ? ', with token' : ', keyless — set GITHUB_TOKEN for 3× the rate'}` +
     `${done.size ? `, ${done.size} already collected` : ''}\n`,
 );
 
