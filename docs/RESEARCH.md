@@ -53,6 +53,8 @@ Verified `topic:mcp` (MCP launched Nov 2024):
 The inflection lands in the right month — a clean natural experiment for calibrating
 lead time. Repo *creation* is a human act, unlike downloads. Coverage ~22/25 skills.
 
+**Tested 2026-09-15 and rejected.** See the results table below.
+
 ### Conference programmes
 The sched.com JSON API is key-gated and robots-disallowed; the **`.ics` feed is public
 and permitted**. `https://kccncna2025.sched.com/all.ics` — verified 542 sessions, each
@@ -214,24 +216,31 @@ research — worth a look at the terms before any commercial use.
 
 | Candidate | Outcome |
 |---|---|
-| **SEC EDGAR** | **Tested, weak.** 14 skills × 84 months, share per 10,000 filings. Hold-out +0.117, 91% of splits positive — the best of anything tested — but 19% of shuffled nulls beat it, and the peak lag is 1–2 months rather than the 2–4 quarters the mechanism predicted. A two-month lead is not actionable for learning advice. |
-| **Wikipedia pageviews** | Rejected on 72 months (+0.043, 18.3%). Decayed monotonically as the sample grew from 16 months. |
-| **npm downloads** | Rejected (+0.012, 28.0%). |
+| **GitHub topic-creation** | **Rejected.** 64 skills × 84 months, share per 10,000 repos created that month. Hold-out +0.076, with 95% of splits positive, so the link is consistent. But 13.8% of shuffled nulls beat it, and the chosen lag is 0 months: it moves with hiring, not ahead of it. A check run after seeing that: rescaling so months under 1 per 10,000 are not skipped gives lag 3, +0.081, and 1.0% of nulls beating it. That beats the null, but it explains under 1% of hiring movement and was not named in advance. Re-test on fresh data with the rescaled test named beforehand. |
+| **SEC EDGAR** | **Tested, weak.** 14 skills × 84 months, share per 10,000 filings. Hold-out +0.117, 91% of splits positive — the best of anything tested — but 19% of shuffled nulls beat it, and the peak lag is 1–2 months rather than the 2–4 quarters the mechanism predicted. A two-month lead is not actionable for learning advice. Re-run on the rebuilt ledger (2026-09-15): +0.066, 32.8% of nulls beat it — rejected. |
+| **Wikipedia pageviews** | Rejected on 72 months (+0.043, 18.3%; +0.002, 38.3% on the rebuilt ledger). Decayed monotonically as the sample grew from 16 months. |
+| **npm downloads** | Rejected (+0.012, 28.0%; +0.003, 31.0% on the rebuilt ledger). |
 | **Indeed market adjustment** | Rejected — costs 17 points of backtest accuracy. |
 
-Untested: GitHub topic-creation, conference programmes, EU TED, Coursera launch dates.
-Given four refutations the prior should be that they fail too.
+Untested: conference programmes, EU TED, Coursera launch dates.
+Given five refutations the prior should be that they fail too.
 
 **The EDGAR guard is worth reusing.** `assertVaries()` throws if a fetched series never
 changes, because EDGAR returns the all-time count rather than erroring on a bad date
 range. Any collector whose API can silently answer a different question should have one.
+
+**The growth step hides quiet series.** `growth()` skips any month whose starting value
+is below 1, so it never divides by a near-zero number. A series stored per 10,000 sits
+below 1 for most niche topics, so the test silently drops their months. `npm run holdout
+-- --only=<source> --scale=N` rescales before testing. Pick the scale before looking at
+the result, or it becomes a threshold hunt.
 
 ---
 
 ## Next actions, in order
 
 1. **Extend the hiring backfill backwards** to 60+ months. Unblocks everything else.
-2. Build **SEC EDGAR** and **GitHub topic-creation** collectors, with word-boundary
+2. *Done: both built, tested and rejected.* Build **SEC EDGAR** and **GitHub topic-creation** collectors, with word-boundary
    matching, hand-checked disambiguation per skill, and share-normalisation.
 3. Re-run `holdout` with the longer hiring history before trusting any new lead.
 4. Add the **Indeed Hiring Lab** Software Development index as a control series — one

@@ -26,8 +26,21 @@ import { MAX_LAG, hiringByMonth, pairsAtLag, pearson, mulberry32, shuffled, medi
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SPLITS = 400;
+// `--only=github` tests one source; `--scale=100` multiplies that source's values
+// first. The growth step skips any month whose starting value is below 1, so a
+// series stored per 10,000 loses its quietest months; rescaling keeps them.
+const args = Object.fromEntries(process.argv.slice(2).map((a) => a.replace(/^--/, '').split('=')));
 const leading = loadIndicators();
-const SOURCES = availableSources(leading);
+const SOURCES = availableSources(leading).filter((s) => !args.only || String(args.only).split(',').includes(s));
+const SCALE = Number(args.scale ?? 1);
+if (SCALE !== 1) {
+  for (const bySource of Object.values(leading.series)) {
+    for (const s of SOURCES) {
+      const series = bySource[s];
+      if (series) bySource[s] = Object.fromEntries(Object.entries(series).map(([m, v]) => [m, v * SCALE]));
+    }
+  }
+}
 
 const ledger = loadLedger();
 if (ledger.seeded) { console.error('Refusing to validate against a seeded ledger.'); process.exit(1); }
@@ -35,7 +48,7 @@ if (ledger.seeded) { console.error('Refusing to validate against a seeded ledger
 const hiring = hiringByMonth(ledger);
 const months = [...new Set(ledger.snapshots.map((s) => s.ts.slice(0, 7)))].sort();
 
-console.log(`hiring: ${months.length} months (${months[0]} → ${months.at(-1)})\n`);
+console.log(`hiring: ${months.length} months (${months[0]} → ${months.at(-1)})${SCALE !== 1 ? ` · values ×${SCALE}` : ''}\n`);
 
 for (const source of SOURCES) {
   const skills = Object.keys(leading.series).filter((s) => leading.series[s][source] && hiring[s]);

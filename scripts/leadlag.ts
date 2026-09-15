@@ -66,8 +66,8 @@ const hiringMonths = [...new Set(ledger.snapshots.map((s) => s.ts.slice(0, 7)))]
 
 console.log(`hiring: ${hiringMonths.length} months (${hiringMonths[0]} → ${hiringMonths.at(-1)})`);
 console.log(`leading: ${Object.keys(leading.series).length} skills with a proxy · ${WINDOW}-month growth\n`);
-console.log('  lag        npm            wikipedia');
-console.log('  ---------------------------------------');
+console.log(`  lag   ${SOURCES.map((s) => s.padEnd(15)).join(' ')}`);
+console.log(`  ${'-'.repeat(6 + SOURCES.length * 16)}`);
 
 const best: { source: string; lag: number; r: number }[] = [];
 

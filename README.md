@@ -69,6 +69,7 @@ extending it:
 | 19 months | +0.394 | 1.0% | survives |
 | 22 months | +0.210 | 7.5% | weak |
 | **72 months** | **+0.043** | **18.3%** | **dead** |
+| 72 months, rebuilt ledger | +0.002 | 38.3% | dead |
 
 A clean monotonic decay as the sample grew. That is the signature of a finding that was
 never real — an artefact of one small, recent window. The six-month lag stayed put the
@@ -78,23 +79,51 @@ whole way, which is what made it convincing; the correlation underneath it evapo
 
 | Candidate | Hold-out r | Nulls beating it | Verdict |
 |---|---|---|---|
-| **SEC EDGAR** filings naming a technology | +0.117 | 19.0% | weak, and the lag is 1–2 months |
-| **Wikipedia** pageviews | +0.043 | 18.3% | rejected |
-| **npm** downloads | +0.012 | 28.0% | rejected |
+| **GitHub** repos created per topic | +0.076 | 13.8% | rejected: moves with hiring, not ahead of it |
+| **SEC EDGAR** filings naming a technology | +0.066 | 32.8% | rejected, and the lag is 1–2 months |
+| **Wikipedia** pageviews | +0.002 | 38.3% | rejected |
+| **npm** downloads | +0.003 | 31.0% | rejected |
 | **Market adjustment** (Indeed index) | — | — | rejected: −17pp on the backtest |
 
-SEC EDGAR was the most promising on mechanism — companies describe commitments to
-investors before they staff them — and it is the best of the three, with 91% of hold-out
-splits positive against Wikipedia's 69%. It still does not clear the bar, and its peak
-lag comes out at **1–2 months**. Even if the correlation were solid, a two-month warning
-is useless for a tool whose entire purpose is telling you what to start learning.
+Hold-out r is the correlation on skills the test never used to choose its lag.
+Zero means no link, and 1 means a perfect one.
+"Nulls beating it" is the share of shuffled series, each skill paired with a different skill's hiring, that score as well.
+Anything above 5% means luck explains it.
+
+These numbers were re-run on 2026-09-15.
+EDGAR, Wikipedia and npm first scored +0.117, +0.043 and +0.012.
+The hiring history was rebuilt after that, when throttled months were dropped and the skill matcher was fixed.
+On the rebuilt history all three score lower, and none of them changes verdict.
+
+**GitHub was the last candidate with a clear mechanism behind it.**
+Creating a repository is a deliberate act, unlike a download.
+We collected 84 months of new repositories for all 64 skills, as a share of every repository created that month.
+
+It comes closer than anything else to looking real, and it still fails.
+95% of hold-out splits come out positive, so the link is consistent.
+But 13.8% of shuffled series match it, where anything above 5% means luck explains it.
+And the best lag is 0 months.
+GitHub activity rises in the same month as hiring, so it tells you nothing that hiring does not already tell you.
+
+One more check was run after seeing that result, so treat it with care.
+The growth step skips any month where a skill's share is below 1 per 10,000 repositories, and many quiet topics sit below that.
+Keeping those months (`npm run holdout -- --only=github --scale=100`) moves the best lag to 3 months, and only 1% of shuffled series beat it.
+The correlation stays at +0.081, though.
+That means GitHub explains less than 1% of the ups and downs in hiring, far too little to base advice on.
+It was also not a test we named in advance, so GitHub stays rejected.
+It is the one thread worth re-testing on fresh data, with the rescaled test named before the data comes in.
+
+SEC EDGAR was the most promising on mechanism: companies describe commitments to investors before they staff them.
+When first tested it was the best of the early three, with 91% of hold-out splits positive.
+It still did not clear the bar, and its peak lag came out at **1–2 months**.
+Even a solid two-month warning is useless for a tool whose purpose is telling you what to start learning.
 
 One pre-specified follow-up was attempted — a minimum-volume floor, on the same logic as
 the evidence floor already used for verdicts, since several EDGAR series run at 0–2
 filings a month. Only one skill cleared it, so there was no split left to test. We
 stopped there rather than hunting for a threshold that happened to work.
 
-**Four hypotheses tested, four refuted.** That table is the project working as intended.
+**Five hypotheses tested, five refuted.** That table is the project working as intended.
 
 ## How it grades itself
 
@@ -253,6 +282,7 @@ manufacture novelty, and you will come home to forty pages of slop.
 | **Bluesky** | `community` | — | Public AT Protocol. The social signal that is actually open. |
 | **YouTube** | `content` | free | Weak as demand — content follows hype. Essential as supply. |
 | **Wikipedia** | *leading* | — | 84 months of pageviews. Measured and rejected. |
+| **GitHub** | *leading* | free | 84 months of new repositories per topic, for all 64 skills. Measured and rejected. |
 | **npm** | *leading* | — | Collected and **rejected** — see the receipts above. |
 
 **Deliberately absent:** X/Twitter is a paid API tier, and LinkedIn has no public API
@@ -312,8 +342,8 @@ Three rules keep the score honest, and each exists because it caught a real bug:
 - **Only two sources currently score:** `whoshiring` and `hackernews`. Adzuna, YouTube,
   Bluesky and Reddit contribute evidence and learning paths now, and join the index once
   they have three snapshots of their own.
-- **No leading indicator survived testing.** Wikipedia and npm were both measured and
-  both rejected on the full history. Nothing in the product depends on either, and the
+- **No leading indicator survived testing.** Wikipedia, npm, SEC EDGAR and GitHub were
+  all measured and all rejected on the full history. Nothing in the product depends on either, and the
   collectors remain only so the tests can be re-run against new data.
 - **Market adjustment was tested and rejected** — it costs 17 percentage points of
   accuracy. `data/market.json` is kept as context, not as an input.
@@ -323,7 +353,8 @@ Three rules keep the score honest, and each exists because it caught a real bug:
   the whole labour market.
 - **Source reweighting (step 4) is not built.**
 - **Proxy coverage is partial and honest.** 24 of the original 25 skills have an npm or
-  Wikipedia proxy; the 39 added later have none yet. No proxy was invented to fill a blank.
+  Wikipedia proxy, and 14 have an EDGAR series. All 64 have a GitHub series, because a
+  specific topic tag exists for each. No proxy was invented to fill a blank.
 - **64 skills across 8 categories**, and only about five get a confident call. That is the
   honest yield, not a bug — see the threshold table above.
 
@@ -385,19 +416,16 @@ Job postings lag. [`docs/RESEARCH.md`](docs/RESEARCH.md) holds verified notes on
 candidate **leading** indicators — every endpoint called live, with the traps that would
 have manufactured fake signals written down next to them.
 
-Wikipedia, npm and SEC EDGAR were tested against 72 months of hiring data. The first two
-failed outright; EDGAR (companies naming a technology to investors — Model Context
-Protocol went 0 → 1 → 26 → 40 across recent quarters) was the best of anything tested and
-still did not clear the bar, with a peak lag of one to two months rather than the quarters
-its mechanism predicted. Two candidates remain untested, and each has a mechanism behind
-it rather than just a correlation: **GitHub repos by topic and creation month** (the
-`topic:mcp` curve inflects in exactly the month MCP launched, and creating a repo is a
-human act, unlike a download), and **conference programmes** via public `.ics` feeds,
-where FOSDEM alone offers 13 years.
+Wikipedia, npm, SEC EDGAR and GitHub repos by topic were tested against 72 months of
+hiring data. All four failed. EDGAR (companies naming a technology to investors — Model
+Context Protocol went 0 → 1 → 26 → 40 across recent quarters) peaked at a lag of one to
+two months rather than the quarters its mechanism predicted. GitHub rose in the same
+month as hiring rather than ahead of it.
 
-The hiring history that used to be the constraint is now 72 months, so these are
-properly testable. Given four refutations so far, the prior should be that they fail
-too — and the test is cheap enough that finding out is still worth it.
+One candidate with a mechanism behind it remains untested: **conference programmes** via
+public `.ics` feeds, where FOSDEM alone offers 13 years. Given five refutations so far, the
+prior should be that it fails too — and the test is cheap enough that finding out is still
+worth it.
 
 <br>
 

@@ -26,7 +26,8 @@ const hiring = hiringByMonth(ledger);
 const months = [...new Set(ledger.snapshots.map((s) => s.ts.slice(0, 7)))].sort();
 
 const SOURCES = [
-  { id: 'edgar', label: 'SEC filings', colour: '#c98500', verdict: 'weak, lag too short' },
+  { id: 'edgar', label: 'SEC filings', colour: '#c98500', verdict: 'rejected, lag too short' },
+  { id: 'github', label: 'GitHub repos by topic', colour: '#4fa39a', verdict: 'rejected, no lead' },
   { id: 'wikipedia', label: 'Wikipedia pageviews', colour: '#7c8391', verdict: 'rejected' },
   { id: 'npm', label: 'npm downloads', colour: '#5b6270', verdict: 'rejected' },
 ];
@@ -39,7 +40,7 @@ const data = SOURCES.map((s) => ({
   }),
 }));
 
-const W = 900, H = 476, L = 74, R = 34, T = 76, B = 98;
+const W = 900, H = 500, L = 74, R = 34, T = 76, B = 98;
 const plotW = W - L - R, plotH = H - T - B;
 const YMAX = 0.55;
 const x = (lag: number) => L + (lag / MAX_LAG) * plotW;
@@ -64,7 +65,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" rol
   </defs>
   <rect width="${W}" height="${H}" fill="#07080a"/>
 
-  <text x="${L}" y="38" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#fff" letter-spacing="-0.3">Does anything lead hiring? Four tests, four failures.</text>
+  <text x="${L}" y="38" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#fff" letter-spacing="-0.3">Does anything lead hiring? Five tests, five failures.</text>
   <text x="${L}" y="58" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" fill="#ffffff" fill-opacity="0.5">Correlation of 3-month growth rates at each lag · ${months.length} months of hiring data</text>
 
   <!-- the band where the shuffled null lives -->
@@ -84,8 +85,8 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" rol
   <circle cx="${x(peak.lag)}" cy="${y(peak.r as number)}" r="5.5" fill="#c98500" stroke="#07080a" stroke-width="2.5"/>
   <text x="${x(peak.lag)}" y="${y(peak.r as number) - 16}" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#c98500">peak at ${peak.lag} months</text>
 
-  <g transform="translate(${L}, ${H - 22})">
-    ${data.map((d, i) => `<g transform="translate(${i * 255}, 0)"><rect width="20" height="2.6" y="5" rx="1.3" fill="${d.colour}"/><text x="30" y="10" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#ffffff" fill-opacity="0.7">${d.label} — ${d.verdict}</text></g>`).join('\n    ')}
+  <g transform="translate(${L}, ${H - 40})">
+    ${data.map((d, i) => `<g transform="translate(${(i % 2) * 390}, ${Math.floor(i / 2) * 20})"><rect width="20" height="2.6" y="5" rx="1.3" fill="${d.colour}"/><text x="30" y="10" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#ffffff" fill-opacity="0.7">${d.label} — ${d.verdict}</text></g>`).join('\n    ')}
   </g>
 </svg>`;
 
