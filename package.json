@@ -27,6 +27,7 @@
     "edgar": "tsx scripts/edgar.ts",
     "github-topics": "tsx scripts/github-topics.ts",
     "conference-programmes": "tsx scripts/conference-programmes.ts",
+    "rescaled-retest": "tsx scripts/rescaled-retest.ts",
     "test": "node --test test/*.test.ts",
     "typecheck": "tsc --noEmit"
   },

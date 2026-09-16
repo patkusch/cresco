@@ -89,6 +89,13 @@ it — better (lower) than any other candidate tested, EDGAR included. It still 
 pre-specified bar (real median needs to clear +0.1), so the pre-registered rule says
 reject, and the rule is followed even though the miss is narrow.
 
+Unlike GitHub topic-creation below, this candidate's own collector already stores share
+per 1,000 rather than per 10,000 specifically so the growth step's under-1 floor would
+not quietly drop its quiet months (see `shareOf()` in `server/collectors/
+conference-programmes.ts`). There is no rescale thread pending for conference programmes
+— the pre-registered retest in [`docs/PREREGISTERED.md`](PREREGISTERED.md) is for GitHub
+topic-creation, where that check actually was run.
+
 ---
 
 ## Tier 2 — usable with caveats
@@ -235,7 +242,7 @@ research — worth a look at the terms before any commercial use.
 
 | Candidate | Outcome |
 |---|---|
-| **GitHub topic-creation** | **Rejected.** 64 skills × 84 months, share per 10,000 repos created that month. Hold-out +0.076, with 95% of splits positive, so the link is consistent. But 13.8% of shuffled nulls beat it, and the chosen lag is 0 months: it moves with hiring, not ahead of it. A check run after seeing that: rescaling so months under 1 per 10,000 are not skipped gives lag 3, +0.081, and 1.0% of nulls beating it. That beats the null, but it explains under 1% of hiring movement and was not named in advance. Re-test on fresh data with the rescaled test named beforehand. |
+| **GitHub topic-creation** | **Rejected.** 64 skills × 84 months, share per 10,000 repos created that month. Hold-out +0.076, with 95% of splits positive, so the link is consistent. But 13.8% of shuffled nulls beat it, and the chosen lag is 0 months: it moves with hiring, not ahead of it. A check run after seeing that: rescaling so months under 1 per 10,000 are not skipped gives lag 3, +0.081, and 1.0% of nulls beating it. That beats the null, but it explains under 1% of hiring movement and was not named in advance. Re-test on fresh data with the rescaled test named beforehand — **pre-registered 2026-09-16 in [`docs/PREREGISTERED.md`](PREREGISTERED.md)**: the exact rescale formula, the lag (3 months, already published, not re-fit), the null procedure and the trigger condition are all locked down there before any new data exists. `npm run rescaled-retest` refuses to run until `data/ledger.json` has a real hiring month after August 2026 — as of this writing, it is written but not yet triggered, and it must stay that way until real new data arrives. |
 | **SEC EDGAR** | **Tested, weak.** 14 skills × 84 months, share per 10,000 filings. Hold-out +0.117, 91% of splits positive — the best of anything tested — but 19% of shuffled nulls beat it, and the peak lag is 1–2 months rather than the 2–4 quarters the mechanism predicted. A two-month lead is not actionable for learning advice. Re-run on the rebuilt ledger (2026-09-15): +0.066, 32.8% of nulls beat it — rejected. |
 | **Wikipedia pageviews** | Rejected on 72 months (+0.043, 18.3%; +0.002, 38.3% on the rebuilt ledger). Decayed monotonically as the sample grew from 16 months. |
 | **npm downloads** | Rejected (+0.012, 28.0%; +0.003, 31.0% on the rebuilt ledger). |
