@@ -26,6 +26,7 @@
     "compare": "tsx scripts/compare.ts",
     "edgar": "tsx scripts/edgar.ts",
     "github-topics": "tsx scripts/github-topics.ts",
+    "conference-programmes": "tsx scripts/conference-programmes.ts",
     "test": "node --test test/*.test.ts",
     "typecheck": "tsc --noEmit"
   },

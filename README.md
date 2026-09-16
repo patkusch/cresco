@@ -10,7 +10,7 @@ including the calls it cannot make.**
 <br>
 
 [![CI](https://github.com/patkusch/cresco/actions/workflows/ci.yml/badge.svg)](https://github.com/patkusch/cresco/actions/workflows/ci.yml)
-![Tests](https://img.shields.io/badge/tests-106-199e70?style=flat-square&labelColor=07080a)
+![Tests](https://img.shields.io/badge/tests-116-199e70?style=flat-square&labelColor=07080a)
 ![MIT](https://img.shields.io/badge/licence-MIT-1c1d20?style=flat-square&labelColor=07080a)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3987e5?style=flat-square&labelColor=07080a)
 ![React 19](https://img.shields.io/badge/React_19-199e70?style=flat-square&labelColor=07080a)
@@ -79,6 +79,7 @@ whole way, which is what made it convincing; the correlation underneath it evapo
 
 | Candidate | Hold-out r | Nulls beating it | Verdict |
 |---|---|---|---|
+| **Conference programmes** — talks per topic at major conferences | +0.091 | **8.8%** | rejected, but the closest miss of anything tested |
 | **GitHub** repos created per topic | +0.076 | 13.8% | rejected: moves with hiring, not ahead of it |
 | **SEC EDGAR** filings naming a technology | +0.066 | 32.8% | rejected, and the lag is 1–2 months |
 | **Wikipedia** pageviews | +0.002 | 38.3% | rejected |
@@ -95,7 +96,20 @@ EDGAR, Wikipedia and npm first scored +0.117, +0.043 and +0.012.
 The hiring history was rebuilt after that, when throttled months were dropped and the skill matcher was fixed.
 On the rebuilt history all three score lower, and none of them changes verdict.
 
-**GitHub was the last candidate with a clear mechanism behind it.**
+**Conference programmes came closest, and it still failed.**
+A conference programme is fixed months before the event, so a talk about a skill is one
+organiser betting early that people want to hear about it.
+We counted conferences, not individual talks — a three-day event with eighty sessions
+counts once — for 17 of the 64 skills, using a public, topic-tagged conference list
+maintained on GitHub (confs.tech's dataset), covering the same 84 months as everything
+else here.
+Only **8.8%** of shuffled tests scored as well as the real one, the lowest share of any
+candidate — most of the shuffled runs land nowhere near it.
+But the real number was **+0.091**, just under the **+0.1** floor we set before running
+the test, so by our own rule it still stays rejected.
+No exception was made for coming close.
+
+**GitHub was the next-closest candidate with a clear mechanism behind it.**
 Creating a repository is a deliberate act, unlike a download.
 We collected 84 months of new repositories for all 64 skills, as a share of every repository created that month.
 
@@ -123,7 +137,7 @@ the evidence floor already used for verdicts, since several EDGAR series run at 
 filings a month. Only one skill cleared it, so there was no split left to test. We
 stopped there rather than hunting for a threshold that happened to work.
 
-**Five hypotheses tested, five refuted.** That table is the project working as intended.
+**Six hypotheses tested, six refuted.** That table is the project working as intended.
 
 ## How it grades itself
 
@@ -284,6 +298,7 @@ manufacture novelty, and you will come home to forty pages of slop.
 | **Wikipedia** | *leading* | — | 84 months of pageviews. Measured and rejected. |
 | **GitHub** | *leading* | free | 84 months of new repositories per topic, for all 64 skills. Measured and rejected. |
 | **npm** | *leading* | — | Collected and **rejected** — see the receipts above. |
+| **Conference programmes** | *leading* | — | 84 months of conference counts per topic, for 17 of 64 skills. Measured and **rejected, closest miss** — see the receipts above. |
 
 **Deliberately absent:** X/Twitter is a paid API tier, and LinkedIn has no public API
 for this. Shipping a collector that breaks or invites a cease-and-desist would be worse
@@ -342,9 +357,10 @@ Three rules keep the score honest, and each exists because it caught a real bug:
 - **Only two sources currently score:** `whoshiring` and `hackernews`. Adzuna, YouTube,
   Bluesky and Reddit contribute evidence and learning paths now, and join the index once
   they have three snapshots of their own.
-- **No leading indicator survived testing.** Wikipedia, npm, SEC EDGAR and GitHub were
-  all measured and all rejected on the full history. Nothing in the product depends on either, and the
-  collectors remain only so the tests can be re-run against new data.
+- **No leading indicator survived testing.** Wikipedia, npm, SEC EDGAR, GitHub and
+  conference programmes were all measured and all rejected on the full history. Nothing
+  in the product depends on any of them, and the collectors remain only so the tests can
+  be re-run against new data.
 - **Market adjustment was tested and rejected** — it costs 17 percentage points of
   accuracy. `data/market.json` is kept as context, not as an input.
 - **Sample sizes are moderate** — 5 to 48 graded calls per verdict type across 85 total.
@@ -354,7 +370,10 @@ Three rules keep the score honest, and each exists because it caught a real bug:
 - **Source reweighting (step 4) is not built.**
 - **Proxy coverage is partial and honest.** 24 of the original 25 skills have an npm or
   Wikipedia proxy, and 14 have an EDGAR series. All 64 have a GitHub series, because a
-  specific topic tag exists for each. No proxy was invented to fill a blank.
+  specific topic tag exists for each. Conference programmes cover 17 skills — the
+  programming languages, mobile platforms and a few practices with an unambiguous,
+  dedicated conference category — deliberately not stretched to cover the rest. No proxy
+  was invented to fill a blank.
 - **64 skills across 8 categories**, and only about five get a confident call. That is the
   honest yield, not a bug — see the threshold table above.
 
@@ -380,7 +399,7 @@ dashboard reports on.
 ## How this is tested
 
 ```bash
-npm test        # 106 cases, no network, no fixtures on disk
+npm test        # 116 cases, no network, no fixtures on disk
 npm run typecheck
 ```
 
@@ -416,16 +435,18 @@ Job postings lag. [`docs/RESEARCH.md`](docs/RESEARCH.md) holds verified notes on
 candidate **leading** indicators — every endpoint called live, with the traps that would
 have manufactured fake signals written down next to them.
 
-Wikipedia, npm, SEC EDGAR and GitHub repos by topic were tested against 72 months of
-hiring data. All four failed. EDGAR (companies naming a technology to investors — Model
-Context Protocol went 0 → 1 → 26 → 40 across recent quarters) peaked at a lag of one to
-two months rather than the quarters its mechanism predicted. GitHub rose in the same
-month as hiring rather than ahead of it.
+Wikipedia, npm, SEC EDGAR, GitHub repos by topic and conference programmes were all
+tested against 72 months of hiring data. All five failed. EDGAR (companies naming a
+technology to investors — Model Context Protocol went 0 → 1 → 26 → 40 across recent
+quarters) peaked at a lag of one to two months rather than the quarters its mechanism
+predicted. GitHub rose in the same month as hiring rather than ahead of it. Conference
+programmes came closest — only 8.8% of shuffled tests scored as well as the real one —
+but the real correlation still landed just under the bar we set before running the test.
 
-One candidate with a mechanism behind it remains untested: **conference programmes** via
-public `.ics` feeds, where FOSDEM alone offers 13 years. Given five refutations so far, the
-prior should be that it fails too — and the test is cheap enough that finding out is still
-worth it.
+No candidate with a clear mechanism is left untested. The two still on the list — EU
+procurement notices and Coursera course-launch dates, both noted in
+[`docs/RESEARCH.md`](docs/RESEARCH.md) — are weaker bets, kept for completeness rather
+than because either looks likely to work.
 
 <br>
 

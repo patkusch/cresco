@@ -70,6 +70,25 @@ the 6–12 months assumed). The mechanism is longer — a talk published in mont
 proposed around M−2 by someone already deep in the topic at M−4 — but that is a
 hypothesis to test, not an assertion.
 
+**Built 2026-09-16, differently from the plan above.** Per-event `.ics`/sched.com feeds
+give session-level counts but only for the handful of franchises worth hand-listing —
+too narrow a base for 64 skills. `tech-conferences/conference-data`
+(github.com/tech-conferences/conference-data, the dataset behind confs.tech) trades that
+session-level detail for breadth: one JSON file per topic per calendar year, hundreds of
+recurring conferences, no key, no per-request rate limit. The signal collected is
+**conferences held that month in a topic's category, as a share of every conference the
+source recorded that month** — coarser than a talk count (a 3-day, 80-session event
+counts once) but real, dated, and collectible for 17 of 64 skills across all 84 months
+(Sep 2019 → Aug 2026) in under two minutes of collector runtime. `server/collectors/
+conference-programmes.ts`, `scripts/conference-programmes.ts`
+(`npm run conference-programmes`), `data/conference-programmes.json`.
+
+**Tested 2026-09-16 and rejected — the closest miss so far.** See the results table
+below: hold-out +0.091, 82% of splits positive, only **8.8%** of shuffled nulls beating
+it — better (lower) than any other candidate tested, EDGAR included. It still misses the
+pre-specified bar (real median needs to clear +0.1), so the pre-registered rule says
+reject, and the rule is followed even though the miss is narrow.
+
 ---
 
 ## Tier 2 — usable with caveats
@@ -221,9 +240,10 @@ research — worth a look at the terms before any commercial use.
 | **Wikipedia pageviews** | Rejected on 72 months (+0.043, 18.3%; +0.002, 38.3% on the rebuilt ledger). Decayed monotonically as the sample grew from 16 months. |
 | **npm downloads** | Rejected (+0.012, 28.0%; +0.003, 31.0% on the rebuilt ledger). |
 | **Indeed market adjustment** | Rejected — costs 17 points of backtest accuracy. |
+| **Conference programmes** | **Rejected, closest miss.** 17 skills × 84 months, share per 1,000 conferences confs.tech recorded that month. Hold-out +0.091, 82% of splits positive, and only 8.8% of shuffled nulls beat it — the lowest null-beat rate of any candidate. Still below the pre-specified +0.1 floor, so it stays rejected. |
 
-Untested: conference programmes, EU TED, Coursera launch dates.
-Given five refutations the prior should be that they fail too.
+Untested: EU TED, Coursera launch dates.
+Given six refutations the prior should be that they fail too.
 
 **The EDGAR guard is worth reusing.** `assertVaries()` throws if a fetched series never
 changes, because EDGAR returns the all-time count rather than erroring on a bad date
@@ -240,9 +260,11 @@ the result, or it becomes a threshold hunt.
 ## Next actions, in order
 
 1. **Extend the hiring backfill backwards** to 60+ months. Unblocks everything else.
-2. *Done: both built, tested and rejected.* Build **SEC EDGAR** and **GitHub topic-creation** collectors, with word-boundary
+2. *Done: built, tested and rejected.* Build **SEC EDGAR** and **GitHub topic-creation** collectors, with word-boundary
    matching, hand-checked disambiguation per skill, and share-normalisation.
 3. Re-run `holdout` with the longer hiring history before trusting any new lead.
 4. Add the **Indeed Hiring Lab** Software Development index as a control series — one
    CSV, and it closes a real blind spot in the share-based measure.
 5. Only then consider wiring a leading indicator into a verdict.
+6. *Done 2026-09-16: built, tested and rejected — the closest miss yet.* Build the
+   **conference programmes** collector.
