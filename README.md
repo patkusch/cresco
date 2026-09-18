@@ -10,12 +10,12 @@ including the calls it cannot make.**
 <br>
 
 [![CI](https://github.com/patkusch/cresco/actions/workflows/ci.yml/badge.svg)](https://github.com/patkusch/cresco/actions/workflows/ci.yml)
-![Tests](https://img.shields.io/badge/tests-116-199e70?style=flat-square&labelColor=07080a)
+![Tests](https://img.shields.io/badge/tests-135-199e70?style=flat-square&labelColor=07080a)
 ![MIT](https://img.shields.io/badge/licence-MIT-1c1d20?style=flat-square&labelColor=07080a)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3987e5?style=flat-square&labelColor=07080a)
 ![React 19](https://img.shields.io/badge/React_19-199e70?style=flat-square&labelColor=07080a)
 ![No keys required](https://img.shields.io/badge/API_keys-optional-c98500?style=flat-square&labelColor=07080a)
-![22 months real data](https://img.shields.io/badge/22_months-real_data-d55181?style=flat-square&labelColor=07080a)
+![72 months real data](https://img.shields.io/badge/72_months-real_data-d55181?style=flat-square&labelColor=07080a)
 
 </div>
 
@@ -236,14 +236,14 @@ people actually paying for it. Sort by it and hype separates from demand.
 
 ```bash
 npm install
-npm run backfill      # 22 months of REAL history, mined from Hacker News. No key needed.
+npm run backfill      # REAL history, mined from Hacker News (BACKFILL_MONTHS=72 for all six years; default 8). No key needed.
 npm run dev           # → http://localhost:3000
 ```
 
 `backfill` is the one that matters. Most sources only answer *"what is true now"* — you
 cannot ask a job board what it said in March. Hacker News is the exception: the monthly
 **"Ask HN: Who is hiring?"** threads are a genuine, dated, public hiring archive, so
-Cresco reconstructs two years of real signal on first run instead of making you wait.
+Cresco reconstructs years of real signal on first run instead of making you wait.
 
 ```bash
 npm run backtest      # replay history and grade the calls it would have made
