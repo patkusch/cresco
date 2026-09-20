@@ -10,7 +10,7 @@ including the calls it cannot make.**
 <br>
 
 [![CI](https://github.com/patkusch/cresco/actions/workflows/ci.yml/badge.svg)](https://github.com/patkusch/cresco/actions/workflows/ci.yml)
-![Tests](https://img.shields.io/badge/tests-135-199e70?style=flat-square&labelColor=07080a)
+![Tests](https://img.shields.io/badge/tests-150-199e70?style=flat-square&labelColor=07080a)
 ![MIT](https://img.shields.io/badge/licence-MIT-1c1d20?style=flat-square&labelColor=07080a)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3987e5?style=flat-square&labelColor=07080a)
 ![React 19](https://img.shields.io/badge/React_19-199e70?style=flat-square&labelColor=07080a)
@@ -35,7 +35,7 @@ dashboard. So is every call it got wrong.
 Real data, rebuilt from the committed ledger on every push. Or run it yourself:
 
 ```bash
-npm install && npm run backfill && npm run dev
+npm install && npm run dev
 ```
 
 <br>
@@ -236,14 +236,31 @@ people actually paying for it. Sort by it and hype separates from demand.
 
 ```bash
 npm install
-npm run backfill      # REAL history, mined from Hacker News (BACKFILL_MONTHS=72 for all six years; default 8). No key needed.
 npm run dev           # → http://localhost:3000
 ```
 
-`backfill` is the one that matters. Most sources only answer *"what is true now"* — you
+The repo already ships with the real history: 72 months of Hacker News hiring data
+(Sep 2020 → Aug 2026) in `data/ledger.json`. Nothing else is needed to see it.
+
+`backfill` is what built that ledger. Most sources only answer *"what is true now"* — you
 cannot ask a job board what it said in March. Hacker News is the exception: the monthly
 **"Ask HN: Who is hiring?"** threads are a genuine, dated, public hiring archive, so
-Cresco reconstructs years of real signal on first run instead of making you wait.
+Cresco can rebuild years of real signal from scratch instead of making you wait. No key
+needed.
+
+```bash
+BACKFILL_MONTHS=73 npm run backfill   # rebuild from Hacker News: 73 months, the 72 you have plus a new one
+npm run backfill -- --force           # replace the ledger even if the new one is shorter
+```
+
+Read this before running it. **`npm run backfill` on its own fetches only 8 months** and
+replaces the ledger with them. So it refuses, and says how many months it would throw away,
+whenever the new run is shorter than the ledger you already have. To extend history, ask
+for at least as many months as you already hold (`BACKFILL_MONTHS=73` above); it goes
+slowly on purpose, to stay under Hacker News's rate limit. To shorten it anyway, pass
+`--force`. Either way the ledger being replaced is first copied to
+`data/ledger.previous-<timestamp>.json`, and a backup is never overwritten. A backfill also
+rebuilds the list of calls from scratch, so run `npm run backtest` afterwards to grade them.
 
 ```bash
 npm run backtest      # replay history and grade the calls it would have made
@@ -253,7 +270,7 @@ npm run holdout       # validate that lead out-of-sample against a shuffled null
 npm run chart         # regenerate docs/leadlag.svg from current data
 npm run paths         # free YouTube learning paths (needs a YouTube key)
 npm run collect       # add today's snapshot from all six sources
-npm run seed          # offline fallback: synthetic history, clearly labelled
+npm run seed          # offline fallback: synthetic history, clearly labelled. REPLACES data/ledger.json with no backup
 ```
 
 <details>
@@ -399,7 +416,7 @@ dashboard reports on.
 ## How this is tested
 
 ```bash
-npm test        # 116 cases, no network, no fixtures on disk
+npm test        # 150 cases, no network, no fixtures on disk
 npm run typecheck
 ```
 

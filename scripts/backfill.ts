@@ -1,11 +1,12 @@
 import 'dotenv/config';
-import { writeFileSync, readFileSync, mkdirSync, existsSync, copyFileSync } from 'node:fs';
+import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SKILLS, skillsMentionedIn } from '../server/taxonomy.ts';
 import { getJSON, mapLimit } from '../server/collectors/http.ts';
 import { computeSignals } from '../server/signal.ts';
-import { mintClaims } from '../server/ledger.ts';
+import { loadLedger, mintClaims } from '../server/ledger.ts';
+import { assessOverwrite, backUpLedger } from '../server/backfill-guard.ts';
 import type { Ledger, Observation, Snapshot } from '../server/types.ts';
 
 /**
@@ -21,10 +22,19 @@ import type { Ledger, Observation, Snapshot } from '../server/types.ts';
  * Sources without history (Adzuna, YouTube, Bluesky, Reddit) join later, through
  * ordinary collection runs. They stay out of the index until they have three
  * snapshots of their own — see MIN_SNAPSHOTS_FOR_INDEX in signal.ts.
+ *
+ * This rebuilds the ledger from scratch, so it refuses to replace a real ledger
+ * with a shorter one unless `--force` is passed (see server/backfill-guard.ts).
+ *   BACKFILL_MONTHS=N npm run backfill            N months, default 8
+ *   npm run backfill -- --force                   replace even if history shrinks
+ * `CRESCO_DATA_DIR` points the script at another data directory (used by tests).
  */
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const DATA_DIR = process.env.CRESCO_DATA_DIR ?? join(ROOT, 'data');
+const LEDGER_FILE = join(DATA_DIR, 'ledger.json');
 const MONTHS = Number(process.env.BACKFILL_MONTHS ?? 8);
+const FORCE = process.argv.includes('--force');
 
 interface AlgoliaStory { objectID: string; title: string; created_at: string; created_at_i: number }
 interface HNItem { children?: HNItem[]; text?: string | null }
@@ -91,9 +101,22 @@ async function hnWindow(from: number, to: number): Promise<Map<string, number | 
   return out;
 }
 
+// Read the ledger on disk once, up front. loadLedger throws on a corrupt file,
+// which is right: a run from here would overwrite it.
+const existing = existsSync(LEDGER_FILE) ? loadLedger(LEDGER_FILE) : null;
+
 const threads = await whoIsHiringThreads();
 if (!threads.length) {
   console.error('Could not reach the Hacker News archive. Nothing written — the existing ledger is untouched.');
+  process.exit(1);
+}
+
+// Refuse before spending minutes on the network, not after. The check runs again
+// below with the months actually read, because an unreadable month is a hole and
+// a run can come back shorter than the archive offered.
+const plannedGuard = assessOverwrite(existing, threads.length, FORCE);
+if (!plannedGuard.allowed) {
+  console.error(plannedGuard.message);
   process.exit(1);
 }
 console.log(`found ${threads.length} monthly "Who is hiring?" threads: ${threads[0].created_at.slice(0, 7)} → ${threads.at(-1)!.created_at.slice(0, 7)}\n`);
@@ -160,19 +183,28 @@ for (const story of threads) {
 
 snapshots.sort((a, b) => a.ts.localeCompare(b.ts));
 
+if (snapshots.length === 0) {
+  console.error('\nNo month could be read. Nothing written — the existing ledger is untouched.');
+  process.exit(1);
+}
+
+const guard = assessOverwrite(existing, snapshots.length, FORCE);
+if (!guard.allowed) {
+  console.error(`\n${guard.message}`);
+  console.error('Nothing written — the existing ledger is untouched.');
+  process.exit(1);
+}
+
 const ledger: Ledger = { version: 1, seeded: false, snapshots, claims: [] };
 ledger.claims = mintClaims(ledger, computeSignals(ledger, {}));
 
-mkdirSync(join(ROOT, 'data'), { recursive: true });
-const target = join(ROOT, 'data', 'ledger.json');
-if (existsSync(target)) {
-  const prior = JSON.parse(readFileSync(target, 'utf8')) as Ledger;
-  // Only the synthetic ledger is worth keeping as a fallback; don't overwrite it
-  // with the output of an earlier backfill.
-  const backup = prior.seeded ? 'ledger.seeded.json' : 'ledger.previous.json';
-  copyFileSync(target, join(ROOT, 'data', backup));
-}
-writeFileSync(target, JSON.stringify(ledger, null, 2));
+mkdirSync(DATA_DIR, { recursive: true });
+let backedUpTo: string | null = null;
+if (existing) backedUpTo = backUpLedger(DATA_DIR, existing);
+writeFileSync(LEDGER_FILE, JSON.stringify(ledger, null, 2));
 
 console.log(`\nwrote ${snapshots.length} REAL monthly snapshots · ${ledger.claims.length} calls minted`);
-console.log('previous ledger kept at data/ledger.seeded.json');
+if (backedUpTo) {
+  const lost = guard.monthsLost ? ` (--force: ${guard.monthsLost} months no longer in data/ledger.json)` : '';
+  console.log(`previous ledger kept at data/${backedUpTo}${lost}`);
+}
