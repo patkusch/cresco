@@ -262,6 +262,20 @@ below 1 for most niche topics, so the test silently drops their months. `npm run
 -- --only=<source> --scale=N` rescales before testing. Pick the scale before looking at
 the result, or it becomes a threshold hunt.
 
+### Pre-registered retest: notes
+
+**2026-09-19 — the backfill command changed; the trigger did not.**
+[`docs/PREREGISTERED.md`](PREREGISTERED.md) says the new month must be "collected by
+the normal `npm run backfill` process". Since 2026-09-19, plain `npm run backfill`
+fetches only 8 months and refuses to shorten a real ledger, so on today's 72-month
+ledger the command that collects the next month is `BACKFILL_MONTHS=73 npm run
+backfill` (one more than the ledger holds). `npm run rescaled-retest` now prints
+that exact command when it is not triggered. The trigger condition is exactly what it
+was: a real (non-seeded) ledger with a real calendar month after August 2026 in it,
+collected by the normal backfill process. Nothing about the method, lag, seed or
+thresholds moved. `docs/PREREGISTERED.md` is content-hashed and was not edited; its
+SHA-256 (`b64092a0…6f2bdfe`) was re-checked on 2026-09-19 and still matches.
+
 ---
 
 ## Next actions, in order

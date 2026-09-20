@@ -7,6 +7,7 @@ import {
   PRESPECIFIED_LAG,
   MIN_PAIRS,
   checkEligibility,
+  collectInstruction,
   hiringMonthsOf,
   rescaledGrowth,
   buildPairs,
@@ -37,6 +38,37 @@ describe('rescaled-retest gate — the pre-registration must refuse until real n
     assert.equal(result.eligible, false);
     assert.match(result.reason, /Not triggered yet/);
     assert.deepEqual(result.newHiringMonths, []);
+  });
+
+  /**
+   * The message used to say "collect it with the normal `npm run backfill`".
+   * That fetches 8 months and now refuses to shorten a 72-month ledger, so
+   * following it would have failed. It must give the count that works.
+   */
+  test('tells the user the backfill count that works: one more than the ledger holds', () => {
+    // 72 real months, Sep 2020 -> Aug 2026, like data/ledger.json.
+    const months = Array.from({ length: 72 }, (_, i) => {
+      const t = 2020 * 12 + 8 + i;
+      return snap(`${Math.floor(t / 12)}-${String((t % 12) + 1).padStart(2, '0')}`, 'rust', 10);
+    });
+    assert.equal(months.at(-1)!.ts.slice(0, 7), '2026-08');
+    const result = checkEligibility(ledgerOf(months));
+    assert.equal(result.eligible, false);
+    assert.match(result.reason, /BACKFILL_MONTHS=73 npm run backfill/);
+    assert.match(result.reason, /72 now/);
+    assert.match(result.reason, /refuses to shorten the ledger/);
+    assert.doesNotMatch(result.reason, /normal "npm run backfill"/);
+    assert.match(result.reason, /most recent month is 2026-08/);
+  });
+
+  test('the count follows the ledger, it is not hard-coded', () => {
+    const three = ledgerOf([snap('2026-06', 'rust', 10), snap('2026-07', 'rust', 11), snap('2026-08', 'rust', 12)]);
+    assert.match(checkEligibility(three).reason, /BACKFILL_MONTHS=4 npm run backfill/);
+    assert.match(collectInstruction(100), /BACKFILL_MONTHS=101 npm run backfill/);
+  });
+
+  test('an empty ledger is not told to ask for "1" month', () => {
+    assert.doesNotMatch(collectInstruction(0), /BACKFILL_MONTHS=1 /);
   });
 
   test('refuses an empty ledger', () => {

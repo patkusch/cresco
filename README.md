@@ -10,7 +10,7 @@ including the calls it cannot make.**
 <br>
 
 [![CI](https://github.com/patkusch/cresco/actions/workflows/ci.yml/badge.svg)](https://github.com/patkusch/cresco/actions/workflows/ci.yml)
-![Tests](https://img.shields.io/badge/tests-161-199e70?style=flat-square&labelColor=07080a)
+![Tests](https://img.shields.io/badge/tests-164-199e70?style=flat-square&labelColor=07080a)
 ![MIT](https://img.shields.io/badge/licence-MIT-1c1d20?style=flat-square&labelColor=07080a)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3987e5?style=flat-square&labelColor=07080a)
 ![React 19](https://img.shields.io/badge/React_19-199e70?style=flat-square&labelColor=07080a)
@@ -422,7 +422,7 @@ dashboard reports on.
 ## How this is tested
 
 ```bash
-npm test        # 161 cases, no network, no fixtures on disk
+npm test        # 164 cases, no network, no fixtures on disk
 npm run typecheck
 ```
 

@@ -17,7 +17,8 @@ import {
  * Runs the pre-registered retest documented in docs/PREREGISTERED.md — a
  * rescaled-growth re-analysis of GitHub topic-creation, gated so it can only
  * ever run against a real new month of hiring data collected after
- * 2026-08 via the normal `npm run backfill` process. It refuses on the
+ * 2026-08 by the backfill (`BACKFILL_MONTHS=<months held + 1> npm run backfill`;
+ * the message it prints when not triggered gives the exact number). It refuses on the
  * existing Sep 2019 – Aug 2026 window, on purpose: that window was already
  * used to reject GitHub topic-creation, and testing this method against it
  * would be the same after-the-fact rescaling the pre-registration exists to

@@ -57,6 +57,24 @@ export function hiringMonthsOf(ledger: Ledger): string[] {
 }
 
 /**
+ * How to collect the next month. A plain `npm run backfill` fetches 8 months and
+ * the backfill refuses to shrink a real ledger, so the count has to be asked for:
+ * one more than the ledger holds today. The message is built from the ledger, not
+ * hard-coded, so it stays right as months are added.
+ */
+export function collectInstruction(monthsHeld: number): string {
+  if (monthsHeld === 0) {
+    return 'The ledger is empty. Build it with `BACKFILL_MONTHS=<how many months of history you want> npm run backfill`.';
+  }
+  return (
+    `To collect the next month, ask the backfill for one more month than the ledger holds (${monthsHeld} now):\n` +
+    `  BACKFILL_MONTHS=${monthsHeld + 1} npm run backfill\n` +
+    `Plain \`npm run backfill\` fetches only 8 months and refuses to shorten the ledger. ` +
+    `When it finishes, check that the newest month is after ${REGISTRATION_CUTOFF}, then run this again.`
+  );
+}
+
+/**
  * The trigger condition from docs/PREREGISTERED.md: refuse unless the ledger
  * is a real (non-seeded) backfill AND it has at least one snapshot for a
  * calendar month after REGISTRATION_CUTOFF. Never falls back to running the
@@ -80,9 +98,10 @@ export function checkEligibility(ledger: Ledger): EligibilityResult {
       eligible: false,
       reason:
         `Not triggered yet. docs/PREREGISTERED.md fires only once data/ledger.json has real hiring data for a ` +
-        `calendar month after ${REGISTRATION_CUTOFF}, collected via the normal "npm run backfill" process — not a ` +
+        `calendar month after ${REGISTRATION_CUTOFF}, collected by the backfill — not a ` +
         `re-analysis of the Sep 2019 – Aug 2026 window already used to reject GitHub topic-creation. The ` +
-        `ledger's most recent month is ${months.at(-1) ?? '(no snapshots)'}. Refusing to run.`,
+        `ledger's most recent month is ${months.at(-1) ?? '(no snapshots)'}.\n${collectInstruction(months.length)}\n` +
+        `Refusing to run.`,
       newHiringMonths: [],
     };
   }
