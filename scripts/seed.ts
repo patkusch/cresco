@@ -1,10 +1,11 @@
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SKILLS } from '../server/taxonomy.ts';
 import type { Ledger, Observation, Snapshot } from '../server/types.ts';
 import { computeSignals } from '../server/signal.ts';
-import { mintClaims } from '../server/ledger.ts';
+import { loadLedger, mintClaims } from '../server/ledger.ts';
+import { assessSeedOverwrite, backUpLedger } from '../server/backfill-guard.ts';
 
 /**
  * Generates a SYNTHETIC eight-week history so the dashboard has something to
@@ -14,9 +15,31 @@ import { mintClaims } from '../server/ledger.ts';
  * otherwise.
  *
  * Run `npm run collect` and real snapshots start appending on top.
+ *
+ * It replaces data/ledger.json outright, so it refuses when the ledger on disk
+ * is real (not itself seeded) unless `--force` is passed; forcing keeps a
+ * timestamped copy first (see server/backfill-guard.ts). A seeded ledger is
+ * replaced freely.
+ *   npm run seed                 fine on a fresh clone with no ledger, or a seeded one
+ *   npm run seed -- --force      replace a real ledger too (backup kept)
+ * `CRESCO_DATA_DIR` and `CRESCO_FIXTURES_DIR` point the script at other
+ * directories (used by tests).
  */
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const DATA_DIR = process.env.CRESCO_DATA_DIR ?? join(ROOT, 'data');
+const FIXTURES_DIR = process.env.CRESCO_FIXTURES_DIR ?? join(ROOT, 'fixtures');
+const LEDGER_FILE = join(DATA_DIR, 'ledger.json');
+const FORCE = process.argv.includes('--force');
+
+// Decide before anything is generated or written, fixtures included. loadLedger
+// throws on a corrupt file, which is right: a run from here would overwrite it.
+const existing = existsSync(LEDGER_FILE) ? loadLedger(LEDGER_FILE) : null;
+const guard = assessSeedOverwrite(existing, FORCE);
+if (!guard.allowed) {
+  console.error(guard.message);
+  process.exit(1);
+}
 const WEEKS = 8;
 
 /** [starting level, weekly multiplier] per evidence family. */
@@ -114,16 +137,22 @@ const ledger: Ledger = { version: 1, seeded: true, snapshots, claims: [] };
 // scoring loop has real history to grade the moment it lands.
 ledger.claims = mintClaims(ledger, computeSignals(ledger, {}));
 
-mkdirSync(join(ROOT, 'data'), { recursive: true });
-writeFileSync(join(ROOT, 'data', 'ledger.json'), JSON.stringify(ledger, null, 2));
+mkdirSync(DATA_DIR, { recursive: true });
+// Only a real ledger needs saving: a seeded one is exactly what this script makes again.
+let backedUpTo: string | null = null;
+if (existing && !existing.seeded) backedUpTo = backUpLedger(DATA_DIR, existing);
+writeFileSync(LEDGER_FILE, JSON.stringify(ledger, null, 2));
 
 // Fixtures for the keyless path: the final seeded week becomes the fallback table,
 // so a no-key `npm run collect` degrades to something plausible instead of zeros.
 const last = snapshots[snapshots.length - 1];
 const table = (sourceId: string) =>
   Object.fromEntries(last.observations.filter((o) => o.sourceId === sourceId).map((o) => [o.skillId, o.value]));
-mkdirSync(join(ROOT, 'fixtures'), { recursive: true });
-writeFileSync(join(ROOT, 'fixtures', 'adzuna.json'), JSON.stringify(table('adzuna'), null, 2));
-writeFileSync(join(ROOT, 'fixtures', 'youtube.json'), JSON.stringify(table('youtube'), null, 2));
+mkdirSync(FIXTURES_DIR, { recursive: true });
+writeFileSync(join(FIXTURES_DIR, 'adzuna.json'), JSON.stringify(table('adzuna'), null, 2));
+writeFileSync(join(FIXTURES_DIR, 'youtube.json'), JSON.stringify(table('youtube'), null, 2));
 
 console.log(`seeded ${snapshots.length} weekly snapshots · ${last.observations.length} observations · ${ledger.claims.length} opening calls minted`);
+if (backedUpTo) {
+  console.log(`previous ledger kept at data/${backedUpTo} (--force: ${guard.monthsLost} real months no longer in data/ledger.json)`);
+}

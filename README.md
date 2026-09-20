@@ -10,7 +10,7 @@ including the calls it cannot make.**
 <br>
 
 [![CI](https://github.com/patkusch/cresco/actions/workflows/ci.yml/badge.svg)](https://github.com/patkusch/cresco/actions/workflows/ci.yml)
-![Tests](https://img.shields.io/badge/tests-150-199e70?style=flat-square&labelColor=07080a)
+![Tests](https://img.shields.io/badge/tests-161-199e70?style=flat-square&labelColor=07080a)
 ![MIT](https://img.shields.io/badge/licence-MIT-1c1d20?style=flat-square&labelColor=07080a)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3987e5?style=flat-square&labelColor=07080a)
 ![React 19](https://img.shields.io/badge/React_19-199e70?style=flat-square&labelColor=07080a)
@@ -270,8 +270,14 @@ npm run holdout       # validate that lead out-of-sample against a shuffled null
 npm run chart         # regenerate docs/leadlag.svg from current data
 npm run paths         # free YouTube learning paths (needs a YouTube key)
 npm run collect       # add today's snapshot from all six sources
-npm run seed          # offline fallback: synthetic history, clearly labelled. REPLACES data/ledger.json with no backup
+npm run seed          # offline fallback: synthetic history, clearly labelled. Refuses if data/ledger.json is real (see below)
 ```
+
+`npm run seed` replaces `data/ledger.json` with eight weeks of invented data, so it has the
+same seat belt as the backfill. On a ledger of real months it refuses, says how many it would
+throw away, and changes nothing. `npm run seed -- --force` goes ahead, after copying the real
+ledger to `data/ledger.previous-<timestamp>.json` (a backup is never overwritten). A ledger
+that is already synthetic is replaced freely, and a fresh clone with no ledger just gets one.
 
 <details>
 <summary><b>Running it while you're away</b></summary>
@@ -416,7 +422,7 @@ dashboard reports on.
 ## How this is tested
 
 ```bash
-npm test        # 150 cases, no network, no fixtures on disk
+npm test        # 161 cases, no network, no fixtures on disk
 npm run typecheck
 ```
 

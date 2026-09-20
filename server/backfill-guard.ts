@@ -49,6 +49,34 @@ export function assessOverwrite(existing: Ledger | null, newMonths: number, forc
   };
 }
 
+/**
+ * The same seat belt for `npm run seed`, which replaces the whole ledger with
+ * eight invented weekly snapshots.
+ *
+ * It cannot reuse `assessOverwrite`, because that one compares lengths and a
+ * real ledger of 8 months would slip through. Replacing real months with
+ * invented ones is a loss whatever the length, so here every real month counts
+ * as lost.
+ *
+ * - No ledger, or a synthetic one (`seeded`): allowed. `npm run seed` recreates it.
+ * - A real ledger: refused unless `force`; the caller then backs it up with `backUpLedger`.
+ */
+export function assessSeedOverwrite(existing: Ledger | null, force: boolean): OverwriteVerdict {
+  const existingMonths = existing?.snapshots.length ?? 0;
+  if (!existing || existing.seeded) return { allowed: true, monthsLost: 0, existingMonths };
+  if (force) return { allowed: true, monthsLost: existingMonths, existingMonths };
+  return {
+    allowed: false,
+    monthsLost: existingMonths,
+    existingMonths,
+    message:
+      `Refusing to overwrite data/ledger.json: it holds ${existingMonths} real months and \`npm run seed\` would replace ` +
+      `all of them with invented sample data.\n` +
+      `You almost certainly want to keep it: \`npm run dev\` shows the real ledger as it is.\n` +
+      `To replace it anyway (a timestamped backup is kept):\n  npm run seed -- --force`,
+  };
+}
+
 /** `2026-09-19T10:15:30.123Z` -> `20260919T101530Z`, safe in a file name. */
 const stamp = (now: Date) => now.toISOString().replace(/\.\d+Z$/, 'Z').replace(/[-:]/g, '');
 
