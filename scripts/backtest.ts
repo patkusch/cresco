@@ -87,5 +87,14 @@ if (misses.length) {
   for (const c of misses) console.log(`    ${c.skillId} · called ${c.verdict} · ${c.scoringNote}`);
 }
 
+// This rewrites data/ledger.json every time: the snapshots are kept as they were
+// and the whole list of calls is replaced by the replay. The replay is
+// deterministic, so on an already-backtested ledger the file comes out
+// byte-for-byte the same and git shows no change. Say which of the two happened.
+const sameCalls = JSON.stringify(ledger.claims) === JSON.stringify(claims);
 saveLedger({ ...ledger, claims });
-console.log('\nwritten to data/ledger.json');
+console.log(
+  sameCalls
+    ? `\nre-wrote data/ledger.json: the replay reproduced all ${claims.length} stored calls exactly, so the file is unchanged.`
+    : `\nre-wrote data/ledger.json: its ${ledger.claims.length} stored calls were replaced by the ${claims.length} from this replay (snapshots untouched).`,
+);

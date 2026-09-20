@@ -263,7 +263,7 @@ slowly on purpose, to stay under Hacker News's rate limit. To shorten it anyway,
 rebuilds the list of calls from scratch, so run `npm run backtest` afterwards to grade them.
 
 ```bash
-npm run backtest      # replay history and grade the calls it would have made
+npm run backtest      # replay history and grade the calls it would have made (re-writes data/ledger.json, and says whether it changed)
 npm run leading       # fetch leading indicators (npm + Wikipedia, 84 months, no key)
 npm run leadlag       # measure whether adoption leads hiring, and by how long
 npm run holdout       # validate that lead out-of-sample against a shuffled null
