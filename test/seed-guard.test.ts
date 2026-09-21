@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 
 import { assessSeedOverwrite } from '../server/backfill-guard.ts';
 import type { Ledger, Snapshot } from '../server/types.ts';
+import { seededLedger, seededLedgerWithReal } from './helpers/ledgers.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -57,6 +58,18 @@ describe('assessSeedOverwrite — `npm run seed` never quietly replaces real mon
 
   test('no ledger yet: allowed', () => {
     assert.equal(assessSeedOverwrite(null, false).allowed, true);
+  });
+
+  test('a seeded ledger holding one real snapshot is refused, and the message says 1 month, not 9', () => {
+    const v = assessSeedOverwrite(seededLedgerWithReal(8, 1), false);
+    assert.equal(v.allowed, false);
+    assert.equal(v.monthsLost, 1);
+    assert.match(v.message!, /holds 1 real month and/);
+  });
+
+  test('a seeded ledger of only sample data is allowed, with nothing lost', () => {
+    const v = assessSeedOverwrite(seededLedger(8), false);
+    assert.deepEqual([v.allowed, v.monthsLost], [true, 0]);
   });
 });
 
@@ -148,6 +161,43 @@ describe('scripts/seed.ts — end to end', () => {
     assert.ok(saved.includes(first));
     const lengths = saved.map((f) => (JSON.parse(readFileSync(join(data, f), 'utf8')) as Ledger).snapshots.length).sort((a, b) => a - b);
     assert.deepEqual(lengths, [5, 72]);
+  });
+
+  /**
+   * The bug: a ledger flagged `seeded` that `npm run collect` had since added
+   * real snapshots to was treated as sample data and replaced, no backup.
+   */
+  test('a seeded ledger holding a real snapshot is refused, and byte-identical afterwards', () => {
+    put(seededLedgerWithReal(8, 1));
+    const before = readFileSync(ledgerPath(), 'utf8');
+    const r = seed();
+    assert.equal(r.code, 1, r.out + r.err);
+    assert.match(r.err, /holds 1 real month and/);
+    assert.match(r.err, /npm run seed -- --force/);
+    assert.equal(readFileSync(ledgerPath(), 'utf8'), before);
+    assert.equal(backups().length, 0);
+    assert.equal(existsSync(join(fixtures, 'adzuna.json')), false, 'a refused run writes nothing at all');
+  });
+
+  test('--force on it keeps a timestamped copy (not the overwritable ledger.seeded.json)', () => {
+    put(seededLedgerWithReal(8, 1));
+    const before = readFileSync(ledgerPath(), 'utf8');
+    const r = seed('--force');
+    assert.equal(r.code, 0, r.err);
+    const saved = backups();
+    assert.equal(saved.length, 1);
+    assert.match(saved[0], /^ledger\.previous-\d{8}T\d{6}Z\.json$/);
+    assert.equal(readFileSync(join(data, saved[0]), 'utf8'), before);
+    assert.equal(existsSync(join(data, 'ledger.seeded.json')), false);
+    assert.match(r.out, /1 real month no longer/);
+  });
+
+  test('a ledger that is sample data all the way through is still replaced freely, no backup', () => {
+    put(seededLedger(8));
+    const r = seed();
+    assert.equal(r.code, 0, r.err);
+    assert.equal(backups().length, 0);
+    assert.equal(existsSync(join(data, 'ledger.seeded.json')), false);
   });
 
   test('a corrupt ledger stops the run rather than being overwritten', () => {

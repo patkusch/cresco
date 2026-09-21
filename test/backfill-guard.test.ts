@@ -6,8 +6,9 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { assessOverwrite, backUpLedger } from '../server/backfill-guard.ts';
+import { assessCollect, assessOverwrite, backUpLedger, hasRealData, isReplaceable, realMonths, startRealLedger } from '../server/backfill-guard.ts';
 import type { Ledger, Snapshot } from '../server/types.ts';
+import { ledgerFrom, realMonth, seededLedger, seededLedgerWithReal, seededWeek } from './helpers/ledgers.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -70,6 +71,113 @@ describe('assessOverwrite — the ledger on disk is never shortened by accident'
   });
 });
 
+describe('isReplaceable — a ledger is sample data only if every snapshot is', () => {
+  /**
+   * The bug: the top-level `seeded` flag alone decided this, and `npm run collect`
+   * appends real snapshots to a ledger that still carries the flag.
+   */
+  test('a seeded ledger of only sample data is replaceable', () => {
+    assert.equal(isReplaceable(seededLedger(8)), true);
+    assert.equal(realMonths(seededLedger(8)), 0);
+  });
+
+  test('a seeded ledger with one real snapshot is real, whatever its flag says', () => {
+    const l = seededLedgerWithReal(8, 1);
+    assert.equal(l.seeded, true);
+    assert.equal(isReplaceable(l), false);
+    assert.equal(realMonths(l), 1, 'only the real snapshot counts as a month that would be lost');
+  });
+
+  test('one real snapshot among many sample ones is enough', () => {
+    const snaps = Array.from({ length: 30 }, (_, i) => seededWeek(i));
+    snaps[17] = realMonth(3);
+    assert.equal(isReplaceable(ledgerFrom(snaps, true)), false);
+  });
+
+  test('a ledger not flagged seeded is always real, even if every number in it is fixture', () => {
+    assert.equal(isReplaceable(ledgerFrom([seededWeek(0)], false)), false);
+    assert.equal(realMonths(ledgerFrom([seededWeek(0), seededWeek(1)], false)), 2);
+  });
+
+  test('no ledger, and an empty seeded one, are replaceable', () => {
+    assert.equal(isReplaceable(null), true);
+    assert.equal(isReplaceable(ledgerFrom([], true)), true);
+    assert.equal(realMonths(null), 0);
+  });
+
+  test('a snapshot counts as real if it has a live source even with only fixture numbers in it', () => {
+    const s = { ...seededWeek(0), sources: [{ id: 'whoshiring', sourceClass: 'hiring' as const, live: true }] };
+    assert.equal(hasRealData(s), true);
+    assert.equal(hasRealData(seededWeek(0)), false);
+  });
+});
+
+describe('assessOverwrite on a seeded ledger that holds real snapshots', () => {
+  test('counts only its real snapshots as months at risk, and refuses a shorter run', () => {
+    const l = ledgerFrom([...seededLedger(8).snapshots, ...Array.from({ length: 12 }, (_, i) => realMonth(i))], true);
+    const v = assessOverwrite(l, 8, false);
+    assert.equal(v.allowed, false);
+    assert.equal(v.existingMonths, 12);
+    assert.equal(v.monthsLost, 4);
+  });
+
+  test('a run at least as long as its real months is allowed (the backup covers the rest)', () => {
+    assert.equal(assessOverwrite(seededLedgerWithReal(8, 1), 8, false).allowed, true);
+  });
+});
+
+describe('assessCollect — a seeded ledger never gains real data by accident', () => {
+  const real = realMonth(9, true);
+  const sampleOnly = seededWeek(9);
+
+  test('a real snapshot on a seeded ledger is refused, with both ways out named', () => {
+    const v = assessCollect(seededLedger(), real, false);
+    assert.equal(v.allowed, false);
+    assert.equal(v.startReal, false);
+    assert.match(v.message!, /flagged seeded/);
+    assert.match(v.message!, /npm run backfill/);
+    assert.match(v.message!, /npm run collect -- --force/);
+  });
+
+  test('--force allows it, as a conversion to a real ledger', () => {
+    const v = assessCollect(seededLedger(), real, true);
+    assert.deepEqual([v.allowed, v.startReal, v.message], [true, true, undefined]);
+  });
+
+  test('a seeded ledger that already holds real snapshots says so, and counts them', () => {
+    const v = assessCollect(seededLedgerWithReal(8, 3), real, false);
+    assert.equal(v.allowed, false);
+    assert.match(v.message!, /already holds 3 real snapshots/);
+  });
+
+  test('a run that collected nothing real is fine on a seeded ledger', () => {
+    assert.deepEqual(assessCollect(seededLedger(), sampleOnly, false), { allowed: true, startReal: false });
+  });
+
+  test('a ledger not flagged seeded takes real snapshots as ever, force or not', () => {
+    const l = ledgerFrom([realMonth(8)], false);
+    assert.deepEqual(assessCollect(l, real, false), { allowed: true, startReal: false });
+    assert.deepEqual(assessCollect(l, real, true), { allowed: true, startReal: false });
+  });
+});
+
+describe('startRealLedger', () => {
+  test('keeps the real snapshots, drops the sample ones and the calls sample data made, clears the flag', () => {
+    const l = seededLedgerWithReal(8, 2);
+    const out = startRealLedger(l);
+    assert.equal(out.seeded, false);
+    assert.equal(out.snapshots.length, 2);
+    assert.ok(out.snapshots.every(hasRealData));
+    assert.deepEqual(out.claims, []);
+    assert.equal(l.snapshots.length, 10, 'the input is not modified');
+    assert.equal(l.seeded, true);
+  });
+
+  test('a ledger of only sample data becomes empty', () => {
+    assert.equal(startRealLedger(seededLedger(8)).snapshots.length, 0);
+  });
+});
+
 describe('backUpLedger — an existing backup is never overwritten', () => {
   let dir: string;
   beforeEach(() => { dir = mkdtempSync(join(tmpdir(), 'cresco-backup-')); });
@@ -112,6 +220,13 @@ describe('backUpLedger — an existing backup is never overwritten', () => {
     assert.equal((JSON.parse(readFileSync(join(dir, a), 'utf8')) as Ledger).snapshots.length, 5);
   });
 
+  test('a seeded ledger that holds a real snapshot gets the timestamped copy, not ledger.seeded.json', () => {
+    const mixed = seededLedgerWithReal(8, 1);
+    put(mixed);
+    assert.match(backUpLedger(dir, mixed, new Date('2026-09-20T10:00:00Z')), /^ledger\.previous-20260920T100000Z\.json$/);
+    assert.equal(readdirSync(dir).includes('ledger.seeded.json'), false);
+  });
+
   test('a seeded ledger keeps going to ledger.seeded.json, not the previous-* series', () => {
     const seeded = ledgerOf(5, true);
     put(seeded);
@@ -132,6 +247,7 @@ describe('scripts/backfill.ts — end to end, offline', () => {
   afterEach(() => { rmSync(dir, { recursive: true, force: true }); });
 
   const ledgerPath = () => join(dir, 'ledger.json');
+  const put = (l: Ledger) => writeFileSync(ledgerPath(), JSON.stringify(l));
   const seedLedger = (months: number) => writeFileSync(ledgerPath(), JSON.stringify(ledgerOf(months)));
   const read = () => JSON.parse(readFileSync(ledgerPath(), 'utf8')) as Ledger;
   const backups = () => readdirSync(dir).filter((f) => f.startsWith('ledger.previous'));
@@ -190,6 +306,42 @@ describe('scripts/backfill.ts — end to end, offline', () => {
     assert.equal(read().seeded, false);
     assert.equal(backups().length, 1, 'the ledger it replaced is still backed up');
     assert.doesNotMatch(r.out, /no longer in/);
+  });
+
+  /**
+   * The bug: a ledger flagged `seeded` that `npm run collect` had since added
+   * real snapshots to was treated as sample data: replaced, and its copy went to
+   * the one overwritable ledger.seeded.json.
+   */
+  test('a seeded ledger holding real snapshots is protected like a real one: a shorter run is refused', () => {
+    put(ledgerFrom([...seededLedger(8).snapshots, ...Array.from({ length: 12 }, (_, i) => realMonth(i, true))], true));
+    const before = readFileSync(ledgerPath(), 'utf8');
+    const r = backfill(8);
+    assert.equal(r.code, 1, r.err);
+    assert.match(r.err, /holds 12 real months/);
+    assert.match(r.err, /would produce 8, losing 4/);
+    assert.equal(readFileSync(ledgerPath(), 'utf8'), before);
+    assert.equal(backups().length, 0);
+  });
+
+  test('replacing it with a long enough run keeps a timestamped copy, not ledger.seeded.json', () => {
+    put(seededLedgerWithReal(8, 1));
+    const before = readFileSync(ledgerPath(), 'utf8');
+    const r = backfill(12);
+    assert.equal(r.code, 0, r.err);
+    assert.equal(read().seeded, false);
+    const saved = backups();
+    assert.equal(saved.length, 1);
+    assert.equal(readFileSync(join(dir, saved[0]), 'utf8'), before, 'the real snapshot survives in the backup');
+    assert.equal(readdirSync(dir).includes('ledger.seeded.json'), false);
+  });
+
+  test('a ledger that is sample data all the way through is still replaced freely, into ledger.seeded.json', () => {
+    put(seededLedger(8));
+    const r = backfill(12);
+    assert.equal(r.code, 0, r.err);
+    assert.equal(backups().length, 0);
+    assert.equal(readdirSync(dir).includes('ledger.seeded.json'), true);
   });
 
   test('with no ledger on disk it just writes one, and there is nothing to back up', () => {

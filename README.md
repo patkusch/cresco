@@ -10,7 +10,7 @@ including the calls it cannot make.**
 <br>
 
 [![CI](https://github.com/patkusch/cresco/actions/workflows/ci.yml/badge.svg)](https://github.com/patkusch/cresco/actions/workflows/ci.yml)
-![Tests](https://img.shields.io/badge/tests-164-199e70?style=flat-square&labelColor=07080a)
+![Tests](https://img.shields.io/badge/tests-195-199e70?style=flat-square&labelColor=07080a)
 ![MIT](https://img.shields.io/badge/licence-MIT-1c1d20?style=flat-square&labelColor=07080a)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3987e5?style=flat-square&labelColor=07080a)
 ![React 19](https://img.shields.io/badge/React_19-199e70?style=flat-square&labelColor=07080a)
@@ -269,7 +269,7 @@ npm run leadlag       # measure whether adoption leads hiring, and by how long
 npm run holdout       # validate that lead out-of-sample against a shuffled null
 npm run chart         # regenerate docs/leadlag.svg from current data
 npm run paths         # free YouTube learning paths (needs a YouTube key)
-npm run collect       # add today's snapshot from all six sources
+npm run collect       # add today's snapshot from all six sources. Refuses on a seeded ledger unless --force (see below)
 npm run seed          # offline fallback: synthetic history, clearly labelled. Refuses if data/ledger.json is real (see below)
 ```
 
@@ -277,7 +277,23 @@ npm run seed          # offline fallback: synthetic history, clearly labelled. R
 same seat belt as the backfill. On a ledger of real months it refuses, says how many it would
 throw away, and changes nothing. `npm run seed -- --force` goes ahead, after copying the real
 ledger to `data/ledger.previous-<timestamp>.json` (a backup is never overwritten). A ledger
-that is already synthetic is replaced freely, and a fresh clone with no ledger just gets one.
+that is invented all the way through is replaced freely, and a fresh clone with no ledger
+just gets one.
+
+**What counts as real.** The `seeded` flag at the top of the ledger says what the ledger
+*started* as, not what is in it, so `seed` and `backfill` do not go by the flag alone. They
+look at every snapshot: a ledger is only freely replaceable if all of them are invented. One
+real snapshot makes the whole ledger real, whatever the flag says, and it gets the same
+refusal and the same timestamped backup as any other real ledger.
+
+`npm run collect` will not add real numbers to a ledger flagged `seeded`. Mixing them would
+score invented numbers next to real ones and label the result as sample data, which is how
+real snapshots used to get thrown away without a backup. It stops, changes nothing, and
+offers two ways out: `npm run backfill` for real history, or `npm run collect -- --force`,
+which drops the invented weeks and starts a real ledger from that run. If an older run has
+already left real snapshots in a seeded ledger, `--force` keeps them, drops the invented
+ones, and copies the old ledger to `data/ledger.previous-<timestamp>.json` first. A run that
+finds nothing real (no network) may still add to a seeded ledger, since nothing is mixed.
 
 <details>
 <summary><b>Running it while you're away</b></summary>
@@ -376,7 +392,8 @@ Three rules keep the score honest, and each exists because it caught a real bug:
 
 - **72 real months** (Sep 2020 → Aug 2026) across **64 skills**, mined from the Hacker News hiring archive.
   `npm run seed` generates a synthetic ledger for offline demos and flags itself as
-  seeded in the UI *and* the data.
+  seeded in the UI *and* the data. Real and invented snapshots are never scored in the
+  same ledger: `collect` refuses to add real numbers to a seeded one.
 - **Only two sources currently score:** `whoshiring` and `hackernews`. Adzuna, YouTube,
   Bluesky and Reddit contribute evidence and learning paths now, and join the index once
   they have three snapshots of their own.
@@ -422,7 +439,7 @@ dashboard reports on.
 ## How this is tested
 
 ```bash
-npm test        # 164 cases, no network, no fixtures on disk
+npm test        # 195 cases, no network, no fixtures on disk
 npm run typecheck
 ```
 

@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { buildState, runCollection } from './server/pipeline.ts';
+import { buildState, CollectRefused, runCollection } from './server/pipeline.ts';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 3000);
@@ -23,7 +23,8 @@ app.post('/api/collect', async (req, res) => {
     const report = await runCollection({ refreshPaths: req.body?.refreshPaths !== false });
     res.json({ ok: true, report, state: buildState() });
   } catch (err) {
-    res.status(500).json({ ok: false, error: (err as Error).message });
+    // A refusal is the guard doing its job, not a crash: 409 with the reason.
+    res.status(err instanceof CollectRefused ? 409 : 500).json({ ok: false, error: (err as Error).message });
   }
 });
 

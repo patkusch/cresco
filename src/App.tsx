@@ -133,8 +133,10 @@ export default function App() {
         {state?.seeded && (
           <div className="note">
             <strong>Seeded demo data.</strong> This ledger was generated with plausible synthetic
-            trajectories so the dashboard has eight weeks of history to show. Run <code className="mono">npm run collect</code>{' '}
-            and real snapshots start appending on top. Nothing here is a measurement yet.
+            trajectories so the dashboard has eight weeks of history to show. To see real numbers, run{' '}
+            <code className="mono">npm run backfill</code>. Collecting will not add real snapshots to this ledger
+            unless you pass <code className="mono">--force</code>, so real and invented numbers are never scored
+            together. Nothing here is a measurement.
           </div>
         )}
 

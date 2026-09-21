@@ -5,7 +5,7 @@ import { SKILLS } from '../server/taxonomy.ts';
 import type { Ledger, Observation, Snapshot } from '../server/types.ts';
 import { computeSignals } from '../server/signal.ts';
 import { loadLedger, mintClaims } from '../server/ledger.ts';
-import { assessSeedOverwrite, backUpLedger } from '../server/backfill-guard.ts';
+import { assessSeedOverwrite, backUpLedger, isReplaceable } from '../server/backfill-guard.ts';
 
 /**
  * Generates a SYNTHETIC eight-week history so the dashboard has something to
@@ -14,12 +14,15 @@ import { assessSeedOverwrite, backUpLedger } from '../server/backfill-guard.ts';
  * data with plausible shapes, not a measurement, and Cresco never pretends
  * otherwise.
  *
- * Run `npm run collect` and real snapshots start appending on top.
+ * `npm run collect` will not add real snapshots on top of it (that would score
+ * invented numbers next to real ones): use `npm run backfill` for real history,
+ * or `npm run collect -- --force` to drop the sample data and start a real ledger.
  *
  * It replaces data/ledger.json outright, so it refuses when the ledger on disk
- * is real (not itself seeded) unless `--force` is passed; forcing keeps a
- * timestamped copy first (see server/backfill-guard.ts). A seeded ledger is
- * replaced freely.
+ * holds anything real, unless `--force` is passed; forcing keeps a timestamped
+ * copy first (see server/backfill-guard.ts). "Real" is read from the snapshots,
+ * not from the `seeded` flag: a ledger flagged seeded that is sample data all the
+ * way through is replaced freely, one that has gained a real snapshot is not.
  *   npm run seed                 fine on a fresh clone with no ledger, or a seeded one
  *   npm run seed -- --force      replace a real ledger too (backup kept)
  * `CRESCO_DATA_DIR` and `CRESCO_FIXTURES_DIR` point the script at other
@@ -138,9 +141,10 @@ const ledger: Ledger = { version: 1, seeded: true, snapshots, claims: [] };
 ledger.claims = mintClaims(ledger, computeSignals(ledger, {}));
 
 mkdirSync(DATA_DIR, { recursive: true });
-// Only a real ledger needs saving: a seeded one is exactly what this script makes again.
+// Only a ledger that holds something real needs saving: one that is sample data
+// all the way through is exactly what this script makes again.
 let backedUpTo: string | null = null;
-if (existing && !existing.seeded) backedUpTo = backUpLedger(DATA_DIR, existing);
+if (existing && !isReplaceable(existing)) backedUpTo = backUpLedger(DATA_DIR, existing);
 writeFileSync(LEDGER_FILE, JSON.stringify(ledger, null, 2));
 
 // Fixtures for the keyless path: the final seeded week becomes the fallback table,
@@ -154,5 +158,5 @@ writeFileSync(join(FIXTURES_DIR, 'youtube.json'), JSON.stringify(table('youtube'
 
 console.log(`seeded ${snapshots.length} weekly snapshots · ${last.observations.length} observations · ${ledger.claims.length} opening calls minted`);
 if (backedUpTo) {
-  console.log(`previous ledger kept at data/${backedUpTo} (--force: ${guard.monthsLost} real months no longer in data/ledger.json)`);
+  console.log(`previous ledger kept at data/${backedUpTo} (--force: ${guard.monthsLost} real month${guard.monthsLost === 1 ? '' : 's'} no longer in data/ledger.json)`);
 }

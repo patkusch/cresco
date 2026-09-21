@@ -1,8 +1,9 @@
 import { COLLECTORS, fetchLearningPath } from './collectors/index.ts';
 import { SKILLS } from './taxonomy.ts';
 import { computeSignals } from './signal.ts';
-import { appendSnapshot, loadLedger, loadPaths, mintClaims, savePaths, saveLedger, dueClaims, accuracy } from './ledger.ts';
+import { appendSnapshot, DATA, loadLedger, loadPaths, mintClaims, savePaths, saveLedger, dueClaims, accuracy } from './ledger.ts';
 import { accuracyByVerdict } from './scoring.ts';
+import { assessCollect, backUpLedger, isReplaceable, startRealLedger } from './backfill-guard.ts';
 import type { Observation, Snapshot } from './types.ts';
 
 export interface RunReport {
@@ -11,7 +12,12 @@ export interface RunReport {
   newClaims: number;
   changed: boolean;
   note: string;
+  /** Set when `--force` turned a seeded ledger into a real one. */
+  startedReal?: { droppedSnapshots: number; backedUpTo: string | null };
 }
+
+/** A collect run the ledger guard refused. Nothing was written. */
+export class CollectRefused extends Error {}
 
 /**
  * One collection run.
@@ -20,7 +26,7 @@ export interface RunReport {
  * research agents that must justify their slot every week invent novelty; this
  * one is allowed to report "no material change" and stop.
  */
-export async function runCollection(opts: { refreshPaths?: boolean } = {}): Promise<RunReport> {
+export async function runCollection(opts: { refreshPaths?: boolean; force?: boolean } = {}): Promise<RunReport> {
   const ts = new Date().toISOString();
   const observations: Observation[] = [];
   const sourceMeta: Snapshot['sources'] = [];
@@ -45,8 +51,24 @@ export async function runCollection(opts: { refreshPaths?: boolean } = {}): Prom
   }
 
   let ledger = loadLedger();
+  const snapshot: Snapshot = { ts, sources: sourceMeta, observations };
+
+  // Decide before anything is written. A seeded ledger must not end up scoring
+  // real numbers next to invented ones (see server/backfill-guard.ts).
+  const guard = assessCollect(ledger, snapshot, opts.force ?? false);
+  if (!guard.allowed) throw new CollectRefused(guard.message);
+  let startedReal: RunReport['startedReal'];
+  if (guard.startReal) {
+    // Only a ledger that holds something real needs saving; sample data is
+    // exactly what `npm run seed` makes again.
+    const backedUpTo = isReplaceable(ledger) ? null : backUpLedger(DATA, ledger);
+    const kept = startRealLedger(ledger);
+    startedReal = { droppedSnapshots: ledger.snapshots.length - kept.snapshots.length, backedUpTo };
+    ledger = kept;
+  }
+
   const before = computeSignals(ledger, loadPaths());
-  ledger = appendSnapshot(ledger, { ts, sources: sourceMeta, observations });
+  ledger = appendSnapshot(ledger, snapshot);
 
   let paths = loadPaths();
   if (opts.refreshPaths) {
@@ -78,6 +100,7 @@ export async function runCollection(opts: { refreshPaths?: boolean } = {}): Prom
     sources: report,
     newClaims: fresh.length,
     changed,
+    startedReal,
     note: changed
       ? `${moved.length} skill${moved.length === 1 ? '' : 's'} moved, ${fresh.length} new claim${fresh.length === 1 ? '' : 's'}.`
       : 'No material change. Nothing worth your attention this run.',
