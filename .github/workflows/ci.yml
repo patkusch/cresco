@@ -8,16 +8,21 @@ on:
 
 jobs:
   test:
-    name: Tests and typecheck
+    name: Tests and typecheck (Node ${{ matrix.node }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 22 is the oldest line that runs the TypeScript tests directly; 26 the newest.
+        node: [22, 24, 26]
     steps:
       - uses: actions/checkout@v7
 
-      # Node 24 strips TypeScript natively, so the suite runs the real modules
+      # Node 22.18+ strips TypeScript natively, so the suite runs the real modules
       # with no build step and no test-only transform in between.
       - uses: actions/setup-node@v7
         with:
-          node-version: '24'
+          node-version: ${{ matrix.node }}
           cache: npm
 
       - name: Install
