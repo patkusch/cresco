@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "cresco"
+abstract: "A skill-demand radar that tells you what to learn next — and where to learn it free."
+type: software
+authors:
+  - family-names: "Kusch"
+    given-names: "Patricia"
+repository-code: "https://github.com/patkusch/cresco"
+license: MIT
