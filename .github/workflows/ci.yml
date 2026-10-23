@@ -13,6 +13,7 @@ jobs:
   test:
     name: Tests and typecheck (Node ${{ matrix.node }})
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
@@ -40,6 +41,7 @@ jobs:
   ledger:
     name: Published data is intact
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
