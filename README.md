@@ -15,7 +15,7 @@ including the calls it cannot make.**
 ![TypeScript](https://img.shields.io/badge/TypeScript-3987e5?style=flat-square&labelColor=07080a)
 ![React 19](https://img.shields.io/badge/React_19-199e70?style=flat-square&labelColor=07080a)
 ![No keys required](https://img.shields.io/badge/API_keys-optional-c98500?style=flat-square&labelColor=07080a)
-![72 months real data](https://img.shields.io/badge/72_months-real_data-d55181?style=flat-square&labelColor=07080a)
+![74 months real data](https://img.shields.io/badge/74_months-real_data-d55181?style=flat-square&labelColor=07080a)
 
 </div>
 
@@ -158,15 +158,19 @@ mint new calls from **only** the data that existed at that point. Signals at ste
 are computed from `snapshots.slice(0, m+1)`, so the reference scale, the momentum
 window and source eligibility all see exactly what they would have seen at the time.
 
-**Current score — 93 graded calls over 72 months, 64 skills:**
+**Current score — 84 graded calls over 74 months, 64 skills** (from `data/backtest.json`):
 
 | Call type | Hit rate | Right / wrong / partial |
 |---|---|---|
 | **Established** | **57%** | 8 / **0** / 6 |
-| Hype | 67% | 2 / 1 / 0 |
-| Receding | 53% | 10 / 4 / 5 |
-| Rising | 21% | 12 / 40 / 5 |
-| **Overall** | **34%** | 32 / 45 / 16 |
+| Hype | 50% | 1 / 1 / 0 |
+| Receding | 60% | 9 / 4 / 2 |
+| Rising | 23% | 12 / 33 / 8 |
+| **Overall** | **36%** | 30 / 38 / 16 |
+
+On 72 months it was 93 calls at 34%. The two new months account for part of the change.
+The rest is the archive itself: re-reading it moved some older months slightly, as posts
+were deleted after roles were filled ([`docs/RESEARCH.md`](docs/RESEARCH.md) has the numbers).
 
 ### One verdict survived a wider test, and one didn't
 
@@ -244,8 +248,8 @@ npm install
 npm run dev           # → http://localhost:3000
 ```
 
-The repo already ships with the real history: 72 months of Hacker News hiring data
-(Sep 2020 → Aug 2026) in `data/ledger.json`. Nothing else is needed to see it.
+The repo already ships with the real history: 74 months of Hacker News hiring data
+(Sep 2020 → Oct 2026) in `data/ledger.json`. Nothing else is needed to see it.
 
 `backfill` is what built that ledger. Most sources only answer *"what is true now"* — you
 cannot ask a job board what it said in March. Hacker News is the exception: the monthly
@@ -256,7 +260,7 @@ needed.
 ```bash
 npm run refresh                       # the monthly update: new months, re-grade, chart, retest
 npm run backfill -- --extend          # just add each finished month newer than the ledger
-BACKFILL_MONTHS=73 npm run backfill   # or ask for an exact number of months
+BACKFILL_MONTHS=75 npm run backfill   # or ask for an exact number of months
 npm run backfill -- --force           # replace the ledger even if the new one is shorter
 ```
 
@@ -401,7 +405,7 @@ Three rules keep the score honest, and each exists because it caught a real bug:
 
 ## Honest status
 
-- **72 real months** (Sep 2020 → Aug 2026) across **64 skills**, mined from the Hacker News hiring archive.
+- **74 real months** (Sep 2020 → Oct 2026) across **64 skills**, mined from the Hacker News hiring archive.
   `npm run seed` generates a synthetic ledger for offline demos and flags itself as
   seeded in the UI *and* the data. Real and invented snapshots are never scored in the
   same ledger: `collect` refuses to add real numbers to a seeded one.
