@@ -126,6 +126,8 @@ The correlation stays at +0.081, though.
 That means GitHub explains less than 1% of the ups and downs in hiring, far too little to base advice on.
 It was also not a test we named in advance, so GitHub stays rejected.
 It is the one thread worth re-testing on fresh data, with the rescaled test named before the data comes in.
+That test is now written down and dated in [`docs/PREREGISTERED.md`](docs/PREREGISTERED.md), before any new month existed.
+`npm run rescaled-retest` refuses to run until the ledger holds a real hiring month after August 2026, and the dashboard shows whether it is still waiting or what it found.
 
 SEC EDGAR was the most promising on mechanism: companies describe commitments to investors before they staff them.
 When first tested it was the best of the early three, with 91% of hold-out splits positive.
