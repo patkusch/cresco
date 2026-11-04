@@ -99,7 +99,7 @@ export function checkEligibility(ledger: Ledger): EligibilityResult {
       reason:
         `Not triggered yet. docs/PREREGISTERED.md fires only once data/ledger.json has real hiring data for a ` +
         `calendar month after ${REGISTRATION_CUTOFF}, collected by the backfill — not a ` +
-        `re-analysis of the Sep 2019 – Aug 2026 window already used to reject GitHub topic-creation. The ` +
+        `re-analysis of the data up to Aug 2026 already used to reject GitHub topic-creation. The ` +
         `ledger's most recent month is ${months.at(-1) ?? '(no snapshots)'}.\n${collectInstruction(months.length)}\n` +
         `Refusing to run.`,
       newHiringMonths: [],
