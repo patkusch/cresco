@@ -13,6 +13,7 @@ import {
   buildPairs,
   runRescaledRetest,
   verdictFor,
+  retestStatus,
 } from '../server/rescaled-retest.ts';
 import { growth } from '../server/leadlag.ts';
 import type { Ledger, Snapshot } from '../server/types.ts';
@@ -192,6 +193,27 @@ describe('runRescaledRetest — only ever computed from the months the caller ma
     const result = runRescaledRetest(leading, ledger, []);
     assert.equal(result.status, 'insufficient');
     assert.equal(result.n, 0);
+  });
+
+  // retestStatus: what the dashboard card shows.
+  test('waits, with the reason, on a ledger that ends at the cutoff', () => {
+    const { leading } = fixture();
+    const ledger = ledgerOf([snap('2026-06', 'rust', 10), snap('2026-07', 'rust', 11), snap('2026-08', 'rust', 12)]);
+    const s = retestStatus(leading, ledger);
+    assert.equal(s.status, 'waiting');
+  });
+
+  test('gives the same result as running the test directly, plus the months it used', () => {
+    const { leading, ledger } = fixture();
+    const s = retestStatus(leading, ledger);
+    const direct = runRescaledRetest(leading, ledger, ['2026-09']);
+    assert.equal(s.status, 'ran');
+    if (s.status === 'ran' && direct.status === 'ran') {
+      assert.deepEqual(s.months, ['2026-09']);
+      assert.equal(s.realR, direct.realR);
+      assert.equal(s.beat, direct.beat);
+      assert.equal(s.verdict, direct.verdict);
+    }
   });
 });
 

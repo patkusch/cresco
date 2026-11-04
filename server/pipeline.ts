@@ -4,6 +4,8 @@ import { computeSignals } from './signal.ts';
 import { appendSnapshot, DATA, loadLedger, loadPaths, mintClaims, savePaths, saveLedger, dueClaims, accuracy } from './ledger.ts';
 import { accuracyByVerdict } from './scoring.ts';
 import { assessCollect, backUpLedger, isReplaceable, startRealLedger } from './backfill-guard.ts';
+import { loadIndicators } from './sources.ts';
+import { retestStatus } from './rescaled-retest.ts';
 import type { Observation, Snapshot } from './types.ts';
 
 export interface RunReport {
@@ -129,6 +131,9 @@ export function buildState() {
     // Every verdict type carries its own hit rate. A badge that has been wrong
     // five times out of six should say so on the card, not in a footnote.
     verdictAccuracy: accuracyByVerdict(ledger.claims),
+    // The pre-registered GitHub retest (docs/PREREGISTERED.md): waiting for a
+    // real hiring month after the cutoff, or its result once one exists.
+    retest: retestStatus(loadIndicators(), ledger),
   };
 }
 

@@ -40,4 +40,9 @@ export interface DashboardState {
   due: number;
   accuracy: { scored: number; correct: number; rate: number | null };
   verdictAccuracy: Record<string, { scored: number; correct: number; wrong: number; partial: number; rate: number | null }>;
+  /** Missing on a state file published before the retest card existed. */
+  retest?:
+    | { status: 'waiting'; reason: string }
+    | { status: 'insufficient'; months: string[]; reason: string }
+    | { status: 'ran'; months: string[]; n: number; realR: number; beat: number; nullMedian: number; verdict: 'SURVIVES' | 'WEAK' | 'DOES NOT SURVIVE' };
 }

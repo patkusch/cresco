@@ -237,3 +237,22 @@ export function runRescaledRetest(leading: LeadingData, ledger: Ledger, newHirin
 
   return { status: 'ran', n: real.length, realR, beat, nullMedian, verdict: verdictFor(realR, beat) };
 }
+
+/** What the dashboard shows about the pre-registered retest. */
+export type RetestStatus =
+  | { status: 'waiting'; reason: string }
+  | { status: 'insufficient'; months: string[]; reason: string }
+  | ({ months: string[] } & RescaledResult);
+
+/**
+ * The same gate and the same test as `npm run rescaled-retest`, packaged for
+ * the dashboard. The result is deterministic (fixed seed), so recomputing it
+ * on every page build gives the same number the script prints.
+ */
+export function retestStatus(leading: LeadingData, ledger: Ledger): RetestStatus {
+  const eligibility = checkEligibility(ledger);
+  if (!eligibility.eligible) return { status: 'waiting', reason: eligibility.reason };
+  const months = eligibility.newHiringMonths;
+  const result = runRescaledRetest(leading, ledger, months);
+  return { ...result, months };
+}
