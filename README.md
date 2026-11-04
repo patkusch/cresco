@@ -249,9 +249,15 @@ Cresco can rebuild years of real signal from scratch instead of making you wait.
 needed.
 
 ```bash
-BACKFILL_MONTHS=73 npm run backfill   # rebuild from Hacker News: 73 months, the 72 you have plus a new one
+npm run refresh                       # the monthly update: new months, re-grade, chart, retest
+npm run backfill -- --extend          # just add each finished month newer than the ledger
+BACKFILL_MONTHS=73 npm run backfill   # or ask for an exact number of months
 npm run backfill -- --force           # replace the ledger even if the new one is shorter
 ```
+
+A hiring thread keeps filling for weeks after it goes up, so the backfill skips any thread
+less than 28 days old and says so. A thread read on day two holds about half its posts,
+and the early posters are not a fair sample of the month.
 
 Read this before running it. **`npm run backfill` on its own fetches only 8 months** and
 replaces the ledger with them. So it refuses, and says how many months it would throw away,
