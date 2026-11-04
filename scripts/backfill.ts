@@ -6,7 +6,7 @@ import { SKILLS, skillsMentionedIn } from '../server/taxonomy.ts';
 import { getJSON, mapLimit } from '../server/collectors/http.ts';
 import { computeSignals } from '../server/signal.ts';
 import { loadLedger, mintClaims } from '../server/ledger.ts';
-import { assessOverwrite, backUpLedger, settledThreads, THREAD_SETTLE_DAYS } from '../server/backfill-guard.ts';
+import { assessOverwrite, backUpLedger, extendMonths, settledThreads, THREAD_SETTLE_DAYS } from '../server/backfill-guard.ts';
 import type { Ledger, Observation, Snapshot } from '../server/types.ts';
 
 /**
@@ -27,13 +27,15 @@ import type { Ledger, Observation, Snapshot } from '../server/types.ts';
  * with a shorter one unless `--force` is passed (see server/backfill-guard.ts).
  *   BACKFILL_MONTHS=N npm run backfill            N months, default 8
  *   npm run backfill -- --force                   replace even if history shrinks
+ *   npm run backfill -- --extend                  keep every month held, add each newer finished one
  * `CRESCO_DATA_DIR` points the script at another data directory (used by tests).
  */
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_DIR = process.env.CRESCO_DATA_DIR ?? join(ROOT, 'data');
 const LEDGER_FILE = join(DATA_DIR, 'ledger.json');
-const MONTHS = Number(process.env.BACKFILL_MONTHS ?? 8);
+let MONTHS = Number(process.env.BACKFILL_MONTHS ?? 8);
+const EXTEND = process.argv.includes('--extend');
 const FORCE = process.argv.includes('--force');
 
 interface AlgoliaStory { objectID: string; title: string; created_at: string; created_at_i: number }
@@ -59,7 +61,7 @@ async function whoIsHiringThreads(): Promise<AlgoliaStory[]> {
   for (const o of open) {
     console.log(`skipping ${o.created_at.slice(0, 7)}: thread is under ${THREAD_SETTLE_DAYS} days old and still filling`);
   }
-  return settled.slice(0, MONTHS);
+  return settled;
 }
 
 /** Count how many job posts in one monthly thread name each skill. */
@@ -111,7 +113,18 @@ async function hnWindow(from: number, to: number): Promise<Map<string, number | 
 // which is right: a run from here would overwrite it.
 const existing = existsSync(LEDGER_FILE) ? loadLedger(LEDGER_FILE) : null;
 
-const threads = await whoIsHiringThreads();
+const allThreads = await whoIsHiringThreads();
+if (EXTEND) {
+  // Every month already held plus every finished month newer than the newest held.
+  const plan = extendMonths(existing, allThreads.map((t) => t.created_at.slice(0, 7)));
+  if (!plan.added.length) {
+    console.log('Nothing to extend: no finished hiring thread is newer than the ledger. Nothing written.');
+    process.exit(0);
+  }
+  MONTHS = plan.months;
+  console.log(`--extend: adding ${plan.added.join(', ')} → ${MONTHS} months`);
+}
+const threads = allThreads.slice(0, MONTHS);
 if (!threads.length) {
   console.error('Could not reach the Hacker News archive. Nothing written — the existing ledger is untouched.');
   process.exit(1);

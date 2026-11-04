@@ -226,3 +226,17 @@ export function settledThreads<T extends { created_at_i: number }>(
     open: stories.filter((s) => s.created_at_i > cutoff),
   };
 }
+
+/**
+ * How many months `npm run backfill -- --extend` should ask for: every month
+ * already held, plus every finished thread newer than the newest one held.
+ * Counting this by hand is how a run asks for 73 when it meant 74, and the
+ * guard then refuses or, worse, the newest month is quietly left out.
+ * `threadMonths` are YYYY-MM strings of finished threads, any order.
+ */
+export function extendMonths(existing: Ledger | null, threadMonths: string[]): { months: number; added: string[] } {
+  const held = existing ? realMonths(existing) : 0;
+  const newest = existing?.snapshots.map((s) => s.ts.slice(0, 7)).sort().at(-1) ?? '';
+  const added = [...new Set(threadMonths)].filter((m) => m > newest).sort();
+  return { months: held + added.length, added };
+}
