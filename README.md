@@ -81,6 +81,7 @@ whole way, which is what made it convincing; the correlation underneath it evapo
 |---|---|---|---|
 | **Conference programmes** — talks per topic at major conferences | +0.091 | **8.8%** | rejected, but the closest miss of anything tested |
 | **GitHub** repos created per topic | +0.076 | 13.8% | rejected: moves with hiring, not ahead of it |
+| **GitHub**, pre-registered retest on Sep–Oct 2026 | +0.023 | 26.3% | rejected again, on months it had never seen |
 | **SEC EDGAR** filings naming a technology | +0.066 | 32.8% | rejected, and the lag is 1–2 months |
 | **Wikipedia** pageviews | +0.002 | 38.3% | rejected |
 | **npm** downloads | +0.003 | 31.0% | rejected |
@@ -127,7 +128,9 @@ That means GitHub explains less than 1% of the ups and downs in hiring, far too 
 It was also not a test we named in advance, so GitHub stays rejected.
 It is the one thread worth re-testing on fresh data, with the rescaled test named before the data comes in.
 That test is now written down and dated in [`docs/PREREGISTERED.md`](docs/PREREGISTERED.md), before any new month existed.
-`npm run rescaled-retest` refuses to run until the ledger holds a real hiring month after August 2026, and the dashboard shows whether it is still waiting or what it found.
+`npm run rescaled-retest` refused to run until the ledger held a real hiring month after August 2026.
+**It ran on 2026-11-04, on September and October 2026, and failed.** The correlation was +0.023, and 26.3% of shuffled series did as well or better.
+The 1% from the after-the-fact check did not hold on data it had not seen, so GitHub is rejected for good.
 
 SEC EDGAR was the most promising on mechanism: companies describe commitments to investors before they staff them.
 When first tested it was the best of the early three, with 91% of hold-out splits positive.
@@ -139,7 +142,7 @@ the evidence floor already used for verdicts, since several EDGAR series run at 
 filings a month. Only one skill cleared it, so there was no split left to test. We
 stopped there rather than hunting for a threshold that happened to work.
 
-**Six hypotheses tested, six refuted.** That table is the project working as intended.
+**Six hypotheses tested, six refuted, and the one with a second chance failed that too.** That table is the project working as intended.
 
 ## How it grades itself
 
