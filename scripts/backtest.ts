@@ -1,5 +1,8 @@
 import 'dotenv/config';
-import { loadLedger, saveLedger, mintClaims } from '../server/ledger.ts';
+import { writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { DATA, loadLedger, saveLedger, mintClaims } from '../server/ledger.ts';
+import { backtestSummary } from '../server/backtest-summary.ts';
 import { computeSignals } from '../server/signal.ts';
 import { scoreClaim, accuracyByVerdict } from '../server/scoring.ts';
 import type { Claim, Ledger } from '../server/types.ts';
@@ -98,3 +101,7 @@ console.log(
     ? `\nre-wrote data/ledger.json: the replay reproduced all ${claims.length} stored calls exactly, so the file is unchanged.`
     : `\nre-wrote data/ledger.json: its ${ledger.claims.length} stored calls were replaced by the ${claims.length} from this replay (snapshots untouched).`,
 );
+
+// The headline numbers, for the README score table. Deterministic like the replay.
+writeFileSync(join(DATA, 'backtest.json'), JSON.stringify(backtestSummary(ledger, claims), null, 2) + '\n');
+console.log('wrote data/backtest.json (the numbers the README score table should match).');
