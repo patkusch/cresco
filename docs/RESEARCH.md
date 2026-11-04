@@ -146,6 +146,13 @@ registry after 2025.**
 *different* number later — deleted repos leave, topics get applied retroactively.
 Snapshot on collection; never assume a backfill reproduces.
 
+**A thread that is still filling.** *(added 2026-11-04)* The November 2026 hiring thread
+had 228 posts two days after it went up; October finished with 386. The archive returns
+it without complaint, and a share per 1,000 posts hides the small count, so a half-full
+month reads like a full one. It would also have triggered the pre-registered retest on a
+month nobody had finished posting to. The backfill now skips any thread under 28 days
+old and names it (`settledThreads` in `server/backfill-guard.ts`).
+
 ---
 
 ## Rejected — do not re-research
