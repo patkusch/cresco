@@ -56,7 +56,7 @@ describe('rescaled-retest gate — the pre-registration must refuse until real n
     const result = checkEligibility(ledgerOf(months));
     assert.equal(result.eligible, false);
     assert.match(result.reason, /BACKFILL_MONTHS=73 npm run backfill/);
-    assert.match(result.reason, /72 now/);
+    assert.match(result.reason, /72 held now/);
     assert.match(result.reason, /refuses to shorten the ledger/);
     assert.doesNotMatch(result.reason, /normal "npm run backfill"/);
     assert.match(result.reason, /most recent month is 2026-08/);
@@ -66,6 +66,7 @@ describe('rescaled-retest gate — the pre-registration must refuse until real n
     const three = ledgerOf([snap('2026-06', 'rust', 10), snap('2026-07', 'rust', 11), snap('2026-08', 'rust', 12)]);
     assert.match(checkEligibility(three).reason, /BACKFILL_MONTHS=4 npm run backfill/);
     assert.match(collectInstruction(100), /BACKFILL_MONTHS=101 npm run backfill/);
+    assert.match(collectInstruction(100), /npm run backfill -- --extend/);
   });
 
   test('an empty ledger is not told to ask for "1" month', () => {

@@ -67,8 +67,9 @@ export function collectInstruction(monthsHeld: number): string {
     return 'The ledger is empty. Build it with `BACKFILL_MONTHS=<how many months of history you want> npm run backfill`.';
   }
   return (
-    `To collect the next month, ask the backfill for one more month than the ledger holds (${monthsHeld} now):\n` +
-    `  BACKFILL_MONTHS=${monthsHeld + 1} npm run backfill\n` +
+    `To collect new months, let the backfill work out the count (${monthsHeld} held now):\n` +
+    `  npm run backfill -- --extend\n` +
+    `or ask for one more month by hand: BACKFILL_MONTHS=${monthsHeld + 1} npm run backfill\n` +
     `Plain \`npm run backfill\` fetches only 8 months and refuses to shorten the ledger. ` +
     `When it finishes, check that the newest month is after ${REGISTRATION_CUTOFF}, then run this again.`
   );
