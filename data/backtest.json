@@ -1,0 +1,42 @@
+{
+  "months": 74,
+  "from": "2020-09",
+  "to": "2026-10",
+  "skills": 64,
+  "graded": 84,
+  "open": 10,
+  "correct": 30,
+  "wrong": 38,
+  "partial": 16,
+  "rate": 36,
+  "byVerdict": {
+    "table-stakes": {
+      "scored": 14,
+      "correct": 8,
+      "wrong": 0,
+      "partial": 6,
+      "rate": 57
+    },
+    "rising": {
+      "scored": 53,
+      "correct": 12,
+      "wrong": 33,
+      "partial": 8,
+      "rate": 23
+    },
+    "cooling": {
+      "scored": 15,
+      "correct": 9,
+      "wrong": 4,
+      "partial": 2,
+      "rate": 60
+    },
+    "hype": {
+      "scored": 2,
+      "correct": 1,
+      "wrong": 1,
+      "partial": 0,
+      "rate": 50
+    }
+  }
+}
