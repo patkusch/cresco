@@ -32,6 +32,7 @@
     "github-topics": "tsx scripts/github-topics.ts",
     "conference-programmes": "tsx scripts/conference-programmes.ts",
     "rescaled-retest": "tsx scripts/rescaled-retest.ts",
+    "refresh": "tsx scripts/refresh.ts",
     "test": "node --test test/*.test.ts",
     "typecheck": "tsc --noEmit"
   },
