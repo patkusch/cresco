@@ -6,7 +6,7 @@ import { SKILLS, skillsMentionedIn } from '../server/taxonomy.ts';
 import { getJSON, mapLimit } from '../server/collectors/http.ts';
 import { computeSignals } from '../server/signal.ts';
 import { loadLedger, mintClaims } from '../server/ledger.ts';
-import { assessOverwrite, backUpLedger } from '../server/backfill-guard.ts';
+import { assessOverwrite, backUpLedger, settledThreads, THREAD_SETTLE_DAYS } from '../server/backfill-guard.ts';
 import type { Ledger, Observation, Snapshot } from '../server/types.ts';
 
 /**
@@ -50,10 +50,16 @@ async function whoIsHiringThreads(): Promise<AlgoliaStory[]> {
     'https://hn.algolia.com/api/v1/search_by_date?tags=story,author_whoishiring&hitsPerPage=500',
     { timeoutMs: 30_000 },
   );
-  return (res?.hits ?? [])
+  const hiring = (res?.hits ?? [])
     .filter((h) => /who is hiring/i.test(h.title) && !/wants to be hired|freelancer/i.test(h.title))
-    .sort((a, b) => b.created_at_i - a.created_at_i)
-    .slice(0, MONTHS);
+    .sort((a, b) => b.created_at_i - a.created_at_i);
+  // A thread still filling is not a month yet. Skip it, say so, and count back
+  // from the newest finished one.
+  const { settled, open } = settledThreads(hiring);
+  for (const o of open) {
+    console.log(`skipping ${o.created_at.slice(0, 7)}: thread is under ${THREAD_SETTLE_DAYS} days old and still filling`);
+  }
+  return settled.slice(0, MONTHS);
 }
 
 /** Count how many job posts in one monthly thread name each skill. */

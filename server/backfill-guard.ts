@@ -204,3 +204,25 @@ export function backUpLedger(dir: string, existing: Ledger, now = new Date()): s
   copyFileSync(source, join(dir, name));
   return name;
 }
+
+/**
+ * A "Who is hiring?" thread keeps filling for weeks after it is posted. Read on
+ * day two, November 2026 had 228 posts against October's 386, and the early
+ * posters are not a fair sample of the month (bigger employers post first). A
+ * half-full thread would also trip the pre-registered retest in
+ * docs/PREREGISTERED.md on a month that is not finished. So a thread only counts
+ * once it is at least `minAgeDays` old.
+ */
+export const THREAD_SETTLE_DAYS = 28;
+
+export function settledThreads<T extends { created_at_i: number }>(
+  stories: T[],
+  now: Date = new Date(),
+  minAgeDays = THREAD_SETTLE_DAYS,
+): { settled: T[]; open: T[] } {
+  const cutoff = Math.floor(now.getTime() / 1000) - minAgeDays * 86_400;
+  return {
+    settled: stories.filter((s) => s.created_at_i <= cutoff),
+    open: stories.filter((s) => s.created_at_i > cutoff),
+  };
+}
