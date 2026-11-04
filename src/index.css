@@ -257,6 +257,10 @@ button { font-family: inherit; }
 }
 
 .calls { margin-top: 12px; }
+.call .overdue { color: var(--ink-2); font-style: italic; }
+.retest { margin-top: 12px; padding: 14px 16px; font-size: 13.5px; line-height: 1.55; }
+.retest p { margin: 0 0 8px; color: var(--ink-2); max-width: 680px; }
+.retest a { font-size: 12px; color: var(--ink-3); }
 .call {
   display: grid; grid-template-columns: 116px 1fr 104px; gap: 14px; align-items: center;
   padding: 13px 16px; border-top: 1px solid var(--hairline);

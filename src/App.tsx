@@ -429,12 +429,50 @@ const STEPS = [
   },
 ];
 
+function Retest({ retest }: { retest: DashboardState['retest'] }) {
+  if (!retest) return null;
+  const sign = (x: number) => `${x >= 0 ? '+' : ''}${x.toFixed(3)}`;
+  return (
+    <>
+      <div className="section-t">Pre-registered retest · GitHub topic creation</div>
+      <div className="card retest" data-status={retest.status}>
+        {retest.status === 'waiting' && (
+          <p>
+            <b>Waiting.</b> The method was written down and dated before any new data
+            existed, so it can only run on hiring months collected after August 2026.
+            None are in the ledger yet.
+          </p>
+        )}
+        {retest.status === 'insufficient' && (
+          <p>
+            <b>Not enough new data yet</b> ({retest.months.join(', ')}). {retest.reason}
+          </p>
+        )}
+        {retest.status === 'ran' && (
+          <p>
+            <b>{retest.verdict === 'SURVIVES' ? 'It survived.' : retest.verdict === 'WEAK' ? 'Weak.' : 'It did not survive.'}</b>{' '}
+            Tested on {retest.months.join(', ')}, months nobody had seen when the method was fixed.
+            Correlation {sign(retest.realR)} across {retest.n} skill-months; {(retest.beat * 100).toFixed(1)}% of
+            {' '}2,000 shuffled versions did as well or better (a real signal needs under 5%).
+          </p>
+        )}
+        <a href="https://github.com/patkusch/cresco/blob/main/docs/PREREGISTERED.md">How the test was fixed in advance</a>
+      </div>
+    </>
+  );
+}
+
 function Loop({ state }: { state: DashboardState | null }) {
   const all = state?.claims ?? [];
   const graded = all.filter((c) => c.outcome).slice(0, 4);
   const pending = all.filter((c) => !c.outcome).slice(0, 3);
   const open = [...graded, ...pending];
   const acc = state?.accuracy;
+  // A call past its check-back date with no grade means the month that settles
+  // it has not been collected yet. Say so instead of showing a stale date.
+  const now = state?.generatedAt ?? new Date().toISOString();
+  const isOverdue = (c: { outcome?: unknown; checkBackAt: string }) => !c.outcome && c.checkBackAt < now;
+  const overdue = all.filter(isOverdue).length;
 
   return (
     <section className="loop">
@@ -494,7 +532,12 @@ function Loop({ state }: { state: DashboardState | null }) {
         has been wrong five times out of six should say so on the card.
       </p>
 
-      <div className="section-t">Open calls on record · {state?.claims.length ?? 0} total</div>
+      <Retest retest={state?.retest} />
+
+      <div className="section-t">
+        Calls on record · {state?.claims.length ?? 0} total · newest graded and still open
+        {overdue > 0 && ` · ${overdue} past due`}
+      </div>
       <div className="card calls">
         {open.length === 0 && (
           <div className="call"><span className="stmt">No calls yet — run a collection.</span></div>
@@ -513,7 +556,7 @@ function Loop({ state }: { state: DashboardState | null }) {
             </span>
             <span className="when">
               <b>{fmtDate(c.outcome ? c.scoredAt ?? c.checkBackAt : c.checkBackAt)}</b>
-              {c.outcome ? 'graded' : 'check back'}
+              {c.outcome ? 'graded' : isOverdue(c) ? <span className="overdue">overdue · not graded yet</span> : 'check back'}
             </span>
           </div>
         ))}
