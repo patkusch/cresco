@@ -249,7 +249,7 @@ research — worth a look at the terms before any commercial use.
 
 | Candidate | Outcome |
 |---|---|
-| **GitHub topic-creation** | **Rejected.** 64 skills × 84 months, share per 10,000 repos created that month. Hold-out +0.076, with 95% of splits positive, so the link is consistent. But 13.8% of shuffled nulls beat it, and the chosen lag is 0 months: it moves with hiring, not ahead of it. A check run after seeing that: rescaling so months under 1 per 10,000 are not skipped gives lag 3, +0.081, and 1.0% of nulls beating it. That beats the null, but it explains under 1% of hiring movement and was not named in advance. Re-test on fresh data with the rescaled test named beforehand — **pre-registered 2026-09-16 in [`docs/PREREGISTERED.md`](PREREGISTERED.md)**: the exact rescale formula, the lag (3 months, already published, not re-fit), the null procedure and the trigger condition are all locked down there before any new data exists. `npm run rescaled-retest` refuses to run until `data/ledger.json` has a real hiring month after August 2026 — as of this writing, it is written but not yet triggered, and it must stay that way until real new data arrives. |
+| **GitHub topic-creation** | **Rejected.** 64 skills × 84 months, share per 10,000 repos created that month. Hold-out +0.076, with 95% of splits positive, so the link is consistent. But 13.8% of shuffled nulls beat it, and the chosen lag is 0 months: it moves with hiring, not ahead of it. A check run after seeing that: rescaling so months under 1 per 10,000 are not skipped gives lag 3, +0.081, and 1.0% of nulls beating it. That beats the null, but it explains under 1% of hiring movement and was not named in advance. Re-tested on fresh data with the method fixed in advance in [`docs/PREREGISTERED.md`](PREREGISTERED.md) (2026-09-16). **Ran 2026-11-04 on Sep and Oct 2026: r +0.023 across 115 skill-months, 26.3% of 2,000 shuffled nulls beat it → DOES NOT SURVIVE.** Rejected on fresh data too. |
 | **SEC EDGAR** | **Tested, weak.** 14 skills × 84 months, share per 10,000 filings. Hold-out +0.117, 91% of splits positive — the best of anything tested — but 19% of shuffled nulls beat it, and the peak lag is 1–2 months rather than the 2–4 quarters the mechanism predicted. A two-month lead is not actionable for learning advice. Re-run on the rebuilt ledger (2026-09-15): +0.066, 32.8% of nulls beat it — rejected. |
 | **Wikipedia pageviews** | Rejected on 72 months (+0.043, 18.3%; +0.002, 38.3% on the rebuilt ledger). Decayed monotonically as the sample grew from 16 months. |
 | **npm downloads** | Rejected (+0.012, 28.0%; +0.003, 31.0% on the rebuilt ledger). |
@@ -282,6 +282,33 @@ was: a real (non-seeded) ledger with a real calendar month after August 2026 in 
 collected by the normal backfill process. Nothing about the method, lag, seed or
 thresholds moved. `docs/PREREGISTERED.md` is content-hashed and was not edited; its
 SHA-256 (`b64092a0…6f2bdfe`) was re-checked on 2026-09-19 and still matches.
+
+**2026-11-04 — triggered and run. It does not survive.** The backfill added September
+and October 2026 (November was skipped: its thread was two days old). `npm run
+rescaled-retest`, with no changes to the method, lag, seed or thresholds, gave:
+
+| | |
+|---|---|
+| New months | 2026-09, 2026-10 |
+| Skill-months paired | 115 |
+| Correlation | +0.023 |
+| Shuffled-null median | −0.037 |
+| Nulls beating it | 26.3% (survive needs under 5%, weak under 20%) |
+| Verdict | **DOES NOT SURVIVE** |
+
+The post-hoc 1.0% null-beat rate from 2026-09-15 did not hold on data it had not seen.
+GitHub topic-creation is rejected for good. One caveat, stated before anyone asks: two
+months is a small test, and a later month could move the number. The pre-registration
+fixed the trigger, not a stopping point, so re-running it on more months is allowed, but
+it should be read as this same test, not as a new hypothesis. `docs/PREREGISTERED.md`
+was not edited; its SHA-256 still matches on 2026-11-04.
+
+**The archive drifts.** Re-reading all 72 old months moved 36 of them slightly (mean
+0.17 per 1,000 posts; the largest, Postgres in July 2026, 164 → 171). The recent
+months moved most, which fits posts being deleted once a role is filled. It is the
+"non-stationary history" trap above, measured on Hacker News for the first time. The
+backtest moved from 93 graded calls at 34% to 84 at 36%, partly from the two new months
+and partly from this drift.
 
 ---
 
