@@ -27,8 +27,8 @@ const months = [...new Set(ledger.snapshots.map((s) => s.ts.slice(0, 7)))].sort(
 
 const SOURCES = [
   { id: 'edgar', label: 'SEC filings', colour: '#c98500', verdict: 'rejected, lag too short' },
-  { id: 'github', label: 'GitHub repos by topic', colour: '#4fa39a', verdict: 'rejected, no lead' },
-  { id: 'conference', label: 'Conference programmes', colour: '#b06fd1', verdict: 'rejected, closest miss' },
+  { id: 'github', label: 'GitHub repos by topic', colour: '#4fa39a', verdict: 'rejected twice' },
+  { id: 'conference', label: 'Conference programmes', colour: '#b06fd1', verdict: 'rejected, near-miss faded' },
   { id: 'wikipedia', label: 'Wikipedia pageviews', colour: '#7c8391', verdict: 'rejected' },
   { id: 'npm', label: 'npm downloads', colour: '#5b6270', verdict: 'rejected' },
 ];

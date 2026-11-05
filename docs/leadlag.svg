@@ -45,8 +45,8 @@
 
   <g transform="translate(74, 462)">
     <g transform="translate(0, 0)"><rect width="20" height="2.6" y="5" rx="1.3" fill="#c98500"/><text x="30" y="10" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#ffffff" fill-opacity="0.7">SEC filings — rejected, lag too short</text></g>
-    <g transform="translate(390, 0)"><rect width="20" height="2.6" y="5" rx="1.3" fill="#4fa39a"/><text x="30" y="10" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#ffffff" fill-opacity="0.7">GitHub repos by topic — rejected, no lead</text></g>
-    <g transform="translate(0, 20)"><rect width="20" height="2.6" y="5" rx="1.3" fill="#b06fd1"/><text x="30" y="10" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#ffffff" fill-opacity="0.7">Conference programmes — rejected, closest miss</text></g>
+    <g transform="translate(390, 0)"><rect width="20" height="2.6" y="5" rx="1.3" fill="#4fa39a"/><text x="30" y="10" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#ffffff" fill-opacity="0.7">GitHub repos by topic — rejected twice</text></g>
+    <g transform="translate(0, 20)"><rect width="20" height="2.6" y="5" rx="1.3" fill="#b06fd1"/><text x="30" y="10" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#ffffff" fill-opacity="0.7">Conference programmes — rejected, near-miss faded</text></g>
     <g transform="translate(390, 20)"><rect width="20" height="2.6" y="5" rx="1.3" fill="#7c8391"/><text x="30" y="10" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#ffffff" fill-opacity="0.7">Wikipedia pageviews — rejected</text></g>
     <g transform="translate(0, 40)"><rect width="20" height="2.6" y="5" rx="1.3" fill="#5b6270"/><text x="30" y="10" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#ffffff" fill-opacity="0.7">npm downloads — rejected</text></g>
   </g>
