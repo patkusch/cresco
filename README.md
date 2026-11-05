@@ -70,6 +70,7 @@ extending it:
 | 22 months | +0.210 | 7.5% | weak |
 | **72 months** | **+0.043** | **18.3%** | **dead** |
 | 72 months, rebuilt ledger | +0.002 | 38.3% | dead |
+| 74 months | +0.003 | 38.0% | dead |
 
 A clean monotonic decay as the sample grew. That is the signature of a finding that was
 never real — an artefact of one small, recent window. The six-month lag stayed put the
