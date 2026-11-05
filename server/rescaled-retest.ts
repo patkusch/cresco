@@ -257,3 +257,23 @@ export function retestStatus(leading: LeadingData, ledger: Ledger): RetestStatus
   const result = runRescaledRetest(leading, ledger, months);
   return { ...result, months };
 }
+
+let cache: { key: string; value: RetestStatus } | null = null;
+
+/**
+ * retestStatus, remembered until the ledger or the leading data changes. The
+ * test runs 2,000 seeded shuffles, which took about 0.4 s on every dashboard
+ * request. The answer is deterministic, so re-using it is exact, not a guess.
+ */
+export function cachedRetestStatus(leading: LeadingData, ledger: Ledger): RetestStatus {
+  const key = [
+    ledger.seeded,
+    ledger.snapshots.length,
+    ledger.snapshots.at(-1)?.ts ?? '',
+    leading.months.length,
+    leading.months.at(-1) ?? '',
+    Object.keys(leading.series).length,
+  ].join('|');
+  if (cache?.key !== key) cache = { key, value: retestStatus(leading, ledger) };
+  return cache.value;
+}

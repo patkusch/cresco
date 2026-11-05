@@ -14,6 +14,7 @@ import {
   runRescaledRetest,
   verdictFor,
   retestStatus,
+  cachedRetestStatus,
 } from '../server/rescaled-retest.ts';
 import { growth } from '../server/leadlag.ts';
 import type { Ledger, Snapshot } from '../server/types.ts';
@@ -194,6 +195,15 @@ describe('runRescaledRetest — only ever computed from the months the caller ma
     const result = runRescaledRetest(leading, ledger, []);
     assert.equal(result.status, 'insufficient');
     assert.equal(result.n, 0);
+  });
+
+  test('the cached status equals a fresh one, and a new month invalidates it', () => {
+    const { leading, ledger } = fixture();
+    const first = cachedRetestStatus(leading, ledger);
+    assert.deepEqual(first, retestStatus(leading, ledger));
+    assert.equal(cachedRetestStatus(leading, ledger), first, 'same inputs give the remembered object');
+    const waiting = { ...ledger, snapshots: ledger.snapshots.filter((s) => s.ts.slice(0, 7) <= '2026-08') };
+    assert.equal(cachedRetestStatus(leading, waiting).status, 'waiting');
   });
 
   // retestStatus: what the dashboard card shows.

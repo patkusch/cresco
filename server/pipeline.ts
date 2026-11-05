@@ -7,7 +7,7 @@ import { assessCollect, backUpLedger, isReplaceable, startRealLedger } from './b
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { loadIndicators } from './sources.ts';
-import { retestStatus } from './rescaled-retest.ts';
+import { cachedRetestStatus } from './rescaled-retest.ts';
 import type { Observation, Snapshot } from './types.ts';
 
 export interface RunReport {
@@ -153,7 +153,7 @@ export function buildState() {
     verdictAccuracy: accuracyByVerdict(ledger.claims),
     // The pre-registered GitHub retest (docs/PREREGISTERED.md): waiting for a
     // real hiring month after the cutoff, or its result once one exists.
-    retest: retestStatus(loadIndicators(), ledger),
+    retest: cachedRetestStatus(loadIndicators(), ledger),
     // Every leading indicator's latest hold-out test, as `npm run holdout` wrote it.
     holdout: loadHoldout(),
   };
