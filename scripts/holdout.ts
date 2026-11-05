@@ -4,7 +4,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DATA, loadLedger } from '../server/ledger.ts';
 import { loadIndicators, availableSources } from '../server/sources.ts';
-import { MAX_LAG, hiringByMonth, pairsAtLag, pearson, mulberry32, shuffled, median } from '../server/leadlag.ts';
+import { MAX_LAG, hiringByMonth, pairsAtLag, pearson, mulberry32, shuffled, median, publishesHoldoutTable } from '../server/leadlag.ts';
 
 /**
  * Out-of-sample validation for the lead-lag claim.
@@ -128,7 +128,7 @@ for (const source of SOURCES) {
 
 // Only a full, unscaled run is the published table. A run with --only or
 // --scale answers a narrower question and must not overwrite it.
-if (!args.only && SCALE === 1) {
+if (publishesHoldoutTable(args)) {
   writeFileSync(join(DATA, 'holdout.json'), JSON.stringify({ months: months.length, from: months[0], to: months.at(-1), sources: results }, null, 2) + '\n');
   console.log('wrote data/holdout.json (the numbers the README results table should match).');
 }

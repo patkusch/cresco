@@ -97,3 +97,12 @@ export const median = (xs: number[]) => {
   const m = Math.floor(a.length / 2);
   return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2;
 };
+
+/**
+ * Whether a holdout run is the published table. A run narrowed with --only, or
+ * rescaled with --scale, answers a different question, and writing it to
+ * data/holdout.json would quietly replace the real table with it.
+ */
+export function publishesHoldoutTable(args: { only?: unknown; scale?: unknown }): boolean {
+  return !args.only && Number(args.scale ?? 1) === 1;
+}
