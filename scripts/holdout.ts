@@ -1,8 +1,8 @@
 import 'dotenv/config';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { loadLedger } from '../server/ledger.ts';
+import { DATA, loadLedger } from '../server/ledger.ts';
 import { loadIndicators, availableSources } from '../server/sources.ts';
 import { MAX_LAG, hiringByMonth, pairsAtLag, pearson, mulberry32, shuffled, median } from '../server/leadlag.ts';
 
@@ -49,6 +49,8 @@ const hiring = hiringByMonth(ledger);
 const months = [...new Set(ledger.snapshots.map((s) => s.ts.slice(0, 7)))].sort();
 
 console.log(`hiring: ${months.length} months (${months[0]} → ${months.at(-1)})${SCALE !== 1 ? ` · values ×${SCALE}` : ''}\n`);
+
+const results: Record<string, { skills: number; lag: number; holdoutR: number; positiveSplits: number; nullR: number; nullsBeating: number; verdict: string }> = {};
 
 for (const source of SOURCES) {
   const skills = Object.keys(leading.series).filter((s) => leading.series[s][source] && hiring[s]);
@@ -117,4 +119,16 @@ for (const source of SOURCES) {
     : beat < 0.2 && realMed > 0.1 ? 'WEAK — directionally there, not established'
     : 'DOES NOT SURVIVE — indistinguishable from the method’s own artefact';
   console.log(`  → ${verdict}\n`);
+  const r3 = (x: number) => Math.round(x * 1000) / 1000;
+  results[source] = {
+    skills: skills.length, lag: lagMode, holdoutR: r3(realMed), positiveSplits: r3(positive),
+    nullR: r3(nullMed), nullsBeating: r3(beat), verdict: verdict.split(' ')[0] === 'DOES' ? 'DOES NOT SURVIVE' : verdict.split(' ')[0],
+  };
+}
+
+// Only a full, unscaled run is the published table. A run with --only or
+// --scale answers a narrower question and must not overwrite it.
+if (!args.only && SCALE === 1) {
+  writeFileSync(join(DATA, 'holdout.json'), JSON.stringify({ months: months.length, from: months[0], to: months.at(-1), sources: results }, null, 2) + '\n');
+  console.log('wrote data/holdout.json (the numbers the README results table should match).');
 }
