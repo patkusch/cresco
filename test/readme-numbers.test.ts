@@ -39,3 +39,28 @@ describe('README score table matches data/backtest.json', () => {
     assert.match(readme, new RegExp(`Current score — ${b.graded} graded calls over ${b.months} months, ${b.skills} skills`));
   });
 });
+
+describe('README indicator table matches data/holdout.json', () => {
+  const h = json('holdout.json').sources;
+  // README row label (bold stripped) → holdout source id.
+  const ROWS: Record<string, string> = {
+    'Conference programmes — talks per topic at major conferences': 'conference',
+    'GitHub repos created per topic': 'github',
+    'SEC EDGAR filings naming a technology': 'edgar',
+    'Wikipedia pageviews': 'wikipedia',
+    'npm downloads': 'npm',
+  };
+  const signed = (x: number) => (x < 0 ? `−${Math.abs(x).toFixed(3)}` : `+${x.toFixed(3)}`);
+
+  for (const [label, id] of Object.entries(ROWS)) {
+    test(`${id} row`, () => {
+      const [, r, beat] = row(label);
+      assert.equal(r, signed(h[id].holdoutR));
+      assert.equal(beat, `${(h[id].nullsBeating * 100).toFixed(1)}%`);
+    });
+  }
+
+  test('says how many months it was run on', () => {
+    assert.match(readme, new RegExp(`re-run on \\d{4}-\\d{2}-\\d{2} on ${json('holdout.json').months} months`));
+  });
+});
