@@ -258,7 +258,7 @@ Cresco can rebuild years of real signal from scratch instead of making you wait.
 needed.
 
 ```bash
-npm run refresh                       # the monthly update: new months, re-grade, chart, retest
+npm run refresh                       # the monthly update: new months, re-grade, re-test, chart, retest
 npm run backfill -- --extend          # just add each finished month newer than the ledger
 BACKFILL_MONTHS=75 npm run backfill   # or ask for an exact number of months
 npm run backfill -- --force           # replace the ledger even if the new one is shorter

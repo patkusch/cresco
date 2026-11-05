@@ -15,6 +15,7 @@ export interface RefreshStep {
 export const REFRESH_STEPS: RefreshStep[] = [
   { script: 'backfill', args: ['--extend'], why: 'add each finished hiring month newer than the ledger' },
   { script: 'backtest', why: 're-grade every call against the months now held' },
+  { script: 'holdout', why: 're-test every leading indicator and rewrite data/holdout.json' },
   { script: 'chart', why: 'redraw docs/leadlag.svg from the new history' },
   // Exits 1 while it is waiting for new data. That is its honest state, not an error.
   { script: 'rescaled-retest', why: 'run the pre-registered GitHub retest if new months allow it', mayFail: true },

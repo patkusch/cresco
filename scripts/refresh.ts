@@ -3,7 +3,8 @@ import { REFRESH_STEPS, runSteps } from '../server/refresh.ts';
 
 /**
  * `npm run refresh`: the whole monthly update in one command. Adds new
- * finished hiring months, re-grades every call, redraws the chart and runs
+ * finished hiring months, re-grades every call, re-tests every indicator,
+ * redraws the chart and runs
  * the pre-registered retest. Stops at the first step that fails, except the
  * retest, which exits 1 while it waits for data.
  */

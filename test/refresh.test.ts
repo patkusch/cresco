@@ -9,6 +9,11 @@ describe('npm run refresh: order and stop rule', () => {
     assert.ok(order.indexOf('backtest') < order.indexOf('rescaled-retest'));
   });
 
+  test('re-tests every indicator after the new months are in', () => {
+    const order = REFRESH_STEPS.map((s) => s.script);
+    assert.ok(order.indexOf('backfill') < order.indexOf('holdout'));
+  });
+
   test('backfill always runs with --extend, never a hand-typed month count', () => {
     assert.deepEqual(REFRESH_STEPS.find((s) => s.script === 'backfill')!.args, ['--extend']);
   });
@@ -20,7 +25,7 @@ describe('npm run refresh: order and stop rule', () => {
   test('a failed backfill stops the run, so nothing is graded on a half-written ledger', () => {
     const r = runSteps(REFRESH_STEPS, (s) => (s.script === 'backfill' ? 1 : 0));
     assert.deepEqual(r.map((x) => [x.script, x.skipped ?? false]), [
-      ['backfill', false], ['backtest', true], ['chart', true], ['rescaled-retest', true],
+      ['backfill', false], ['backtest', true], ['holdout', true], ['chart', true], ['rescaled-retest', true],
     ]);
   });
 
