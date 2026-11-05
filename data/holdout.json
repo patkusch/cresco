@@ -1,0 +1,52 @@
+{
+  "months": 74,
+  "from": "2020-09",
+  "to": "2026-10",
+  "sources": {
+    "conference": {
+      "skills": 17,
+      "lag": 9,
+      "holdoutR": 0.054,
+      "positiveSplits": 0.73,
+      "nullR": -0.011,
+      "nullsBeating": 0.17,
+      "verdict": "DOES NOT SURVIVE"
+    },
+    "edgar": {
+      "skills": 14,
+      "lag": 2,
+      "holdoutR": 0.04,
+      "positiveSplits": 0.613,
+      "nullR": 0.02,
+      "nullsBeating": 0.423,
+      "verdict": "DOES NOT SURVIVE"
+    },
+    "github": {
+      "skills": 64,
+      "lag": 0,
+      "holdoutR": 0.078,
+      "positiveSplits": 0.973,
+      "nullR": 0.012,
+      "nullsBeating": 0.11,
+      "verdict": "DOES NOT SURVIVE"
+    },
+    "npm": {
+      "skills": 12,
+      "lag": 9,
+      "holdoutR": -0.001,
+      "positiveSplits": 0.495,
+      "nullR": -0.025,
+      "nullsBeating": 0.335,
+      "verdict": "DOES NOT SURVIVE"
+    },
+    "wikipedia": {
+      "skills": 21,
+      "lag": 7,
+      "holdoutR": 0.003,
+      "positiveSplits": 0.515,
+      "nullR": -0.006,
+      "nullsBeating": 0.38,
+      "verdict": "DOES NOT SURVIVE"
+    }
+  }
+}
