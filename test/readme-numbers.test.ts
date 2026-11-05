@@ -64,3 +64,20 @@ describe('README indicator table matches data/holdout.json', () => {
     assert.match(readme, new RegExp(`re-run on \\d{4}-\\d{2}-\\d{2} on ${json('holdout.json').months} months`));
   });
 });
+
+describe('README month counts match data/ledger.json', () => {
+  const ledger = json('ledger.json');
+  const n = ledger.snapshots.length;
+  const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const fmt = (ts: string) => `${MON[Number(ts.slice(5, 7)) - 1]} ${ts.slice(0, 4)}`;
+  const range = `${fmt(ledger.snapshots[0].ts)} → ${fmt(ledger.snapshots.at(-1).ts)}`;
+
+  test('the badge', () => {
+    assert.match(readme, new RegExp(`badge/${n}_months-real_data`));
+  });
+
+  test('the quickstart and the status section give the same count and range', () => {
+    assert.match(readme, new RegExp(`${n} months of Hacker News hiring data\\s+\\(${range}\\)`));
+    assert.match(readme, new RegExp(`- ${n} real months \\(${range}\\)`));
+  });
+});
