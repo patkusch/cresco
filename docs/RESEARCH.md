@@ -89,6 +89,19 @@ it — better (lower) than any other candidate tested, EDGAR included. It still 
 pre-specified bar (real median needs to clear +0.1), so the pre-registered rule says
 reject, and the rule is followed even though the miss is narrow.
 
+**Re-run 2026-11-05 on 74 months: weaker.** +0.054, 17.0% of nulls beating it. Three
+runs separate the causes. The old 72-month ledger reproduces +0.091 and 8.8% exactly, so
+the method did not change. The re-read 72 months alone (with the archive drift) give
++0.096 and 7.2%, so drift is not it. The drop comes from the two new hiring months. At
+the chosen 9-month lag they pair with December 2025 and January 2026 conferences, and 16
+of those 17 pairs show the conference count falling to zero. The source records 5
+conferences in January 2026, against 16–19 in every earlier January, and 19 in December
+2025, the lowest December it has. A refetch on 2026-11-05 returned identical counts, so
+the thin patch is in confs.tech's data, not in our collection. Whether January 2026 was
+a real lull or the dataset is still catching up cannot be told from here. Either way the
+verdict does not move, and the pattern now matches Wikipedia's: a near-miss that fades
+as months are added.
+
 Unlike GitHub topic-creation below, this candidate's own collector already stores share
 per 1,000 rather than per 10,000 specifically so the growth step's under-1 floor would
 not quietly drop its quiet months (see `shareOf()` in `server/collectors/
