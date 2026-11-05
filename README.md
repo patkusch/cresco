@@ -501,12 +501,13 @@ candidate **leading** indicators — every endpoint called live, with the traps 
 have manufactured fake signals written down next to them.
 
 Wikipedia, npm, SEC EDGAR, GitHub repos by topic and conference programmes were all
-tested against 72 months of hiring data. All five failed. EDGAR (companies naming a
+tested against 72 months of hiring data, and re-tested on 74. All five failed. EDGAR (companies naming a
 technology to investors — Model Context Protocol went 0 → 1 → 26 → 40 across recent
 quarters) peaked at a lag of one to two months rather than the quarters its mechanism
-predicted. GitHub rose in the same month as hiring rather than ahead of it. Conference
-programmes came closest — only 8.8% of shuffled tests scored as well as the real one —
-but the real correlation still landed just under the bar we set before running the test.
+predicted. GitHub rose in the same month as hiring rather than ahead of it, and its
+pre-registered retest on two unseen months failed too. Conference programmes came
+closest at 72 months — only 8.8% of shuffled tests scored as well as the real one — but
+landed just under the bar set before the test, and two more months pushed it to 17%.
 
 No candidate with a clear mechanism is left untested. The two still on the list — EU
 procurement notices and Coursera course-launch dates, both noted in
