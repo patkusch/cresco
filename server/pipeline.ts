@@ -4,6 +4,8 @@ import { computeSignals } from './signal.ts';
 import { appendSnapshot, DATA, loadLedger, loadPaths, mintClaims, savePaths, saveLedger, dueClaims, accuracy } from './ledger.ts';
 import { accuracyByVerdict } from './scoring.ts';
 import { assessCollect, backUpLedger, isReplaceable, startRealLedger } from './backfill-guard.ts';
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { loadIndicators } from './sources.ts';
 import { retestStatus } from './rescaled-retest.ts';
 import type { Observation, Snapshot } from './types.ts';
@@ -109,6 +111,24 @@ export async function runCollection(opts: { refreshPaths?: boolean; force?: bool
   };
 }
 
+/** data/holdout.json, or null when no full holdout run has been saved yet. */
+export function loadHoldout(dir = DATA): HoldoutTable | null {
+  const path = join(dir, 'holdout.json');
+  if (!existsSync(path)) return null;
+  try {
+    return JSON.parse(readFileSync(path, 'utf8')) as HoldoutTable;
+  } catch {
+    return null; // A broken file hides the card; it never breaks the dashboard.
+  }
+}
+
+export interface HoldoutTable {
+  months: number;
+  from: string;
+  to: string;
+  sources: Record<string, { skills: number; lag: number; holdoutR: number; positiveSplits: number; nullR: number; nullsBeating: number; verdict: string }>;
+}
+
 export function buildState() {
   const ledger = loadLedger();
   const paths = loadPaths();
@@ -134,6 +154,8 @@ export function buildState() {
     // The pre-registered GitHub retest (docs/PREREGISTERED.md): waiting for a
     // real hiring month after the cutoff, or its result once one exists.
     retest: retestStatus(loadIndicators(), ledger),
+    // Every leading indicator's latest hold-out test, as `npm run holdout` wrote it.
+    holdout: loadHoldout(),
   };
 }
 

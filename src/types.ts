@@ -40,6 +40,13 @@ export interface DashboardState {
   due: number;
   accuracy: { scored: number; correct: number; rate: number | null };
   verdictAccuracy: Record<string, { scored: number; correct: number; wrong: number; partial: number; rate: number | null }>;
+  /** The latest hold-out test of every leading indicator; null before one is saved. */
+  holdout?: {
+    months: number;
+    from: string;
+    to: string;
+    sources: Record<string, { skills: number; lag: number; holdoutR: number; positiveSplits: number; nullR: number; nullsBeating: number; verdict: string }>;
+  } | null;
   /** Missing on a state file published before the retest card existed. */
   retest?:
     | { status: 'waiting'; reason: string }
