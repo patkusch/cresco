@@ -429,6 +429,44 @@ const STEPS = [
   },
 ];
 
+const INDICATOR_LABEL: Record<string, string> = {
+  conference: 'Conference programmes',
+  github: 'GitHub repos by topic',
+  edgar: 'SEC filings',
+  wikipedia: 'Wikipedia pageviews',
+  npm: 'npm downloads',
+};
+
+function Indicators({ holdout }: { holdout: DashboardState['holdout'] }) {
+  if (!holdout) return null;
+  const rows = Object.entries(holdout.sources).sort((a, b) => a[1].nullsBeating - b[1].nullsBeating);
+  const sign = (x: number) => `${x >= 0 ? '+' : '−'}${Math.abs(x).toFixed(3)}`;
+  return (
+    <>
+      <div className="section-t">Can anything see hiring coming? · tested on {holdout.months} months</div>
+      <div className="card indicators">
+        <p>
+          Each source was tested on skills it never saw. The third column is how often
+          a shuffled, meaningless version did as well. Under 5% would be a real signal.
+        </p>
+        <table>
+          <thead><tr><th>Source</th><th>Correlation</th><th>Shuffled versions as good</th><th>Verdict</th></tr></thead>
+          <tbody>
+            {rows.map(([id, r]) => (
+              <tr key={id}>
+                <td>{INDICATOR_LABEL[id] ?? id}</td>
+                <td>{sign(r.holdoutR)}</td>
+                <td>{(r.nullsBeating * 100).toFixed(1)}%</td>
+                <td>{r.verdict === 'DOES NOT SURVIVE' ? 'rejected' : r.verdict.toLowerCase()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+}
+
 function Retest({ retest }: { retest: DashboardState['retest'] }) {
   if (!retest) return null;
   const sign = (x: number) => `${x >= 0 ? '+' : ''}${x.toFixed(3)}`;
@@ -532,6 +570,7 @@ function Loop({ state }: { state: DashboardState | null }) {
         has been wrong five times out of six should say so on the card.
       </p>
 
+      <Indicators holdout={state?.holdout} />
       <Retest retest={state?.retest} />
 
       <div className="section-t">
