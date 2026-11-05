@@ -79,12 +79,12 @@ whole way, which is what made it convincing; the correlation underneath it evapo
 
 | Candidate | Hold-out r | Nulls beating it | Verdict |
 |---|---|---|---|
-| **Conference programmes** — talks per topic at major conferences | +0.091 | **8.8%** | rejected, but the closest miss of anything tested |
-| **GitHub** repos created per topic | +0.076 | 13.8% | rejected: moves with hiring, not ahead of it |
+| **Conference programmes** — talks per topic at major conferences | +0.054 | 17.0% | rejected; was the closest miss at 72 months (+0.091, 8.8%) |
+| **GitHub** repos created per topic | +0.078 | 11.0% | rejected: moves with hiring, not ahead of it |
 | **GitHub**, pre-registered retest on Sep–Oct 2026 | +0.023 | 26.3% | rejected again, on months it had never seen |
-| **SEC EDGAR** filings naming a technology | +0.066 | 32.8% | rejected, and the lag is 1–2 months |
-| **Wikipedia** pageviews | +0.002 | 38.3% | rejected |
-| **npm** downloads | +0.003 | 31.0% | rejected |
+| **SEC EDGAR** filings naming a technology | +0.040 | 42.3% | rejected, and the lag is 1–2 months |
+| **Wikipedia** pageviews | +0.003 | 38.0% | rejected |
+| **npm** downloads | −0.001 | 33.5% | rejected |
 | **Market adjustment** (Indeed index) | — | — | rejected: −17pp on the backtest |
 
 Hold-out r is the correlation on skills the test never used to choose its lag.
@@ -92,7 +92,8 @@ Zero means no link, and 1 means a perfect one.
 "Nulls beating it" is the share of shuffled series, each skill paired with a different skill's hiring, that score as well.
 Anything above 5% means luck explains it.
 
-These numbers were re-run on 2026-09-15.
+These numbers were re-run on 2026-11-05 on 74 months of hiring data (Sep 2020 → Oct 2026), and [`data/holdout.json`](data/holdout.json) holds them.
+None of them changes verdict.
 EDGAR, Wikipedia and npm first scored +0.117, +0.043 and +0.012.
 The hiring history was rebuilt after that, when throttled months were dropped and the skill matcher was fixed.
 On the rebuilt history all three score lower, and none of them changes verdict.
