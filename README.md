@@ -10,7 +10,7 @@ including the calls it cannot make.**
 <br>
 
 [![CI](https://github.com/patkusch/cresco/actions/workflows/ci.yml/badge.svg)](https://github.com/patkusch/cresco/actions/workflows/ci.yml)
-![Tests](https://img.shields.io/badge/tests-242-199e70?style=flat-square&labelColor=07080a)
+![Tests](https://img.shields.io/badge/tests-265-199e70?style=flat-square&labelColor=07080a)
 ![MIT](https://img.shields.io/badge/licence-MIT-1c1d20?style=flat-square&labelColor=07080a)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3987e5?style=flat-square&labelColor=07080a)
 ![React 19](https://img.shields.io/badge/React_19-199e70?style=flat-square&labelColor=07080a)
@@ -464,7 +464,7 @@ dashboard reports on.
 ## How this is tested
 
 ```bash
-npm test        # 242 cases, no network, no fixtures on disk
+npm test        # 265 cases, no network, no fixtures on disk
 npm run typecheck
 ```
 
@@ -487,6 +487,10 @@ ordinary `npm run collect` would have collapsed six years of history and made ev
 skill look vertical at once), fixture data scoring in a real ledger, a brand-new
 collector manufacturing momentum on arrival, and the matcher cases — `"a lambda
 function in Python"` is not AWS demand, `"ready to go now"` is not Go.
+
+The README is tested too. Its score table, its indicator table and its month counts are
+checked against `data/backtest.json`, `data/holdout.json` and the ledger, so a number
+copied from an old run fails the build instead of sitting there looking current.
 
 Writing these found one more, now fixed: `loadLedger()` returned `{ ...EMPTY }`, a
 shallow copy sharing its `snapshots` and `claims` arrays with a module-level constant,
