@@ -111,6 +111,14 @@ But the real number was **+0.091**, just under the **+0.1** floor we set before 
 the test, so by our own rule it still stays rejected.
 No exception was made for coming close.
 
+**Two more months made it weaker, not stronger.**
+On 74 months, 17.0% of shuffled tests score as well, and the correlation falls to +0.054.
+That is the pattern Wikipedia showed: a near-miss that fades as data arrives.
+The drop comes from the 17 new pairs, which sit on December 2025 and January 2026.
+The source records 5 conferences in January 2026, against 16 to 19 in each earlier January.
+A refetch on 2026-11-05 returned the same counts, so this is in the source, not a collection gap.
+Either way the verdict was already "rejected", and it stays that way.
+
 **GitHub was the next-closest candidate with a clear mechanism behind it.**
 Creating a repository is a deliberate act, unlike a download.
 We collected 84 months of new repositories for all 64 skills, as a share of every repository created that month.
