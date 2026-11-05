@@ -327,12 +327,17 @@ and partly from this drift.
 
 ## Next actions, in order
 
-1. **Extend the hiring backfill backwards** to 60+ months. Unblocks everything else.
+1. *Done: 72 months by 2026-09-08 (Sep 2020 on), 74 by 2026-11-04.* **Extend the hiring
+   backfill backwards** to 60+ months. Unblocks everything else.
 2. *Done: built, tested and rejected.* Build **SEC EDGAR** and **GitHub topic-creation** collectors, with word-boundary
    matching, hand-checked disambiguation per skill, and share-normalisation.
-3. Re-run `holdout` with the longer hiring history before trusting any new lead.
+3. *Done 2026-11-05 on 74 months: nothing survives.* Re-run `holdout` with the longer
+   hiring history before trusting any new lead.
 4. Add the **Indeed Hiring Lab** Software Development index as a control series — one
    CSV, and it closes a real blind spot in the share-based measure.
-5. Only then consider wiring a leading indicator into a verdict.
+5. Only then consider wiring a leading indicator into a verdict. *Nothing has earned it.*
 6. *Done 2026-09-16: built, tested and rejected — the closest miss yet.* Build the
    **conference programmes** collector.
+7. **Each month, once the new hiring thread is 28 days old, run `npm run refresh`.** It adds
+   the month, re-grades every call, re-tests every indicator and re-runs the pre-registered
+   retest. Then update the README; `npm test` fails until its numbers match.
