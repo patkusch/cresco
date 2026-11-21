@@ -532,3 +532,7 @@ Storage is a JSON ledger on disk — no database, deliberately.
 <div align="center">
 <sub><a href="LICENSE">MIT Licence</a></sub>
 </div>
+
+---
+
+[Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md) · [Security policy](SECURITY.md)
